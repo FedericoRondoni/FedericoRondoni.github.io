@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elisa e Federico</title>
 
-<!-- ✅ FIXED FONT (removed wrong text link) -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -91,7 +90,7 @@ h1 {
 
 .orbit {
   position:absolute;
-  border:1px solid rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.12);
   border-radius:50%;
   top:50%; left:50%;
 }
@@ -105,15 +104,16 @@ h1 {
   pointer-events:none;
 }
 
-.orbit.mercurio {width:10%;height:10%;animation:spin 6s linear infinite;}
-.orbit.venere {width:15%;height:15%;animation:spin 10s linear infinite;}
-.orbit.terra {width:20%;height:20%;animation:spin 14s linear infinite;}
-.orbit.marte {width:25%;height:25%;animation:spin 18s linear infinite;}
-.orbit.giove {width:35%;height:35%;animation:spin 24s linear infinite;}
-.orbit.saturno {width:45%;height:45%;animation:spin 30s linear infinite;}
-.orbit.urano {width:55%;height:55%;animation:spin 36s linear infinite;}
-.orbit.nettuno {width:65%;height:65%;animation:spin 42s linear infinite;}
-.orbit.plutone {width:75%;height:75%;animation:spin 50s linear infinite;}
+/* ✅ CRITICAL FIX: Z-INDEX so inner orbits are hoverable */
+.orbit.mercurio {width:10%;height:10%;animation:spin 6s linear infinite; z-index:9;}
+.orbit.venere   {width:15%;height:15%;animation:spin 10s linear infinite; z-index:8;}
+.orbit.terra    {width:20%;height:20%;animation:spin 14s linear infinite; z-index:7;}
+.orbit.marte    {width:25%;height:25%;animation:spin 18s linear infinite; z-index:6;}
+.orbit.giove    {width:35%;height:35%;animation:spin 24s linear infinite; z-index:5;}
+.orbit.saturno  {width:45%;height:45%;animation:spin 30s linear infinite; z-index:4;}
+.orbit.urano    {width:55%;height:55%;animation:spin 36s linear infinite; z-index:3;}
+.orbit.nettuno  {width:65%;height:65%;animation:spin 42s linear infinite; z-index:2;}
+.orbit.plutone  {width:75%;height:75%;animation:spin 50s linear infinite; z-index:1;}
 
 @keyframes spin {
   from {transform:translate(-50%,-50%) rotate(0deg);} 
