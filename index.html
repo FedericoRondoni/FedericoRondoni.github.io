@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elisa e Federico</title>
 
+<!-- ✅ FIXED FONT (removed wrong text link) -->
 https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap
 
 <style>
@@ -101,10 +102,9 @@ h1 {
   transform:translate(-50%,-50%);
   background:white;
   border-radius:50%;
-  pointer-events:none; /* important */
+  pointer-events:none;
 }
 
-/* Orbits (now hoverable zones) */
 .orbit.mercurio {width:10%;height:10%;animation:spin 6s linear infinite;}
 .orbit.venere {width:15%;height:15%;animation:spin 10s linear infinite;}
 .orbit.terra {width:20%;height:20%;animation:spin 14s linear infinite;}
@@ -115,7 +115,11 @@ h1 {
 .orbit.nettuno {width:65%;height:65%;animation:spin 42s linear infinite;}
 .orbit.plutone {width:75%;height:75%;animation:spin 50s linear infinite;}
 
-/* PLANETS SIZE */
+@keyframes spin {
+  from {transform:translate(-50%,-50%) rotate(0deg);} 
+  to {transform:translate(-50%,-50%) rotate(360deg);} 
+}
+
 .mercurio{width:2px;height:2px;}
 .venere{width:3px;height:3px;}
 .terra{width:4px;height:4px;}
@@ -126,12 +130,6 @@ h1 {
 .nettuno{width:10px;height:10px;}
 .plutone{width:2px;height:2px;}
 
-@keyframes spin {
-  from {transform:translate(-50%,-50%) rotate(0deg);} 
-  to {transform:translate(-50%,-50%) rotate(360deg);} 
-}
-
-/* LABEL */
 .planet-label {
   position:absolute;
   top:50%;
@@ -143,7 +141,6 @@ h1 {
   transition:opacity 0.3s ease;
 }
 
-/* HOVER ON ORBITS */
 .orbit.mercurio:hover ~ .planet-label::after {content:"Mercurio";}
 .orbit.venere:hover ~ .planet-label::after {content:"Venere";}
 .orbit.terra:hover ~ .planet-label::after {content:"Terra";}
@@ -156,9 +153,7 @@ h1 {
 
 .orbit:hover ~ .planet-label { opacity:0.8; }
 
-section {
-  padding:100px 20px;
-}
+section { padding:100px 20px; }
 
 h2 {
   font-family:'Playfair Display', serif;
@@ -186,7 +181,6 @@ h2 {
   <div class="subtitle">2 gennaio 2026<br>Monastero Castel d'Alfiolo — Gubbio</div>
 
   <div class="wrapper">
-
     <div class="solar-system">
       <div class="sun"></div>
 
@@ -201,9 +195,7 @@ h2 {
       <div class="orbit plutone"><div class="planet plutone"></div></div>
 
       <div class="planet-label"></div>
-
     </div>
-
   </div>
 </div>
 
