@@ -60,10 +60,10 @@ h1 { font-weight:300; letter-spacing:3px; }
 
 /* SOLAR SYSTEM */
 .wrapper {
+  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:40px;
 }
 
 .solar-system {
@@ -98,7 +98,7 @@ h1 { font-weight:300; letter-spacing:3px; }
   border-radius:50%;
 }
 
-/* ORBITS + SPEED */
+/* ORBITS */
 .orbit.mercurio {width:10%;height:10%;animation:spin 6s linear infinite;}
 .orbit.venere {width:15%;height:15%;animation:spin 10s linear infinite;}
 .orbit.terra {width:20%;height:20%;animation:spin 14s linear infinite;}
@@ -125,13 +125,17 @@ h1 { font-weight:300; letter-spacing:3px; }
 .nettuno{width:10px;height:10px;}
 .plutone{width:2px;height:2px;}
 
-/* PLANET LIST */
-.planet-names {
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  font-size:13px;
+/* LABEL */
+.planet-label {
+  position:absolute;
+  top:50%;
+  right:-120px;
+  transform:translateY(-50%);
+  font-size:14px;
   opacity:0.8;
+  letter-spacing:1px;
+  min-width:100px;
+  text-align:left;
 }
 
 section {
@@ -163,28 +167,18 @@ section {
     <div class="solar-system">
       <div class="sun"></div>
 
-      <div class="orbit mercurio"><div class="planet mercurio"></div></div>
-      <div class="orbit venere"><div class="planet venere"></div></div>
-      <div class="orbit terra"><div class="planet terra"></div></div>
-      <div class="orbit marte"><div class="planet marte"></div></div>
-      <div class="orbit giove"><div class="planet giove"></div></div>
-      <div class="orbit saturno"><div class="planet saturno"></div></div>
-      <div class="orbit urano"><div class="planet urano"></div></div>
-      <div class="orbit nettuno"><div class="planet nettuno"></div></div>
-      <div class="orbit plutone"><div class="planet plutone"></div></div>
+      <div class="orbit mercurio"><div class="planet mercurio" onmouseover="setLabel('Mercurio')"></div></div>
+      <div class="orbit venere"><div class="planet venere" onmouseover="setLabel('Venere')"></div></div>
+      <div class="orbit terra"><div class="planet terra" onmouseover="setLabel('Terra')"></div></div>
+      <div class="orbit marte"><div class="planet marte" onmouseover="setLabel('Marte')"></div></div>
+      <div class="orbit giove"><div class="planet giove" onmouseover="setLabel('Giove')"></div></div>
+      <div class="orbit saturno"><div class="planet saturno" onmouseover="setLabel('Saturno')"></div></div>
+      <div class="orbit urano"><div class="planet urano" onmouseover="setLabel('Urano')"></div></div>
+      <div class="orbit nettuno"><div class="planet nettuno" onmouseover="setLabel('Nettuno')"></div></div>
+      <div class="orbit plutone"><div class="planet plutone" onmouseover="setLabel('Plutone')"></div></div>
     </div>
 
-    <div class="planet-names">
-      <div>Mercurio</div>
-      <div>Venere</div>
-      <div>Terra</div>
-      <div>Marte</div>
-      <div>Giove</div>
-      <div>Saturno</div>
-      <div>Urano</div>
-      <div>Nettuno</div>
-      <div>Plutone</div>
-    </div>
+    <div class="planet-label" id="planetLabel"></div>
 
   </div>
 </div>
@@ -197,6 +191,12 @@ section {
     <button type="submit">Invia</button>
   </form>
 </section>
+
+<script>
+function setLabel(name) {
+  document.getElementById('planetLabel').innerText = name;
+}
+</script>
 
 </body>
 </html>
