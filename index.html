@@ -1,95 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solar System</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #0b1a3a, #000814);
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar System</title>
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  color:white;
+  overflow:hidden;
+  background: radial-gradient(circle at center, #1a2f6b 0%, #020611 70%);
+}
 
-    h1 {
-      padding: 20px;
-      font-size: 2.5rem;
-    }
+nav {
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter: blur(5px);
+}
 
-    .solar-system {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 30px;
-    }
+nav a {
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+}
 
-    .planet {
-      position: relative;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+.container {
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    .planet:hover {
-      transform: scale(1.2);
-    }
+.solar-system {
+  position:relative;
+  width:80vmin;
+  height:80vmin;
+}
 
-    .planet span {
-      position: absolute;
-      bottom: -25px;
-      font-size: 0.9rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
+.sun {
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:white;
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+}
 
-    .planet:hover span {
-      opacity: 1;
-    }
+.orbit {
+  position:absolute;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+}
 
-    .sun { background: radial-gradient(circle, #ffdd00, #ff8c00); }
-    .mercury { background: #9e9e9e; }
-    .venus { background: #e0a96d; }
-    .earth { background: radial-gradient(circle, #2e8bff, #1c4fa1); }
-    .mars { background: #c1440e; }
-    .jupiter { background: #d2b48c; }
-    .saturn { background: #deb887; }
-    .uranus { background: #7fffd4; }
-    .neptune { background: #4169e1; }
+.planet {
+  position:absolute;
+  background:white;
+  border-radius:50%;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+}
 
-    @media (max-width: 600px) {
-      .planet {
-        width: 60px;
-        height: 60px;
-      }
+.planet:hover::after {
+  content: attr(data-name);
+  position:absolute;
+  top:-18px;
+  font-size:10px;
+  white-space:nowrap;
+}
 
-      h1 {
-        font-size: 2rem;
-      }
-    }
-  </style>
+/* Log scale orbit sizes */
+.orbit.mercury { width:10%; height:10%; }
+.orbit.venus { width:15%; height:15%; }
+.orbit.earth { width:20%; height:20%; }
+.orbit.mars { width:25%; height:25%; }
+.orbit.jupiter { width:35%; height:35%; }
+.orbit.saturn { width:45%; height:45%; }
+.orbit.uranus { width:55%; height:55%; }
+.orbit.neptune { width:65%; height:65%; }
+
+/* Planet sizes (log scaled, Jupiter ~2cm equivalent visually) */
+.planet.mercury { width:2px; height:2px; }
+.planet.venus { width:4px; height:4px; }
+.planet.earth { width:4px; height:4px; }
+.planet.mars { width:3px; height:3px; }
+.planet.jupiter { width:18px; height:18px; }
+.planet.saturn { width:14px; height:14px; }
+.planet.uranus { width:10px; height:10px; }
+.planet.neptune { width:10px; height:10px; }
+
+@media (max-width:600px) {
+  nav { gap:15px; font-size:12px; }
+}
+</style>
 </head>
 <body>
-  <h1>Our Solar System</h1>
 
+<nav>
+  #Home</a>
+  <a href="#">Solar System</a>
+  <a href="#">About</a>
+</nav>
+
+<div class="container">
   <div class="solar-system">
-    <div class="planet sun"><span>Sun</span></div>
-    <div class="planet mercury"><span>Mercury</span></div>
-    <div class="planet venus"><span>Venus</span></div>
-    <div class="planet earth"><span>Earth</span></div>
-    <div class="planet mars"><span>Mars</span></div>
-    <div class="planet jupiter"><span>Jupiter</span></div>
-    <div class="planet saturn"><span>Saturn</span></div>
-    <div class="planet uranus"><span>Uranus</span></div>
-    <div class="planet neptune"><span>Neptune</span></div>
+    <div class="sun"></div>
+
+    <div class="orbit mercury"><div class="planet mercury" data-name="Mercury"></div></div>
+    <div class="orbit venus"><div class="planet venus" data-name="Venus"></div></div>
+    <div class="orbit earth"><div class="planet earth" data-name="Earth"></div></div>
+    <div class="orbit mars"><div class="planet mars" data-name="Mars"></div></div>
+    <div class="orbit jupiter"><div class="planet jupiter" data-name="Jupiter"></div></div>
+    <div class="orbit saturn"><div class="planet saturn" data-name="Saturn"></div></div>
+    <div class="orbit uranus"><div class="planet uranus" data-name="Uranus"></div></div>
+    <div class="orbit neptune"><div class="planet neptune" data-name="Neptune"></div></div>
+
   </div>
+</div>
 
 </body>
 </html>
