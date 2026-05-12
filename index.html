@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,87 +21,75 @@ body {
   left:15px;
   z-index:1000;
 }
-
-.hamburger {
-  width:30px;
-  cursor:pointer;
-}
-
 .hamburger span {
   display:block;
+  width:30px;
   height:3px;
   background:white;
   margin:6px 0;
 }
-
 .menu-content {
   display:none;
   margin-top:10px;
-  background:rgba(0,0,0,0.6);
-  padding:10px;
-  border-radius:8px;
+  background:rgba(0,0,0,0.8);
+  padding:12px;
+  border-radius:10px;
 }
-
 .menu-content a {
   display:block;
   color:white;
   text-decoration:none;
-  padding:5px 0;
+  padding:6px;
 }
+.menu.open .menu-content { display:block; }
 
-.menu.open .menu-content {
-  display:block;
-}
-
-.container {
+/* HERO */
+.hero {
   height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
+  animation:fadeIn 2s ease;
 }
 
 h1 {
-  margin-bottom:10px;
+  font-weight:300;
+  letter-spacing:2px;
 }
 
 .subtitle {
+  margin:10px 0 30px;
   font-size:14px;
   opacity:0.8;
-  margin-bottom:30px;
 }
 
+/* SOLAR SYSTEM */
 .solar-system {
   position:relative;
   width:70vmin;
   height:70vmin;
 }
-
 .sun {
   position:absolute;
   width:4px;
   height:4px;
   background:white;
   border-radius:50%;
-  top:50%;
-  left:50%;
+  top:50%; left:50%;
   transform:translate(-50%, -50%);
 }
-
 .orbit {
   position:absolute;
   border:1px solid rgba(255,255,255,0.1);
   border-radius:50%;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
+  top:50%; left:50%;
 }
 
-.planet {
+.orbit > .planet {
   position:absolute;
-  top:50%;
-  left:100%;
+  top:50%; left:100%;
   transform:translate(-50%, -50%);
   background:white;
   border-radius:50%;
@@ -110,34 +98,55 @@ h1 {
 .planet:hover::after {
   content: attr(data-name);
   position:absolute;
-  top:-18px;
+  top:-16px;
   font-size:10px;
 }
 
-/* Orbit sizes */
-.orbit.mercury { width:10%; height:10%; animation:spin 6s linear infinite; }
-.orbit.venus { width:15%; height:15%; animation:spin 10s linear infinite; }
-.orbit.earth { width:20%; height:20%; animation:spin 14s linear infinite; }
-.orbit.mars { width:25%; height:25%; animation:spin 18s linear infinite; }
-.orbit.jupiter { width:35%; height:35%; animation:spin 24s linear infinite; }
-.orbit.saturn { width:45%; height:45%; animation:spin 30s linear infinite; }
-.orbit.uranus { width:55%; height:55%; animation:spin 36s linear infinite; }
-.orbit.neptune { width:65%; height:65%; animation:spin 42s linear infinite; }
+/* ORBITS SCALE + SPEED */
+.orbit.mercurio { width:10%; height:10%; animation:spin 6s linear infinite; }
+.orbit.venere { width:15%; height:15%; animation:spin 10s linear infinite; }
+.orbit.terra { width:20%; height:20%; animation:spin 14s linear infinite; }
+.orbit.marte { width:25%; height:25%; animation:spin 18s linear infinite; }
+.orbit.giove { width:35%; height:35%; animation:spin 24s linear infinite; }
+.orbit.saturno { width:45%; height:45%; animation:spin 30s linear infinite; }
+.orbit.urano { width:55%; height:55%; animation:spin 36s linear infinite; }
+.orbit.nettuno { width:65%; height:65%; animation:spin 42s linear infinite; }
 
 @keyframes spin {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(360deg); }
+  from { transform:translate(-50%, -50%) rotate(0deg); }
+  to { transform:translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Planet sizes */
-.planet.mercury { width:2px; height:2px; }
-.planet.venus { width:3px; height:3px; }
-.planet.earth { width:4px; height:4px; }
-.planet.mars { width:3px; height:3px; }
-.planet.jupiter { width:18px; height:18px; }
-.planet.saturn { width:14px; height:14px; }
-.planet.uranus { width:10px; height:10px; }
-.planet.neptune { width:10px; height:10px; }
+/* PLANET SIZE */
+.mercurio { width:2px; height:2px; }
+.venere { width:3px; height:3px; }
+.terra { width:4px; height:4px; }
+.marte { width:3px; height:3px; }
+.giove { width:18px; height:18px; }
+.saturno { width:14px; height:14px; }
+.urano { width:10px; height:10px; }
+.nettuno { width:10px; height:10px; }
+
+/* SECTIONS */
+section { padding:80px 20px; text-align:center; }
+
+/* RSVP */
+form input, form button {
+  padding:10px;
+  margin:10px;
+  border:none;
+  border-radius:5px;
+}
+form button {
+  background:white;
+  color:black;
+  cursor:pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
 
 </style>
 </head>
@@ -145,34 +154,42 @@ h1 {
 
 <div class="menu" onclick="this.classList.toggle('open')">
   <div class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </div>
   <div class="menu-content">
     <a href="index.html">Home</a>
     <a href="location.html">Location</a>
+    <a href="#rsvp">RSVP</a>
   </div>
 </div>
 
-<div class="container">
+<div class="hero">
   <h1>Elisa e Federico</h1>
   <div class="subtitle">2 gennaio 2026<br>Monastero Castel d'Alfiolo — Gubbio</div>
 
   <div class="solar-system">
     <div class="sun"></div>
 
-    <div class="orbit mercury"><div class="planet mercury" data-name="Mercury"></div></div>
-    <div class="orbit venus"><div class="planet venus" data-name="Venus"></div></div>
-    <div class="orbit earth"><div class="planet earth" data-name="Earth"></div></div>
-    <div class="orbit mars"><div class="planet mars" data-name="Mars"></div></div>
-    <div class="orbit jupiter"><div class="planet jupiter" data-name="Jupiter"></div></div>
-    <div class="orbit saturn"><div class="planet saturn" data-name="Saturn"></div></div>
-    <div class="orbit uranus"><div class="planet uranus" data-name="Uranus"></div></div>
-    <div class="orbit neptune"><div class="planet neptune" data-name="Neptune"></div></div>
+    <div class="orbit mercurio"><div class="planet mercurio" data-name="Mercurio"></div></div>
+    <div class="orbit venere"><div class="planet venere" data-name="Venere"></div></div>
+    <div class="orbit terra"><div class="planet terra" data-name="Terra"></div></div>
+    <div class="orbit marte"><div class="planet marte" data-name="Marte"></div></div>
+    <div class="orbit giove"><div class="planet giove" data-name="Giove"></div></div>
+    <div class="orbit saturno"><div class="planet saturno" data-name="Saturno"></div></div>
+    <div class="orbit urano"><div class="planet urano" data-name="Urano"></div></div>
+    <div class="orbit nettuno"><div class="planet nettuno" data-name="Nettuno"></div></div>
 
   </div>
 </div>
+
+<section id="rsvp">
+  <h2>Conferma Partecipazione</h2>
+  <form>
+    <input type="text" placeholder="Nome" required><br>
+    <input type="email" placeholder="Email" required><br>
+    <button type="submit">Invia</button>
+  </form>
+</section>
 
 </body>
 </html>
