@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elisa e Federico</title>
-https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600&display=swap
+
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -12,6 +13,7 @@ body {
   font-family:'Work Sans', sans-serif;
   color:white;
   background: radial-gradient(circle at center, #1a2f6b 0%, #020611 80%);
+  overflow-x:hidden;
 }
 
 /* MENU */
@@ -21,34 +23,30 @@ body {
   left:50%;
   transform:translateX(-50%);
   z-index:1000;
-  text-align:center;
 }
-
 .hamburger span {
   display:block;
-  width:28px;
+  width:30px;
   height:3px;
   background:white;
   margin:6px auto;
-  border-radius:3px;
+  border-radius:4px;
 }
-
 .menu-content {
   display:none;
+  background:rgba(0,0,0,0.85);
+  padding:15px;
+  border-radius:12px;
+  text-align:center;
   margin-top:10px;
-  background:rgba(0,0,0,0.8);
-  padding:12px;
-  border-radius:10px;
 }
-
 .menu-content a {
   display:block;
   color:white;
   text-decoration:none;
-  padding:6px;
+  padding:8px;
 }
-
-.menu.open .menu-content { display:block; }
+.menu.open .menu-content {display:block;}
 
 /* HERO */
 .hero {
@@ -63,20 +61,21 @@ body {
 
 h1 {
   font-weight:300;
-  letter-spacing:2px;
+  letter-spacing:3px;
+  font-size:32px;
 }
 
 .subtitle {
-  margin:10px 0 30px;
   font-size:14px;
-  opacity:0.8;
+  opacity:0.7;
+  margin-bottom:30px;
 }
 
 /* SOLAR SYSTEM */
 .solar-system {
   position:relative;
-  width:70vmin;
-  height:70vmin;
+  width:65vmin;
+  height:65vmin;
 }
 
 .sun {
@@ -85,80 +84,93 @@ h1 {
   height:4px;
   background:white;
   border-radius:50%;
-  top:50%; left:50%;
-  transform:translate(-50%, -50%);
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 10px rgba(255,255,255,0.7);
 }
 
 .orbit {
   position:absolute;
-  border:1px solid rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.08);
   border-radius:50%;
-  top:50%; left:50%;
+  top:50%;
+  left:50%;
 }
 
-.orbit > .planet {
+/* PLANET */
+.planet {
   position:absolute;
-  top:50%; left:100%;
-  transform:translate(-50%, -50%);
+  top:50%;
+  left:100%;
+  transform:translate(-50%,-50%);
   background:white;
   border-radius:50%;
 }
 
+/* HOVER NAME */
 .planet:hover::after {
-  content: attr(data-name);
+  content:attr(data-name);
   position:absolute;
-  top:-16px;
+  top:-18px;
   font-size:10px;
 }
 
-/* ORBITS */
-.orbit.mercurio { width:10%; height:10%; animation:spin 6s linear infinite; }
-.orbit.venere { width:15%; height:15%; animation:spin 10s linear infinite; }
-.orbit.terra { width:20%; height:20%; animation:spin 14s linear infinite; }
-.orbit.marte { width:25%; height:25%; animation:spin 18s linear infinite; }
-.orbit.giove { width:35%; height:35%; animation:spin 24s linear infinite; }
-.orbit.saturno { width:45%; height:45%; animation:spin 30s linear infinite; }
-.orbit.urano { width:55%; height:55%; animation:spin 36s linear infinite; }
-.orbit.nettuno { width:65%; height:65%; animation:spin 42s linear infinite; }
+/* ORBITS WITH REALISTIC SPEED */
+.orbit.mercurio {width:10%;height:10%;animation:spin 6s linear infinite;}
+.orbit.venere {width:15%;height:15%;animation:spin 10s linear infinite;}
+.orbit.terra {width:20%;height:20%;animation:spin 14s linear infinite;}
+.orbit.marte {width:25%;height:25%;animation:spin 18s linear infinite;}
+.orbit.giove {width:35%;height:35%;animation:spin 24s linear infinite;}
+.orbit.saturno {width:45%;height:45%;animation:spin 30s linear infinite;}
+.orbit.urano {width:55%;height:55%;animation:spin 36s linear infinite;}
+.orbit.nettuno {width:65%;height:65%;animation:spin 42s linear infinite;}
 
 @keyframes spin {
-  from { transform:translate(-50%, -50%) rotate(0deg); }
-  to { transform:translate(-50%, -50%) rotate(360deg); }
+  from {transform:translate(-50%,-50%) rotate(0deg);}
+  to {transform:translate(-50%,-50%) rotate(360deg);}
 }
 
-/* PLANETS */
-.mercurio { width:2px; height:2px; }
-.venere { width:3px; height:3px; }
-.terra { width:4px; height:4px; }
-.marte { width:3px; height:3px; }
-.giove { width:18px; height:18px; }
-.saturno { width:14px; height:14px; }
-.urano { width:10px; height:10px; }
-.nettuno { width:10px; height:10px; }
+/* PLANET SIZE */
+.mercurio{width:2px;height:2px;}
+.venere{width:3px;height:3px;}
+.terra{width:4px;height:4px;}
+.marte{width:3px;height:3px;}
+.giove{width:18px;height:18px;}
+.saturno{width:14px;height:14px;}
+.urano{width:10px;height:10px;}
+.nettuno{width:10px;height:10px;}
 
-/* SECTIONS */
-section { padding:80px 20px; text-align:center; }
+/* SECTION */
+section {
+  padding:100px 20px;
+  text-align:center;
+}
 
 /* RSVP */
 form input, form button {
-  padding:10px;
+  padding:12px;
   margin:10px;
   border:none;
-  border-radius:5px;
+  border-radius:6px;
+}
+form input {
+  width:220px;
 }
 form button {
   background:white;
   color:black;
-  cursor:pointer;
 }
 
+/* ANIMATION */
 @keyframes fadeIn {
-  from { opacity:0; transform:translateY(20px); }
-  to { opacity:1; transform:translateY(0); }
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
 }
 
 </style>
 </head>
+
 <body>
 
 <div class="menu" onclick="this.classList.toggle('open')">
@@ -174,7 +186,10 @@ form button {
 
 <div class="hero">
   <h1>Elisa e Federico</h1>
-  <div class="subtitle">2 gennaio 2026<br>Monastero Castel d'Alfiolo — Gubbio</div>
+  <div class="subtitle">
+    2 gennaio 2026<br>
+    Monastero Castel d'Alfiolo — Gubbio
+  </div>
 
   <div class="solar-system">
     <div class="sun"></div>
@@ -187,14 +202,13 @@ form button {
     <div class="orbit saturno"><div class="planet saturno" data-name="Saturno"></div></div>
     <div class="orbit urano"><div class="planet urano" data-name="Urano"></div></div>
     <div class="orbit nettuno"><div class="planet nettuno" data-name="Nettuno"></div></div>
-
   </div>
 </div>
 
 <section id="rsvp">
-  <h2>Conferma Partecipazione</h2>
+  <h2>Conferma la tua presenza</h2>
   <form>
-    <input type="text" placeholder="Nome" required><br>
+    <input type="text" placeholder="Nome e Cognome" required><br>
     <input type="email" placeholder="Email" required><br>
     <button type="submit">Invia</button>
   </form>
