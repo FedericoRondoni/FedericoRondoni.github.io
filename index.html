@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elisa e Federico</title>
 
-<!-- FONTS -->
 https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap
 
 <style>
@@ -17,12 +16,8 @@ body {
   opacity:0;
   transition: opacity 0.8s ease;
 }
+body.loaded { opacity:1; }
 
-body.loaded {
-  opacity:1;
-}
-
-/* MENU */
 .menu {
   position:fixed;
   top:30px;
@@ -46,14 +41,8 @@ body.loaded {
   margin-top:10px;
 }
 .menu.open .menu-content {display:block;}
-.menu-content a {
-  display:block;
-  color:white;
-  text-decoration:none;
-  padding:8px;
-}
+.menu-content a { display:block; color:white; text-decoration:none; padding:8px; }
 
-/* HERO */
 .hero {
   height:100vh;
   display:flex;
@@ -65,9 +54,8 @@ body.loaded {
 
 h1 {
   font-family:'Playfair Display', serif;
-  font-size:48px;
+  font-size:52px;
   letter-spacing:4px;
-  margin-bottom:10px;
 }
 
 .subtitle {
@@ -76,7 +64,6 @@ h1 {
   margin-bottom:40px;
 }
 
-/* SOLAR SYSTEM */
 .wrapper {
   position:relative;
   display:flex;
@@ -114,9 +101,10 @@ h1 {
   transform:translate(-50%,-50%);
   background:white;
   border-radius:50%;
+  pointer-events:none; /* important */
 }
 
-/* ORBITS */
+/* Orbits (now hoverable zones) */
 .orbit.mercurio {width:10%;height:10%;animation:spin 6s linear infinite;}
 .orbit.venere {width:15%;height:15%;animation:spin 10s linear infinite;}
 .orbit.terra {width:20%;height:20%;animation:spin 14s linear infinite;}
@@ -127,12 +115,7 @@ h1 {
 .orbit.nettuno {width:65%;height:65%;animation:spin 42s linear infinite;}
 .orbit.plutone {width:75%;height:75%;animation:spin 50s linear infinite;}
 
-@keyframes spin {
-  from {transform:translate(-50%,-50%) rotate(0deg);} 
-  to {transform:translate(-50%,-50%) rotate(360deg);} 
-}
-
-/* PLANETS */
+/* PLANETS SIZE */
 .mercurio{width:2px;height:2px;}
 .venere{width:3px;height:3px;}
 .terra{width:4px;height:4px;}
@@ -143,6 +126,11 @@ h1 {
 .nettuno{width:10px;height:10px;}
 .plutone{width:2px;height:2px;}
 
+@keyframes spin {
+  from {transform:translate(-50%,-50%) rotate(0deg);} 
+  to {transform:translate(-50%,-50%) rotate(360deg);} 
+}
+
 /* LABEL */
 .planet-label {
   position:absolute;
@@ -151,12 +139,22 @@ h1 {
   transform:translateY(-50%);
   font-family:'Playfair Display', serif;
   font-size:20px;
-  opacity:0.8;
-  letter-spacing:1px;
-  min-width:120px;
-  text-align:left;
+  opacity:0;
   transition:opacity 0.3s ease;
 }
+
+/* HOVER ON ORBITS */
+.orbit.mercurio:hover ~ .planet-label::after {content:"Mercurio";}
+.orbit.venere:hover ~ .planet-label::after {content:"Venere";}
+.orbit.terra:hover ~ .planet-label::after {content:"Terra";}
+.orbit.marte:hover ~ .planet-label::after {content:"Marte";}
+.orbit.giove:hover ~ .planet-label::after {content:"Giove";}
+.orbit.saturno:hover ~ .planet-label::after {content:"Saturno";}
+.orbit.urano:hover ~ .planet-label::after {content:"Urano";}
+.orbit.nettuno:hover ~ .planet-label::after {content:"Nettuno";}
+.orbit.plutone:hover ~ .planet-label::after {content:"Plutone";}
+
+.orbit:hover ~ .planet-label { opacity:0.8; }
 
 section {
   padding:100px 20px;
@@ -165,21 +163,6 @@ section {
 h2 {
   font-family:'Playfair Display', serif;
   font-size:32px;
-  margin-bottom:30px;
-}
-
-/* RSVP */
-form input, form button {
-  padding:14px;
-  margin:12px;
-  border:none;
-  border-radius:6px;
-}
-form input { width:260px; }
-form button {
-  background:white;
-  color:black;
-  cursor:pointer;
 }
 
 </style>
@@ -207,60 +190,39 @@ form button {
     <div class="solar-system">
       <div class="sun"></div>
 
-      <div class="orbit mercurio"><div class="planet mercurio" onmouseover="setLabel('Mercurio')" onmouseout="clearLabel()"></div></div>
-      <div class="orbit venere"><div class="planet venere" onmouseover="setLabel('Venere')" onmouseout="clearLabel()"></div></div>
-      <div class="orbit terra"><div class="planet terra" onmouseover="setLabel('Terra')" onmouseout="clearLabel()"></div></div>
-      <div class="orbit marte"><div class="planet marte" onmouseover="setLabel('Marte')" onmouseout="clearLabel()"></div></div>
-      <div class="orbit giove"><div class="planet giove" onmouseover="setLabel('Giove')" onmouseout="clearLabel()"></div></div>
-      <div class="orbit saturno"><div class="planet saturno" onmouseover="setLabel('Saturno')" onmouseout="clearLabel()"></div></div>
-      <div class="orbit urano"><div class="planet urano" onmouseover="setLabel('Urano')" onmouseout="clearLabel()"></div></div>
-      <div class="orbit nettuno"><div class="planet nettuno" onmouseover="setLabel('Nettuno')" onmouseout="clearLabel()"></div></div>
-      <div class="orbit plutone"><div class="planet plutone" onmouseover="setLabel('Plutone')" onmouseout="clearLabel()"></div></div>
-    </div>
+      <div class="orbit mercurio"><div class="planet mercurio"></div></div>
+      <div class="orbit venere"><div class="planet venere"></div></div>
+      <div class="orbit terra"><div class="planet terra"></div></div>
+      <div class="orbit marte"><div class="planet marte"></div></div>
+      <div class="orbit giove"><div class="planet giove"></div></div>
+      <div class="orbit saturno"><div class="planet saturno"></div></div>
+      <div class="orbit urano"><div class="planet urano"></div></div>
+      <div class="orbit nettuno"><div class="planet nettuno"></div></div>
+      <div class="orbit plutone"><div class="planet plutone"></div></div>
 
-    <div class="planet-label" id="planetLabel"></div>
+      <div class="planet-label"></div>
+
+    </div>
 
   </div>
 </div>
 
 <section id="rsvp">
   <h2>Conferma la tua presenza</h2>
-  <form>
-    <input type="text" placeholder="Nome e Cognome" required><br>
-    <input type="email" placeholder="Email" required><br>
-    <button type="submit">Invia</button>
-  </form>
 </section>
 
 <script>
-// Fade in on load
-window.onload = () => {
-  document.body.classList.add('loaded');
-};
+window.onload = () => document.body.classList.add('loaded');
 
-// Fade transition between pages
 const links = document.querySelectorAll('a[href]');
 links.forEach(link => {
   link.addEventListener('click', function(e) {
     if (this.getAttribute('href').includes('#')) return;
     e.preventDefault();
     document.body.classList.remove('loaded');
-    setTimeout(() => {
-      window.location = this.getAttribute('href');
-    }, 600);
+    setTimeout(() => window.location = this.href, 600);
   });
 });
-
-function setLabel(name) {
-  const label = document.getElementById('planetLabel');
-  label.innerText = name;
-  label.style.opacity = 0.8;
-}
-
-function clearLabel() {
-  const label = document.getElementById('planetLabel');
-  label.style.opacity = 0;
-}
 </script>
 
 </body>
