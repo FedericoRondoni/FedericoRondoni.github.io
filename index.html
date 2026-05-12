@@ -3,51 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Solar System</title>
+<title>Elisa e Federico</title>
+https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600&display=swap
+
 <style>
 body {
   margin:0;
-  font-family: Arial, sans-serif;
+  font-family:'Work Sans', sans-serif;
   color:white;
-  overflow:hidden;
-  background: radial-gradient(circle at center, #1a2f6b 0%, #020611 70%);
+  background: radial-gradient(circle at center, #1a2f6b 0%, #020611 80%);
 }
 
-nav {
+/* MENU */
+.menu {
   position:fixed;
-  top:0;
-  width:100%;
-  padding:15px;
-  display:flex;
-  justify-content:center;
-  gap:30px;
-  background:rgba(0,0,0,0.3);
-  backdrop-filter: blur(5px);
+  top:15px;
+  left:15px;
+  z-index:1000;
 }
 
-nav a {
+.hamburger {
+  width:30px;
+  cursor:pointer;
+}
+
+.hamburger span {
+  display:block;
+  height:3px;
+  background:white;
+  margin:6px 0;
+}
+
+.menu-content {
+  display:none;
+  margin-top:10px;
+  background:rgba(0,0,0,0.6);
+  padding:10px;
+  border-radius:8px;
+}
+
+.menu-content a {
+  display:block;
   color:white;
   text-decoration:none;
-  font-size:14px;
+  padding:5px 0;
+}
+
+.menu.open .menu-content {
+  display:block;
 }
 
 .container {
   height:100vh;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
+  text-align:center;
+}
+
+h1 {
+  margin-bottom:10px;
+}
+
+.subtitle {
+  font-size:14px;
+  opacity:0.8;
+  margin-bottom:30px;
 }
 
 .solar-system {
   position:relative;
-  width:80vmin;
-  height:80vmin;
+  width:70vmin;
+  height:70vmin;
 }
 
 .sun {
   position:absolute;
-  width:6px;
-  height:6px;
+  width:4px;
+  height:4px;
   background:white;
   border-radius:50%;
   top:50%;
@@ -66,11 +100,11 @@ nav a {
 
 .planet {
   position:absolute;
+  top:50%;
+  left:100%;
+  transform:translate(-50%, -50%);
   background:white;
   border-radius:50%;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
 }
 
 .planet:hover::after {
@@ -78,22 +112,26 @@ nav a {
   position:absolute;
   top:-18px;
   font-size:10px;
-  white-space:nowrap;
 }
 
-/* Log scale orbit sizes */
-.orbit.mercury { width:10%; height:10%; }
-.orbit.venus { width:15%; height:15%; }
-.orbit.earth { width:20%; height:20%; }
-.orbit.mars { width:25%; height:25%; }
-.orbit.jupiter { width:35%; height:35%; }
-.orbit.saturn { width:45%; height:45%; }
-.orbit.uranus { width:55%; height:55%; }
-.orbit.neptune { width:65%; height:65%; }
+/* Orbit sizes */
+.orbit.mercury { width:10%; height:10%; animation:spin 6s linear infinite; }
+.orbit.venus { width:15%; height:15%; animation:spin 10s linear infinite; }
+.orbit.earth { width:20%; height:20%; animation:spin 14s linear infinite; }
+.orbit.mars { width:25%; height:25%; animation:spin 18s linear infinite; }
+.orbit.jupiter { width:35%; height:35%; animation:spin 24s linear infinite; }
+.orbit.saturn { width:45%; height:45%; animation:spin 30s linear infinite; }
+.orbit.uranus { width:55%; height:55%; animation:spin 36s linear infinite; }
+.orbit.neptune { width:65%; height:65%; animation:spin 42s linear infinite; }
 
-/* Planet sizes (log scaled, Jupiter ~2cm equivalent visually) */
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Planet sizes */
 .planet.mercury { width:2px; height:2px; }
-.planet.venus { width:4px; height:4px; }
+.planet.venus { width:3px; height:3px; }
 .planet.earth { width:4px; height:4px; }
 .planet.mars { width:3px; height:3px; }
 .planet.jupiter { width:18px; height:18px; }
@@ -101,20 +139,26 @@ nav a {
 .planet.uranus { width:10px; height:10px; }
 .planet.neptune { width:10px; height:10px; }
 
-@media (max-width:600px) {
-  nav { gap:15px; font-size:12px; }
-}
 </style>
 </head>
 <body>
 
-<nav>
-  #Home</a>
-  <a href="#">Solar System</a>
-  <a href="#">About</a>
-</nav>
+<div class="menu" onclick="this.classList.toggle('open')">
+  <div class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="menu-content">
+    <a href="index.html">Home</a>
+    <a href="location.html">Location</a>
+  </div>
+</div>
 
 <div class="container">
+  <h1>Elisa e Federico</h1>
+  <div class="subtitle">2 gennaio 2026<br>Monastero Castel d'Alfiolo — Gubbio</div>
+
   <div class="solar-system">
     <div class="sun"></div>
 
