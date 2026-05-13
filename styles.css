@@ -1,0 +1,290 @@
+/* =========================
+   Font self-hosted: Alice
+   (assumes /fonts/Alice-Regular.woff2 exists)
+   ========================= */
+@font-face {
+  font-family: "Alice";
+  src: url("fonts/Alice-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root{
+  --bg1:#1a2f6b;
+  --bg2:#020611;
+  --white: rgba(255,255,255,1);
+  --white-70: rgba(255,255,255,0.7);
+  --white-12: rgba(255,255,255,0.12);
+  --white-08: rgba(255,255,255,0.08);
+  --black-85: rgba(0,0,0,0.85);
+}
+
+/* =========================
+   Base + Page transitions
+   ========================= */
+html, body { height: 100%; }
+body{
+  margin:0;
+  color: var(--white);
+  background: radial-gradient(circle at center, var(--bg1) 0%, var(--bg2) 80%);
+  opacity:0;
+  transition: opacity .8s ease;
+  overflow-x:hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body.loaded{ opacity:1; }
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+  body{ opacity: 1 !important; }
+}
+
+/* =========================
+   Menu (hamburger)
+   ========================= */
+.menu{
+  position:fixed;
+  top:30px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index: 1000;
+  user-select:none;
+}
+
+.hamburger{
+  cursor:pointer;
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:12px;
+}
+
+.hamburger span{
+  display:block;
+  width:30px;
+  height:3px;
+  background: var(--white);
+  margin:6px auto;
+  border-radius:4px;
+  opacity: .92;
+}
+
+.menu-content{
+  display:none;
+  background: var(--black-85);
+  padding:14px 16px;
+  border-radius:14px;
+  margin-top:10px;
+  min-width: 180px;
+  backdrop-filter: blur(8px);
+}
+
+.menu.open .menu-content{ display:block; }
+
+.menu-content a{
+  display:block;
+  color: var(--white);
+  text-decoration:none;
+  padding:9px 8px;
+  border-radius:10px;
+  transition: background .2s ease, opacity .2s ease;
+  opacity: .92;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.menu-content a:hover{
+  background: rgba(255,255,255,0.08);
+  opacity: 1;
+}
+
+/* =========================
+   Typography (luxury)
+   ========================= */
+h1, h2, .planet-label, .page-title{
+  font-family: "Alice", serif;
+  font-weight: 400;
+}
+
+h1{
+  font-size: 56px;
+  letter-spacing: 2px;
+  margin: 0 0 10px;
+}
+
+.subtitle{
+  font-size: 16px;
+  opacity: var(--white-70);
+  margin: 0 0 42px;
+  line-height: 1.5;
+}
+
+h2{
+  font-size: 34px;
+  margin: 0 0 24px;
+  letter-spacing: 1px;
+}
+
+/* =========================
+   Layout sections
+   ========================= */
+.hero{
+  min-height: 100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding: 90px 16px 40px;
+  box-sizing: border-box;
+}
+
+section{
+  padding: 100px 18px;
+  text-align:center;
+}
+
+.container{
+  min-height: 100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding: 90px 16px 40px;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Solar system
+   ========================= */
+.wrapper{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Solar system canvas */
+.solar-system{
+  position:relative;
+  width:60vmin;
+  height:60vmin;
+}
+
+/* Sun */
+.sun{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background: var(--white);
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  box-shadow: 0 0 10px rgba(255,255,255,0.7);
+}
+
+/* Orbits */
+.orbit{
+  position:absolute;
+  top:50%;
+  left:50%;
+  border:1px solid var(--white-12);
+  border-radius:50%;
+  transform: translate(-50%,-50%);
+}
+
+/* Planet marker */
+.planet{
+  position:absolute;
+  top:50%;
+  left:100%;
+  transform: translate(-50%,-50%);
+  background: var(--white);
+  border-radius:50%;
+  pointer-events:none; /* important: hover is on orbit */
+}
+
+/* Planet sizes */
+.mercurio{ width:2px; height:2px; }
+.venere{ width:3px; height:3px; }
+.terra{ width:4px; height:4px; }
+.marte{ width:3px; height:3px; }
+.giove{ width:18px; height:18px; }
+.saturno{ width:14px; height:14px; }
+.urano{ width:10px; height:10px; }
+.nettuno{ width:10px; height:10px; }
+.plutone{ width:2px; height:2px; }
+
+/* Spin animation */
+@keyframes spin{
+  from{ transform: translate(-50%,-50%) rotate(0deg); }
+  to{ transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+/* Orbits scale + speed + z-index layering
+   z-index is CRITICAL so inner orbits are hoverable */
+.orbit.mercurio { width:10%; height:10%; animation:spin 6s linear infinite;  z-index:9; }
+.orbit.venere   { width:15%; height:15%; animation:spin 10s linear infinite; z-index:8; }
+.orbit.terra    { width:20%; height:20%; animation:spin 14s linear infinite; z-index:7; }
+.orbit.marte    { width:25%; height:25%; animation:spin 18s linear infinite; z-index:6; }
+.orbit.giove    { width:35%; height:35%; animation:spin 24s linear infinite; z-index:5; }
+.orbit.saturno  { width:45%; height:45%; animation:spin 30s linear infinite; z-index:4; }
+.orbit.urano    { width:55%; height:55%; animation:spin 36s linear infinite; z-index:3; }
+.orbit.nettuno  { width:65%; height:65%; animation:spin 42s linear infinite; z-index:2; }
+.orbit.plutone  { width:75%; height:75%; animation:spin 50s linear infinite; z-index:1; }
+
+/* The single label (fixed position, elegant) */
+.planet-label{
+  position:absolute;
+  top:50%;
+  right:-120px; /* roughly where Giove area sits in your layout */
+  transform:translateY(-50%);
+  font-size: 22px;
+  letter-spacing: 1px;
+  opacity:0;
+  transition: opacity .25s ease;
+  min-width: 140px;
+  text-align:left;
+}
+
+/* Show label on orbit hover */
+.orbit:hover ~ .planet-label{ opacity: .85; }
+
+/* Set label text based on which orbit is hovered */
+.orbit.mercurio:hover ~ .planet-label::after { content:"Mercurio"; }
+.orbit.venere:hover   ~ .planet-label::after { content:"Venere"; }
+.orbit.terra:hover    ~ .planet-label::after { content:"Terra"; }
+.orbit.marte:hover    ~ .planet-label::after { content:"Marte"; }
+.orbit.giove:hover    ~ .planet-label::after { content:"Giove"; }
+.orbit.saturno:hover  ~ .planet-label::after { content:"Saturno"; }
+.orbit.urano:hover    ~ .planet-label::after { content:"Urano"; }
+.orbit.nettuno:hover  ~ .planet-label::after { content:"Nettuno"; }
+.orbit.plutone:hover  ~ .planet-label::after { content:"Plutone"; }
+
+/* =========================
+   Location page map card
+   ========================= */
+.map{
+  width: 84%;
+  max-width: 720px;
+  height: 340px;
+  margin-top: 28px;
+}
+
+.map iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  border-radius: 14px;
+}
+
+/* Small screens */
+@media (max-width: 560px){
+  h1{ font-size: 44px; }
+  .planet-label{ right: -90px; font-size: 18px; min-width: 120px; }
+  .solar-system{ width: 72vmin; height: 72vmin; }
+  .map{ height: 300px; width: 92%; }
+}
