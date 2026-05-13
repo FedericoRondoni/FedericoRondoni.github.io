@@ -1,5 +1,6 @@
 /* =========================
    Font self-hosted: Alice
+   Path: /fonts/Alice-Regular.woff2
    ========================= */
 @font-face {
   font-family: "Alice";
@@ -10,8 +11,8 @@
 }
 
 :root{
-  --bg1:#1a2f6b;          /* parte chiara (solo sotto al Sole) */
-  --bg2:#020611;          /* parte scura (tutta la pagina) */
+  --bg1:#1a2f6b;          /* tono chiaro (solo glow sotto il Sole) */
+  --bg2:#020611;          /* tono scuro (tutta la pagina, infinito) */
   --white: rgba(255,255,255,1);
   --white-70: rgba(255,255,255,0.7);
   --white-12: rgba(255,255,255,0.12);
@@ -21,15 +22,15 @@
   --ss-size: clamp(260px, 60vmin, 560px);  /* canvas sistema solare */
   --label-offset: clamp(70px, 12vmin, 140px);
 
-  /* Pianeti (scalano con viewport) */
+  /* Pianeti: scalano con viewport */
   --p-merc: clamp(2px, 0.45vmin, 3px);
   --p-ven:  clamp(3px, 0.65vmin, 4px);
   --p-ter:  clamp(4px, 0.75vmin, 5px);
   --p-mar:  clamp(3px, 0.65vmin, 4px);
-  --p-gio:  clamp(10px, 2.8vmin, 18px);  /* Giove max 18px circa */
-  --p-sat:  clamp(9px, 2.2vmin, 14px);
-  --p-ura:  clamp(7px, 1.7vmin, 10px);
-  --p-net:  clamp(7px, 1.7vmin, 10px);
+  --p-gio:  clamp(10px, 2.8vmin, 18px);
+  --p-sat:  clamp(9px,  2.2vmin, 14px);
+  --p-ura:  clamp(7px,  1.7vmin, 10px);
+  --p-net:  clamp(7px,  1.7vmin, 10px);
   --p-plu:  clamp(2px, 0.45vmin, 3px);
 }
 
@@ -41,7 +42,7 @@ html, body { height: 100%; }
 body{
   margin:0;
   color: var(--white);
-  background: var(--bg2); /* ✅ sempre scuro, non “ripete” mai */
+  background: var(--bg2);           /* ✅ sempre scuro, niente ripetizioni */
   opacity:0;
   transition: opacity .8s ease;
   overflow-x:hidden;
@@ -139,7 +140,7 @@ h2{
 }
 
 /* =========================
-   Hero + “single radial gradient”
+   Layout
    ========================= */
 .hero{
   position: relative;
@@ -153,23 +154,28 @@ h2{
   box-sizing: border-box;
 }
 
-/* ✅ Il gradiente è SOLO qui dentro, e centrato sul Sole tramite CSS vars */
+/* ✅ Glow SOLO sotto il Sole:
+   - sopra è più chiaro
+   - poi diventa trasparente
+   - sotto resta il body scuro => nessuna riga/stacco */
 .hero::before{
   content:"";
   position:absolute;
   inset:0;
   z-index:-1;
+  pointer-events:none;
   background: radial-gradient(
     circle at var(--glow-x, 50%) var(--glow-y, 50%),
-    var(--bg1) 0%,
-    var(--bg2) 70%
+    rgba(26, 47, 107, 0.90) 0%,
+    rgba(26, 47, 107, 0.35) 22%,
+    rgba(2, 6, 17, 0.00) 60%
   );
 }
 
-/* Sezioni sotto: fondo uniforme scuro */
 section{
   padding: 100px 18px;
   text-align:center;
+  background: transparent; /* ✅ IMPORTANT: evita stacchi */
 }
 
 .container{
@@ -230,7 +236,7 @@ section{
   transform: translate(-50%,-50%);
   background: var(--white);
   border-radius:50%;
-  pointer-events:none; /* hover/touch sull’orbita, non sul pianeta */
+  pointer-events:none; /* interazione sull’orbita */
 }
 
 /* Pianeti (dimensioni responsive) */
@@ -250,7 +256,8 @@ section{
   to{ transform: translate(-50%,-50%) rotate(360deg); }
 }
 
-/* Orbits scale + speed + z-index layering (CRITICAL per hover/touch) */
+/* Orbits scale + speed + z-index layering
+   (CRITICAL: gli anelli interni devono “stare sopra” per essere selezionabili) */
 .orbit.mercurio { width:10%; height:10%; animation:spin 6s linear infinite;  z-index:9; }
 .orbit.venere   { width:15%; height:15%; animation:spin 10s linear infinite; z-index:8; }
 .orbit.terra    { width:20%; height:20%; animation:spin 14s linear infinite; z-index:7; }
@@ -261,7 +268,7 @@ section{
 .orbit.nettuno  { width:65%; height:65%; animation:spin 42s linear infinite; z-index:2; }
 .orbit.plutone  { width:75%; height:75%; animation:spin 50s linear infinite; z-index:1; }
 
-/* Label: una sola, posizione elegante e fissa */
+/* Label (una sola, elegante) */
 .planet-label{
   position:absolute;
   top:50%;
@@ -276,7 +283,20 @@ section{
   pointer-events:none;
 }
 
-/* Map card */
+/* ✅ MOBILE: label sotto il sistema solare */
+@media (max-width: 560px){
+  .planet-label{
+    top: calc(100% + 22px);
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 0);
+    text-align: center;
+    min-width: 0;
+    width: min(90vw, 320px);
+  }
+}
+
+/* Map card (location) */
 .map{
   width: 84%;
   max-width: 720px;
@@ -289,3 +309,4 @@ section{
   border:0;
   border-radius: 14px;
 }
+``
