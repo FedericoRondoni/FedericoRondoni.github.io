@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
+<html><html lang="it">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Location — Elisa e Federico</title>
@@ -13,7 +12,7 @@
     <div class="hamburger" id="hamburger" aria-label="Apri menu" role="button" tabindex="0">
       <span></span><span></span><span></span>
     </div>
-    <div class="menu-content" id="menuContent">
+    <div class="menu-content">
       <a href="index.html">Home</a>
       <a href="location.html">Location</a>
       <a href="index.html#rsvp">RSVP</a>
@@ -38,7 +37,6 @@
 
     <p style="opacity:.7; margin-top:22px; max-width: 760px; line-height: 1.6;">
       Indicazioni: uscita Fossato di Vico → seguire per Gubbio → Castel d'Alfiolo.
-      (Se vuoi, aggiungiamo anche un bottone “Apri su Google Maps” e una sezione parcheggio.)
     </p>
   </div>
 
@@ -51,16 +49,11 @@
     // Hamburger toggle
     const menu = document.getElementById('menu');
     const hamburger = document.getElementById('hamburger');
-
-    function toggleMenu(){
-      menu.classList.toggle('open');
-    }
-
+    function toggleMenu(){ menu.classList.toggle('open'); }
     hamburger.addEventListener('click', toggleMenu);
     hamburger.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') toggleMenu();
     });
-
     document.querySelectorAll('.menu-content a').forEach(a => {
       a.addEventListener('click', () => menu.classList.remove('open'));
     });
@@ -69,10 +62,7 @@
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
-
-        // Only skip fade if link is in-page anchor (location page doesn't have # anchors anyway)
         if (href && href.startsWith('#')) return;
-
         e.preventDefault();
         document.body.classList.remove('loaded');
         setTimeout(() => { window.location.href = href; }, 600);
