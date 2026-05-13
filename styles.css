@@ -1,6 +1,5 @@
 /* =========================
    Font self-hosted: Alice
-   (assumes /fonts/Alice-Regular.woff2 exists)
    ========================= */
 @font-face {
   font-family: "Alice";
@@ -11,23 +10,38 @@
 }
 
 :root{
-  --bg1:#1a2f6b;
-  --bg2:#020611;
+  --bg1:#1a2f6b;          /* parte chiara (solo sotto al Sole) */
+  --bg2:#020611;          /* parte scura (tutta la pagina) */
   --white: rgba(255,255,255,1);
   --white-70: rgba(255,255,255,0.7);
   --white-12: rgba(255,255,255,0.12);
-  --white-08: rgba(255,255,255,0.08);
   --black-85: rgba(0,0,0,0.85);
+
+  /* ✅ Responsive sizing */
+  --ss-size: clamp(260px, 60vmin, 560px);  /* canvas sistema solare */
+  --label-offset: clamp(70px, 12vmin, 140px);
+
+  /* Pianeti (scalano con viewport) */
+  --p-merc: clamp(2px, 0.45vmin, 3px);
+  --p-ven:  clamp(3px, 0.65vmin, 4px);
+  --p-ter:  clamp(4px, 0.75vmin, 5px);
+  --p-mar:  clamp(3px, 0.65vmin, 4px);
+  --p-gio:  clamp(10px, 2.8vmin, 18px);  /* Giove max 18px circa */
+  --p-sat:  clamp(9px, 2.2vmin, 14px);
+  --p-ura:  clamp(7px, 1.7vmin, 10px);
+  --p-net:  clamp(7px, 1.7vmin, 10px);
+  --p-plu:  clamp(2px, 0.45vmin, 3px);
 }
 
 /* =========================
    Base + Page transitions
    ========================= */
 html, body { height: 100%; }
+
 body{
   margin:0;
   color: var(--white);
-  background: radial-gradient(circle at center, var(--bg1) 0%, var(--bg2) 80%);
+  background: var(--bg2); /* ✅ sempre scuro, non “ripete” mai */
   opacity:0;
   transition: opacity .8s ease;
   overflow-x:hidden;
@@ -36,7 +50,6 @@ body{
 
 body.loaded{ opacity:1; }
 
-/* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce){
   *{ animation: none !important; transition: none !important; }
   body{ opacity: 1 !important; }
@@ -91,7 +104,6 @@ body.loaded{ opacity:1; }
   border-radius:10px;
   transition: background .2s ease, opacity .2s ease;
   opacity: .92;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 .menu-content a:hover{
@@ -108,28 +120,29 @@ h1, h2, .planet-label, .page-title{
 }
 
 h1{
-  font-size: 56px;
+  font-size: clamp(40px, 6.2vmin, 58px);
   letter-spacing: 2px;
   margin: 0 0 10px;
 }
 
 .subtitle{
-  font-size: 16px;
+  font-size: clamp(14px, 2.1vmin, 16px);
   opacity: var(--white-70);
   margin: 0 0 42px;
   line-height: 1.5;
 }
 
 h2{
-  font-size: 34px;
+  font-size: clamp(26px, 4.3vmin, 34px);
   margin: 0 0 24px;
   letter-spacing: 1px;
 }
 
 /* =========================
-   Layout sections
+   Hero + “single radial gradient”
    ========================= */
 .hero{
+  position: relative;
   min-height: 100vh;
   display:flex;
   flex-direction:column;
@@ -140,6 +153,20 @@ h2{
   box-sizing: border-box;
 }
 
+/* ✅ Il gradiente è SOLO qui dentro, e centrato sul Sole tramite CSS vars */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background: radial-gradient(
+    circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    var(--bg1) 0%,
+    var(--bg2) 70%
+  );
+}
+
+/* Sezioni sotto: fondo uniforme scuro */
 section{
   padding: 100px 18px;
   text-align:center;
@@ -157,7 +184,7 @@ section{
 }
 
 /* =========================
-   Solar system
+   Solar system (responsive)
    ========================= */
 .wrapper{
   position:relative;
@@ -166,14 +193,12 @@ section{
   justify-content:center;
 }
 
-/* Solar system canvas */
 .solar-system{
   position:relative;
-  width:60vmin;
-  height:60vmin;
+  width: var(--ss-size);
+  height: var(--ss-size);
 }
 
-/* Sun */
 .sun{
   position:absolute;
   width:4px;
@@ -194,6 +219,7 @@ section{
   border:1px solid var(--white-12);
   border-radius:50%;
   transform: translate(-50%,-50%);
+  touch-action: manipulation; /* ✅ aiuta su mobile */
 }
 
 /* Planet marker */
@@ -204,19 +230,19 @@ section{
   transform: translate(-50%,-50%);
   background: var(--white);
   border-radius:50%;
-  pointer-events:none; /* important: hover is on orbit */
+  pointer-events:none; /* hover/touch sull’orbita, non sul pianeta */
 }
 
-/* Planet sizes */
-.mercurio{ width:2px; height:2px; }
-.venere{ width:3px; height:3px; }
-.terra{ width:4px; height:4px; }
-.marte{ width:3px; height:3px; }
-.giove{ width:18px; height:18px; }
-.saturno{ width:14px; height:14px; }
-.urano{ width:10px; height:10px; }
-.nettuno{ width:10px; height:10px; }
-.plutone{ width:2px; height:2px; }
+/* Pianeti (dimensioni responsive) */
+.mercurio{ width:var(--p-merc); height:var(--p-merc); }
+.venere{ width:var(--p-ven); height:var(--p-ven); }
+.terra{ width:var(--p-ter); height:var(--p-ter); }
+.marte{ width:var(--p-mar); height:var(--p-mar); }
+.giove{ width:var(--p-gio); height:var(--p-gio); }
+.saturno{ width:var(--p-sat); height:var(--p-sat); }
+.urano{ width:var(--p-ura); height:var(--p-ura); }
+.nettuno{ width:var(--p-net); height:var(--p-net); }
+.plutone{ width:var(--p-plu); height:var(--p-plu); }
 
 /* Spin animation */
 @keyframes spin{
@@ -224,8 +250,7 @@ section{
   to{ transform: translate(-50%,-50%) rotate(360deg); }
 }
 
-/* Orbits scale + speed + z-index layering
-   z-index is CRITICAL so inner orbits are hoverable */
+/* Orbits scale + speed + z-index layering (CRITICAL per hover/touch) */
 .orbit.mercurio { width:10%; height:10%; animation:spin 6s linear infinite;  z-index:9; }
 .orbit.venere   { width:15%; height:15%; animation:spin 10s linear infinite; z-index:8; }
 .orbit.terra    { width:20%; height:20%; animation:spin 14s linear infinite; z-index:7; }
@@ -236,55 +261,31 @@ section{
 .orbit.nettuno  { width:65%; height:65%; animation:spin 42s linear infinite; z-index:2; }
 .orbit.plutone  { width:75%; height:75%; animation:spin 50s linear infinite; z-index:1; }
 
-/* The single label (fixed position, elegant) */
+/* Label: una sola, posizione elegante e fissa */
 .planet-label{
   position:absolute;
   top:50%;
-  right:-120px; /* roughly where Giove area sits in your layout */
+  right: calc(var(--label-offset) * -1);
   transform:translateY(-50%);
-  font-size: 22px;
+  font-size: clamp(16px, 2.8vmin, 22px);
   letter-spacing: 1px;
   opacity:0;
-  transition: opacity .25s ease;
+  transition: opacity .18s ease;
   min-width: 140px;
   text-align:left;
+  pointer-events:none;
 }
 
-/* Show label on orbit hover */
-.orbit:hover ~ .planet-label{ opacity: .85; }
-
-/* Set label text based on which orbit is hovered */
-.orbit.mercurio:hover ~ .planet-label::after { content:"Mercurio"; }
-.orbit.venere:hover   ~ .planet-label::after { content:"Venere"; }
-.orbit.terra:hover    ~ .planet-label::after { content:"Terra"; }
-.orbit.marte:hover    ~ .planet-label::after { content:"Marte"; }
-.orbit.giove:hover    ~ .planet-label::after { content:"Giove"; }
-.orbit.saturno:hover  ~ .planet-label::after { content:"Saturno"; }
-.orbit.urano:hover    ~ .planet-label::after { content:"Urano"; }
-.orbit.nettuno:hover  ~ .planet-label::after { content:"Nettuno"; }
-.orbit.plutone:hover  ~ .planet-label::after { content:"Plutone"; }
-
-/* =========================
-   Location page map card
-   ========================= */
+/* Map card */
 .map{
   width: 84%;
   max-width: 720px;
   height: 340px;
   margin-top: 28px;
 }
-
 .map iframe{
   width:100%;
   height:100%;
   border:0;
   border-radius: 14px;
-}
-
-/* Small screens */
-@media (max-width: 560px){
-  h1{ font-size: 44px; }
-  .planet-label{ right: -90px; font-size: 18px; min-width: 120px; }
-  .solar-system{ width: 72vmin; height: 72vmin; }
-  .map{ height: 300px; width: 92%; }
 }
