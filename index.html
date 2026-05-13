@@ -8,9 +8,8 @@
 </head>
 <body>
 
-  <!-- MENU -->
   <div class="menu" id="menu">
-    <div class="hamburger" id="hamburger" aria-label="Apri menu" role="button" tabindex="0">
+    <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Apri menu">
       <span></span><span></span><span></span>
     </div>
     <div class="menu-content">
@@ -20,11 +19,10 @@
     </div>
   </div>
 
-  <!-- HERO -->
   <div class="hero" id="hero">
     <h1>Elisa e Federico</h1>
     <div class="subtitle">
-      2 gennaio 2026<br/>
+      2 gennaio 2026<br>
       Abbazia Castel d'Alfiolo — Gubbio
     </div>
 
@@ -47,43 +45,43 @@
     </div>
   </div>
 
-  <!-- RSVP -->
   <section id="rsvp">
     <h2>Conferma la tua presenza</h2>
+    <p style="opacity:.7; margin:0; line-height:1.6;">
+      (Se vuoi, nella prossima iterazione colleghiamo l’RSVP a Google Sheets o email.)
+    </p>
   </section>
 
   <script>
-    // ===== Fade-in on load
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
       positionGlowUnderSun();
     });
 
-    // ===== Hamburger toggle
     const menu = document.getElementById('menu');
     const hamburger = document.getElementById('hamburger');
 
     function toggleMenu(){ menu.classList.toggle('open'); }
+
     hamburger.addEventListener('click', toggleMenu);
     hamburger.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') toggleMenu();
     });
+
     document.querySelectorAll('.menu-content a').forEach(a => {
       a.addEventListener('click', () => menu.classList.remove('open'));
     });
 
-    // ===== Smooth transitions between pages (fade-out)
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
-        if (href && href.startsWith('#')) return; // no fade for in-page anchor
+        if (href && href.startsWith('#')) return;
         e.preventDefault();
         document.body.classList.remove('loaded');
         setTimeout(() => { window.location.href = href; }, 600);
       });
     });
 
-    // ===== 1) Position the gradient glow exactly under the sun
     function positionGlowUnderSun(){
       const hero = document.getElementById('hero');
       const sun  = document.getElementById('sun');
@@ -92,7 +90,6 @@
       const heroRect = hero.getBoundingClientRect();
       const sunRect  = sun.getBoundingClientRect();
 
-      // center of sun relative to hero
       const x = (sunRect.left + sunRect.width/2) - heroRect.left;
       const y = (sunRect.top  + sunRect.height/2) - heroRect.top;
 
@@ -102,39 +99,60 @@
 
     window.addEventListener('resize', positionGlowUnderSun);
 
-    // ===== 3) Planet names on desktop + mobile (pointer + touch)
     const label  = document.getElementById('planetLabel');
     const orbits = Array.from(document.querySelectorAll('.orbit'));
+
+    let hideTimer = null;
+    const LABEL_HIDE_DELAY = 900;
 
     function showLabel(text){
       label.textContent = text;
       label.style.opacity = '0.85';
     }
-    function hideLabel(){
+
+    function hideLabelNow(){
       label.style.opacity = '0';
-      // optional: clear text after fade
-      setTimeout(() => { if(label.style.opacity === '0') label.textContent = ''; }, 200);
+      setTimeout(() => {
+        if (label.style.opacity === '0') label.textContent = '';
+      }, 200);
     }
 
-    // Desktop hover
-    orbits.forEach(orbit => {
-      orbit.addEventListener('pointerenter', () => showLabel(orbit.dataset.name));
-      orbit.addEventListener('pointerleave', hideLabel);
+    function scheduleHide(){
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hideLabelNow, LABEL_HIDE_DELAY);
+    }
 
-      // Mobile / touch: show on touch, hide when finger leaves
-      orbit.addEventListener('pointerdown', (e) => {
-        // capture pointer so we reliably get pointerup/cancel
-        orbit.setPointerCapture?.(e.pointerId);
+    function cancelHide(){
+      clearTimeout(hideTimer);
+      hideTimer = null;
+    }
+
+    orbits.forEach(orbit => {
+      orbit.addEventListener('pointerenter', () => {
+        cancelHide();
         showLabel(orbit.dataset.name);
       });
-      orbit.addEventListener('pointerup', hideLabel);
-      orbit.addEventListener('pointercancel', hideLabel);
+
+      orbit.addEventListener('pointerleave', () => {
+        scheduleHide();
+      });
+
+      orbit.addEventListener('pointerdown', (e) => {
+        orbit.setPointerCapture?.(e.pointerId);
+        cancelHide();
+        showLabel(orbit.dataset.name);
+      });
+
+      orbit.addEventListener('pointerup', () => {
+        scheduleHide();
+      });
+
+      orbit.addEventListener('pointercancel', scheduleHide);
     });
 
-    // Tap anywhere else = hide label
     document.addEventListener('pointerdown', (e) => {
-      const isOrbit = e.target.classList && e.target.classList.contains('orbit');
-      if(!isOrbit) hideLabel();
+      const isOrbit = e.target && e.target.classList && e.target.classList.contains('orbit');
+      if(!isOrbit) scheduleHide();
     });
   </script>
 
