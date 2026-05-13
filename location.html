@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html><html lang="it">
+<html lang="it">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Location — Elisa e Federico</title>
@@ -7,9 +8,8 @@
 </head>
 <body>
 
-  <!-- MENU -->
   <div class="menu" id="menu">
-    <div class="hamburger" id="hamburger" aria-label="Apri menu" role="button" tabindex="0">
+    <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Apri menu">
       <span></span><span></span><span></span>
     </div>
     <div class="menu-content">
@@ -22,7 +22,7 @@
   <div class="container">
     <h1 class="page-title">Location</h1>
     <div class="subtitle" style="margin-bottom: 10px;">
-      Abbazia Castel d'Alfiolo<br/>
+      Abbazia Castel d'Alfiolo<br>
       Gubbio
     </div>
 
@@ -41,24 +41,24 @@
   </div>
 
   <script>
-    // Fade-in on load
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
     });
 
-    // Hamburger toggle
     const menu = document.getElementById('menu');
     const hamburger = document.getElementById('hamburger');
+
     function toggleMenu(){ menu.classList.toggle('open'); }
+
     hamburger.addEventListener('click', toggleMenu);
     hamburger.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') toggleMenu();
     });
+
     document.querySelectorAll('.menu-content a').forEach(a => {
       a.addEventListener('click', () => menu.classList.remove('open'));
     });
 
-    // Smooth transitions between pages (fade-out)
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
