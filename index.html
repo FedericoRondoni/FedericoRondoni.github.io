@@ -1,221 +1,100 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elisa e Federico</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-body {
-  margin:0;
-  font-family:'Work Sans', sans-serif;
-  color:white;
-  background: radial-gradient(circle at center, #1a2f6b 0%, #020611 80%);
-  opacity:0;
-  transition: opacity 0.8s ease;
-}
-body.loaded { opacity:1; }
-
-.menu {
-  position:fixed;
-  top:30px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:1000;
-}
-.hamburger span {
-  display:block;
-  width:30px;
-  height:3px;
-  background:white;
-  margin:6px auto;
-  border-radius:4px;
-}
-.menu-content {
-  display:none;
-  background:rgba(0,0,0,0.85);
-  padding:15px;
-  border-radius:12px;
-  margin-top:10px;
-}
-.menu.open .menu-content {display:block;}
-.menu-content a { display:block; color:white; text-decoration:none; padding:8px; }
-
-.hero {
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-
-h1 {
-  font-family:'Playfair Display', serif;
-  font-size:52px;
-  letter-spacing:4px;
-}
-
-.subtitle {
-  font-size:16px;
-  opacity:0.7;
-  margin-bottom:40px;
-}
-
-.wrapper {
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.solar-system {
-  position:relative;
-  width:60vmin;
-  height:60vmin;
-}
-
-.sun {
-  position:absolute;
-  width:4px;
-  height:4px;
-  background:white;
-  border-radius:50%;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  box-shadow:0 0 10px rgba(255,255,255,0.7);
-}
-
-.orbit {
-  position:absolute;
-  border:1px solid rgba(255,255,255,0.12);
-  border-radius:50%;
-  top:50%; left:50%;
-}
-
-.planet {
-  position:absolute;
-  top:50%; left:100%;
-  transform:translate(-50%,-50%);
-  background:white;
-  border-radius:50%;
-  pointer-events:none;
-}
-
-/* ✅ CRITICAL FIX: Z-INDEX so inner orbits are hoverable */
-.orbit.mercurio {width:10%;height:10%;animation:spin 6s linear infinite; z-index:9;}
-.orbit.venere   {width:15%;height:15%;animation:spin 10s linear infinite; z-index:8;}
-.orbit.terra    {width:20%;height:20%;animation:spin 14s linear infinite; z-index:7;}
-.orbit.marte    {width:25%;height:25%;animation:spin 18s linear infinite; z-index:6;}
-.orbit.giove    {width:35%;height:35%;animation:spin 24s linear infinite; z-index:5;}
-.orbit.saturno  {width:45%;height:45%;animation:spin 30s linear infinite; z-index:4;}
-.orbit.urano    {width:55%;height:55%;animation:spin 36s linear infinite; z-index:3;}
-.orbit.nettuno  {width:65%;height:65%;animation:spin 42s linear infinite; z-index:2;}
-.orbit.plutone  {width:75%;height:75%;animation:spin 50s linear infinite; z-index:1;}
-
-@keyframes spin {
-  from {transform:translate(-50%,-50%) rotate(0deg);} 
-  to {transform:translate(-50%,-50%) rotate(360deg);} 
-}
-
-.mercurio{width:2px;height:2px;}
-.venere{width:3px;height:3px;}
-.terra{width:4px;height:4px;}
-.marte{width:3px;height:3px;}
-.giove{width:18px;height:18px;}
-.saturno{width:14px;height:14px;}
-.urano{width:10px;height:10px;}
-.nettuno{width:10px;height:10px;}
-.plutone{width:2px;height:2px;}
-
-.planet-label {
-  position:absolute;
-  top:50%;
-  right:-120px;
-  transform:translateY(-50%);
-  font-family:'Playfair Display', serif;
-  font-size:20px;
-  opacity:0;
-  transition:opacity 0.3s ease;
-}
-
-.orbit.mercurio:hover ~ .planet-label::after {content:"Mercurio";}
-.orbit.venere:hover ~ .planet-label::after {content:"Venere";}
-.orbit.terra:hover ~ .planet-label::after {content:"Terra";}
-.orbit.marte:hover ~ .planet-label::after {content:"Marte";}
-.orbit.giove:hover ~ .planet-label::after {content:"Giove";}
-.orbit.saturno:hover ~ .planet-label::after {content:"Saturno";}
-.orbit.urano:hover ~ .planet-label::after {content:"Urano";}
-.orbit.nettuno:hover ~ .planet-label::after {content:"Nettuno";}
-.orbit.plutone:hover ~ .planet-label::after {content:"Plutone";}
-
-.orbit:hover ~ .planet-label { opacity:0.8; }
-
-section { padding:100px 20px; }
-
-h2 {
-  font-family:'Playfair Display', serif;
-  font-size:32px;
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elisa e Federico</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
-<div class="menu" onclick="this.classList.toggle('open')">
-  <div class="hamburger">
-    <span></span><span></span><span></span>
-  </div>
-  <div class="menu-content">
-    <a href="index.html">Home</a>
-    <a href="location.html">Location</a>
-    <a href="#rsvp">RSVP</a>
-  </div>
-</div>
-
-<div class="hero">
-  <h1>Elisa e Federico</h1>
-  <div class="subtitle">2 gennaio 2026<br>Abbazia Castel d'Alfiolo — Gubbio</div>
-
-  <div class="wrapper">
-    <div class="solar-system">
-      <div class="sun"></div>
-
-      <div class="orbit mercurio"><div class="planet mercurio"></div></div>
-      <div class="orbit venere"><div class="planet venere"></div></div>
-      <div class="orbit terra"><div class="planet terra"></div></div>
-      <div class="orbit marte"><div class="planet marte"></div></div>
-      <div class="orbit giove"><div class="planet giove"></div></div>
-      <div class="orbit saturno"><div class="planet saturno"></div></div>
-      <div class="orbit urano"><div class="planet urano"></div></div>
-      <div class="orbit nettuno"><div class="planet nettuno"></div></div>
-      <div class="orbit plutone"><div class="planet plutone"></div></div>
-
-      <div class="planet-label"></div>
+  <!-- MENU -->
+  <div class="menu" id="menu">
+    <div class="hamburger" id="hamburger" aria-label="Apri menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="menu-content" id="menuContent">
+      <a href="index.html">Home</a>
+      <a href="location.html">Location</a>
+      <a href="#rsvp">RSVP</a>
     </div>
   </div>
-</div>
 
-<section id="rsvp">
-  <h2>Conferma la tua presenza</h2>
-</section>
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Elisa e Federico</h1>
+    <div class="subtitle">
+      2 gennaio 2026<br/>
+      Abbazia Castel d'Alfiolo — Gubbio
+    </div>
 
-<script>
-window.onload = () => document.body.classList.add('loaded');
+    <div class="wrapper">
+      <div class="solar-system" aria-label="Sistema solare stilizzato">
 
-const links = document.querySelectorAll('a[href]');
-links.forEach(link => {
-  link.addEventListener('click', function(e) {
-    if (this.getAttribute('href').includes('#')) return;
-    e.preventDefault();
-    document.body.classList.remove('loaded');
-    setTimeout(() => window.location = this.href, 600);
-  });
-});
-</script>
+        <div class="sun"></div>
+
+        <div class="orbit mercurio"><div class="planet mercurio"></div></div>
+        <div class="orbit venere"><div class="planet venere"></div></div>
+        <div class="orbit terra"><div class="planet terra"></div></div>
+        <div class="orbit marte"><div class="planet marte"></div></div>
+        <div class="orbit giove"><div class="planet giove"></div></div>
+        <div class="orbit saturno"><div class="planet saturno"></div></div>
+        <div class="orbit urano"><div class="planet urano"></div></div>
+        <div class="orbit nettuno"><div class="planet nettuno"></div></div>
+        <div class="orbit plutone"><div class="planet plutone"></div></div>
+
+        <!-- single label box (fixed position) -->
+        <div class="planet-label" aria-hidden="true"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- RSVP SECTION -->
+  <section id="rsvp">
+    <h2>Conferma la tua presenza</h2>
+    <p style="opacity:.7; margin:0;">(Se vuoi, nella prossima iterazione colleghiamo l’RSVP a Google Sheets o email.)</p>
+  </section>
+
+  <script>
+    // Fade-in on load
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    // Hamburger toggle
+    const menu = document.getElementById('menu');
+    const hamburger = document.getElementById('hamburger');
+
+    function toggleMenu(){
+      menu.classList.toggle('open');
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    hamburger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') toggleMenu();
+    });
+
+    // Close menu when clicking a menu link
+    document.querySelectorAll('.menu-content a').forEach(a => {
+      a.addEventListener('click', () => menu.classList.remove('open'));
+    });
+
+    // Smooth transitions between pages (fade-out)
+    document.querySelectorAll('a[href]').forEach(link => {
+      link.addEventListener('click', function(e){
+        const href = this.getAttribute('href');
+
+        // If it's an in-page anchor (#...), do not fade-out (keep smooth scroll)
+        if (href && href.startsWith('#')) return;
+
+        // Otherwise do fade-out then navigate
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => { window.location.href = href; }, 600);
+      });
+    });
+  </script>
 
 </body>
 </html>
