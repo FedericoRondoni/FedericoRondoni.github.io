@@ -13,7 +13,7 @@
     <div class="hamburger" id="hamburger" aria-label="Apri menu" role="button" tabindex="0">
       <span></span><span></span><span></span>
     </div>
-    <div class="menu-content" id="menuContent">
+    <div class="menu-content">
       <a href="index.html">Home</a>
       <a href="location.html">Location</a>
       <a href="#rsvp">RSVP</a>
@@ -21,7 +21,7 @@
   </div>
 
   <!-- HERO -->
-  <div class="hero">
+  <div class="hero" id="hero">
     <h1>Elisa e Federico</h1>
     <div class="subtitle">
       2 gennaio 2026<br/>
@@ -29,72 +29,118 @@
     </div>
 
     <div class="wrapper">
-      <div class="solar-system" aria-label="Sistema solare stilizzato">
+      <div class="solar-system" id="solarSystem" aria-label="Sistema solare stilizzato">
+        <div class="sun" id="sun"></div>
 
-        <div class="sun"></div>
+        <div class="orbit mercurio" data-name="Mercurio"><div class="planet mercurio"></div></div>
+        <div class="orbit venere" data-name="Venere"><div class="planet venere"></div></div>
+        <div class="orbit terra" data-name="Terra"><div class="planet terra"></div></div>
+        <div class="orbit marte" data-name="Marte"><div class="planet marte"></div></div>
+        <div class="orbit giove" data-name="Giove"><div class="planet giove"></div></div>
+        <div class="orbit saturno" data-name="Saturno"><div class="planet saturno"></div></div>
+        <div class="orbit urano" data-name="Urano"><div class="planet urano"></div></div>
+        <div class="orbit nettuno" data-name="Nettuno"><div class="planet nettuno"></div></div>
+        <div class="orbit plutone" data-name="Plutone"><div class="planet plutone"></div></div>
 
-        <div class="orbit mercurio"><div class="planet mercurio"></div></div>
-        <div class="orbit venere"><div class="planet venere"></div></div>
-        <div class="orbit terra"><div class="planet terra"></div></div>
-        <div class="orbit marte"><div class="planet marte"></div></div>
-        <div class="orbit giove"><div class="planet giove"></div></div>
-        <div class="orbit saturno"><div class="planet saturno"></div></div>
-        <div class="orbit urano"><div class="planet urano"></div></div>
-        <div class="orbit nettuno"><div class="planet nettuno"></div></div>
-        <div class="orbit plutone"><div class="planet plutone"></div></div>
-
-        <!-- single label box (fixed position) -->
-        <div class="planet-label" aria-hidden="true"></div>
-
+        <div class="planet-label" id="planetLabel" aria-hidden="true"></div>
       </div>
     </div>
   </div>
 
-  <!-- RSVP SECTION -->
+  <!-- RSVP -->
   <section id="rsvp">
     <h2>Conferma la tua presenza</h2>
-    <p style="opacity:.7; margin:0;">(Se vuoi, nella prossima iterazione colleghiamo l’RSVP a Google Sheets o email.)</p>
+    <p style="opacity:.7; margin:0; line-height:1.6;">
+      (Se vuoi, nella prossima iterazione colleghiamo l’RSVP a Google Sheets o email.)
+    </p>
   </section>
 
   <script>
-    // Fade-in on load
+    // ===== Fade-in on load
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
+      positionGlowUnderSun();
     });
 
-    // Hamburger toggle
+    // ===== Hamburger toggle
     const menu = document.getElementById('menu');
     const hamburger = document.getElementById('hamburger');
 
-    function toggleMenu(){
-      menu.classList.toggle('open');
-    }
-
+    function toggleMenu(){ menu.classList.toggle('open'); }
     hamburger.addEventListener('click', toggleMenu);
     hamburger.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') toggleMenu();
     });
-
-    // Close menu when clicking a menu link
     document.querySelectorAll('.menu-content a').forEach(a => {
       a.addEventListener('click', () => menu.classList.remove('open'));
     });
 
-    // Smooth transitions between pages (fade-out)
+    // ===== Smooth transitions between pages (fade-out)
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
-
-        // If it's an in-page anchor (#...), do not fade-out (keep smooth scroll)
-        if (href && href.startsWith('#')) return;
-
-        // Otherwise do fade-out then navigate
+        if (href && href.startsWith('#')) return; // no fade for in-page anchor
         e.preventDefault();
         document.body.classList.remove('loaded');
         setTimeout(() => { window.location.href = href; }, 600);
       });
     });
+
+    // ===== 1) Position the gradient glow exactly under the sun
+    function positionGlowUnderSun(){
+      const hero = document.getElementById('hero');
+      const sun  = document.getElementById('sun');
+      if(!hero || !sun) return;
+
+      const heroRect = hero.getBoundingClientRect();
+      const sunRect  = sun.getBoundingClientRect();
+
+      // center of sun relative to hero
+      const x = (sunRect.left + sunRect.width/2) - heroRect.left;
+      const y = (sunRect.top  + sunRect.height/2) - heroRect.top;
+
+      hero.style.setProperty('--glow-x', `${x}px`);
+      hero.style.setProperty('--glow-y', `${y}px`);
+    }
+
+    window.addEventListener('resize', positionGlowUnderSun);
+
+    // ===== 3) Planet names on desktop + mobile (pointer + touch)
+    const label  = document.getElementById('planetLabel');
+    const orbits = Array.from(document.querySelectorAll('.orbit'));
+
+    function showLabel(text){
+      label.textContent = text;
+      label.style.opacity = '0.85';
+    }
+    function hideLabel(){
+      label.style.opacity = '0';
+      // optional: clear text after fade
+      setTimeout(() => { if(label.style.opacity === '0') label.textContent = ''; }, 200);
+    }
+
+    // Desktop hover
+    orbits.forEach(orbit => {
+      orbit.addEventListener('pointerenter', () => showLabel(orbit.dataset.name));
+      orbit.addEventListener('pointerleave', hideLabel);
+
+      // Mobile / touch: show on touch, hide when finger leaves
+      orbit.addEventListener('pointerdown', (e) => {
+        // capture pointer so we reliably get pointerup/cancel
+        orbit.setPointerCapture?.(e.pointerId);
+        showLabel(orbit.dataset.name);
+      });
+      orbit.addEventListener('pointerup', hideLabel);
+      orbit.addEventListener('pointercancel', hideLabel);
+    });
+
+    // Tap anywhere else = hide label
+    document.addEventListener('pointerdown', (e) => {
+      const isOrbit = e.target.classList && e.target.classList.contains('orbit');
+      if(!isOrbit) hideLabel();
+    });
   </script>
 
 </body>
 </html>
+``
