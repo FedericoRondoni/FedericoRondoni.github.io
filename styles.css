@@ -7,19 +7,25 @@
 }
 
 :root{
-  --bg1:#1a2f6b;
-  --bg2:#020611;
+  --bg1:#1a2f6b;          /* chiaro sotto il Sole */
+  --bg2:#020611;          /* scuro generale */
 
   --white: rgba(255,255,255,1);
   --white-70: rgba(255,255,255,0.7);
   --white-12: rgba(255,255,255,0.12);
   --black-85: rgba(0,0,0,0.85);
 
+  /* Sistema solare responsive */
   --ss-size: clamp(260px, 60vmin, 560px);
 
+  /* Pluto: orbit width 75% => radius 37.5% del canvas */
+  --pluto-radius: calc(var(--ss-size) * 0.375);
+
+  /* Label */
   --label-offset: clamp(70px, 12vmin, 140px);
   --label-gap-mobile: clamp(18px, 3vmin, 28px);
 
+  /* Pianeti responsive */
   --p-merc: clamp(2px, 0.45vmin, 3px);
   --p-ven:  clamp(3px, 0.65vmin, 4px);
   --p-ter:  clamp(4px, 0.75vmin, 5px);
@@ -142,6 +148,8 @@ h2{
   box-sizing: border-box;
 }
 
+/* GRADIENTE: chiaro al Sole, scuro ESATTAMENTE al raggio di Plutone.
+   Fuori dal raggio di Plutone resta scuro (bg2), quindi niente linea di stacco. */
 .hero::before{
   content:"";
   position:absolute;
@@ -149,12 +157,9 @@ h2{
   z-index:-1;
   pointer-events:none;
   background: radial-gradient(
-    circle at var(--glow-x, 50%) var(--glow-y, 50%),
-    rgba(26, 47, 107, 0.90) 0%,
-    rgba(26, 47, 107, 0.35) 22%,
-    rgba(26, 47, 107, 0.10) 45%,
-    rgba(2, 6, 17, 0.00) 70%,
-    rgba(2, 6, 17, 0.00) 100%
+    circle var(--pluto-radius) at var(--glow-x, 50%) var(--glow-y, 50%),
+    var(--bg1) 0%,
+    var(--bg2) 100%
   );
 }
 
@@ -225,6 +230,7 @@ section{
   pointer-events:none;
 }
 
+/* Pianeti */
 .mercurio{ width:var(--p-merc); height:var(--p-merc); }
 .venere{ width:var(--p-ven); height:var(--p-ven); }
 .terra{ width:var(--p-ter); height:var(--p-ter); }
@@ -240,6 +246,7 @@ section{
   to{ transform: translate(-50%,-50%) rotate(360deg); }
 }
 
+/* Orbits scale + speed + z-index */
 .orbit.mercurio { width:10%; height:10%; animation:spin 6s linear infinite;  z-index:9; }
 .orbit.venere   { width:15%; height:15%; animation:spin 10s linear infinite; z-index:8; }
 .orbit.terra    { width:20%; height:20%; animation:spin 14s linear infinite; z-index:7; }
