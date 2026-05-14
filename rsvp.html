@@ -27,9 +27,7 @@
   <main>
     <div class="container">
       <h1 class="page-title">RSVP</h1>
-      <div class="subtitle" style="margin-bottom: 18px;">
-        Conferma la tua presenza
-      </div>
+      <div class="subtitle" style="margin-bottom: 18px;">Conferma la tua presenza</div>
 
       <div style="width:84%; max-width: 900px; margin: 0 auto;">
         <iframe
@@ -53,6 +51,7 @@
 
     const header = document.getElementById('siteHeader');
     const burger = document.getElementById('burger');
+
     burger.addEventListener('click', () => header.classList.toggle('open'));
 
     document.querySelectorAll('.nav-panel a').forEach(a => {
