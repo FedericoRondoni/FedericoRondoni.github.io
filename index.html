@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
+<html lang="it charset="UTF-8" /><html lang="it">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Elisa e Federico</title>
-  styles.css
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -13,9 +11,9 @@
       <span></span><span></span><span></span>
     </div>
     <div class="menu-content">
-      index.htmlHome</a>
-      location.htmlLocation</a>
-      #rsvpRSVP</a>
+      <a href="index.html">Home</a>
+      <a href="location.html">Location</a>
+      <a href="#rsvp">RSVP</a>
     </div>
   </div>
 
@@ -27,7 +25,7 @@
     </div>
 
     <div class="wrapper">
-      <div class="solar-system" id="solarSystem" aria-label="Sistema solare stilizzato">
+      <div class="solar-system" aria-label="Sistema solare stilizzato">
         <div class="sun" id="sun"></div>
 
         <div class="orbit mercurio" data-name="Mercurio"><div class="planet mercurio"></div></div>
@@ -53,14 +51,13 @@
   </section>
 
   <script>
-    // Fade in
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
       positionGlowUnderSun();
       randomizeOrbitStartPositions();
     });
 
-    // Menu
+    // Menu toggle
     const menu = document.getElementById('menu');
     const hamburger = document.getElementById('hamburger');
 
@@ -75,7 +72,7 @@
       a.addEventListener('click', () => menu.classList.remove('open'));
     });
 
-    // Smooth page transitions
+    // Page transitions
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
@@ -86,7 +83,7 @@
       });
     });
 
-    // Place gradient center exactly under sun
+    // Set gradient center under sun
     function positionGlowUnderSun(){
       const hero = document.getElementById('hero');
       const sun  = document.getElementById('sun');
@@ -101,11 +98,9 @@
       hero.style.setProperty('--glow-x', `${x}px`);
       hero.style.setProperty('--glow-y', `${y}px`);
     }
-
     window.addEventListener('resize', positionGlowUnderSun);
 
-    // Random start positions:
-    // sets a negative animation-delay based on each orbit duration
+    // Random start positions using negative animation-delay
     function randomizeOrbitStartPositions(){
       const orbits = Array.from(document.querySelectorAll('.orbit'));
       orbits.forEach(orbit => {
@@ -121,7 +116,7 @@
       });
     }
 
-    // Planet label behavior (desktop + mobile): linger then hide, or switch when selecting another orbit
+    // Label behavior: linger then hide; switch when selecting another orbit
     const label  = document.getElementById('planetLabel');
     const orbits = Array.from(document.querySelectorAll('.orbit'));
 
@@ -181,3 +176,5 @@
 
 </body>
 </html>
+
+<head>
