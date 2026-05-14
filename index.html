@@ -1,78 +1,90 @@
-<!DOCTYPE html>
-<html lang="it charset="UTF-8" /><html lang="it">
+<!DOCTYPE html><!DOCTYPE html="it">
+<head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Elisa e Federico</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="page">
 
-  <div class="menu" id="menu">
-    <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Apri menu">
-      <span></span><span></span><span></span>
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <button class="burger" id="burger" aria-label="Apri menu" type="button">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="header-title">Elisa e Federico</div>
+
+      <nav class="nav-panel" id="navPanel" aria-label="Navigazione">
+        <a href="index.html">Home</a>
+        <a href="location.html">Location</a>
+        <a href="#rsvp">RSVP</a>
+      </nav>
     </div>
-    <div class="menu-content">
-      <a href="index.html">Home</a>
-      <a href="location.html">Location</a>
-      <a href="#rsvp">RSVP</a>
-    </div>
-  </div>
+  </header>
 
-  <div class="hero" id="hero">
-    <h1>Elisa e Federico</h1>
-    <div class="subtitle">
-      2 gennaio 2026<br>
-      Abbazia Castel d'Alfiolo — Gubbio
-    </div>
+  <main>
+    <div class="hero" id="hero">
+      <h1>Elisa e Federico</h1>
+      <div class="subtitle">
+        2 gennaio 2026<br>
+        Abbazia Castel d'Alfiolo — Gubbio
+      </div>
 
-    <div class="wrapper">
-      <div class="solar-system" aria-label="Sistema solare stilizzato">
-        <div class="sun" id="sun"></div>
+      <div class="wrapper">
+        <div class="solar-system" aria-label="Sistema solare stilizzato">
+          <div class="sun" id="sun"></div>
 
-        <div class="orbit mercurio" data-name="Mercurio"><div class="planet mercurio"></div></div>
-        <div class="orbit venere" data-name="Venere"><div class="planet venere"></div></div>
-        <div class="orbit terra" data-name="Terra"><div class="planet terra"></div></div>
-        <div class="orbit marte" data-name="Marte"><div class="planet marte"></div></div>
-        <div class="orbit giove" data-name="Giove"><div class="planet giove"></div></div>
-        <div class="orbit saturno" data-name="Saturno"><div class="planet saturno"></div></div>
-        <div class="orbit urano" data-name="Urano"><div class="planet urano"></div></div>
-        <div class="orbit nettuno" data-name="Nettuno"><div class="planet nettuno"></div></div>
-        <div class="orbit plutone" data-name="Plutone"><div class="planet plutone"></div></div>
+          <div class="orbit mercurio" data-name="Mercurio"><div class="planet mercurio"></div></div>
+          <div class="orbit venere" data-name="Venere"><div class="planet venere"></div></div>
+          <div class="orbit terra" data-name="Terra"><div class="planet terra"></div></div>
+          <div class="orbit marte" data-name="Marte"><div class="planet marte"></div></div>
+          <div class="orbit giove" data-name="Giove"><div class="planet giove"></div></div>
+          <div class="orbit saturno" data-name="Saturno"><div class="planet saturno"></div></div>
+          <div class="orbit urano" data-name="Urano"><div class="planet urano"></div></div>
+          <div class="orbit nettuno" data-name="Nettuno"><div class="planet nettuno"></div></div>
+          <div class="orbit plutone" data-name="Plutone"><div class="planet plutone"></div></div>
 
-        <div class="planet-label" id="planetLabel" aria-hidden="true"></div>
+          <div class="planet-label" id="planetLabel" aria-hidden="true"></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <section id="rsvp">
-    <h2>Conferma la tua presenza</h2>
-    <p style="opacity:.7; margin:0; line-height:1.6;">
-      (Se vuoi, nella prossima iterazione colleghiamo l’RSVP a Google Sheets o email.)
-    </p>
-  </section>
+    <section id="rsvp">
+      <h2>Conferma la tua presenza</h2>
+      <p style="opacity:.7; margin:0; line-height:1.6;">
+        (Se vuoi, nella prossima iterazione colleghiamo l’RSVP a Google Sheets o email.)
+      </p>
+    </section>
+  </main>
 
   <script>
+    // Fade in
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
       positionGlowUnderSun();
       randomizeOrbitStartPositions();
+      updateHeaderState();
     });
 
-    // Menu toggle
-    const menu = document.getElementById('menu');
-    const hamburger = document.getElementById('hamburger');
+    // Header scroll behavior
+    const header = document.getElementById('siteHeader');
+    function updateHeaderState(){
+      if (window.scrollY > 40) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
 
-    function toggleMenu(){ menu.classList.toggle('open'); }
+    // Burger/menu toggle
+    const burger = document.getElementById('burger');
+    burger.addEventListener('click', () => header.classList.toggle('open'));
 
-    hamburger.addEventListener('click', toggleMenu);
-    hamburger.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') toggleMenu();
+    // Close menu on link click
+    document.querySelectorAll('.nav-panel a').forEach(a => {
+      a.addEventListener('click', () => header.classList.remove('open'));
     });
 
-    document.querySelectorAll('.menu-content a').forEach(a => {
-      a.addEventListener('click', () => menu.classList.remove('open'));
-    });
-
-    // Page transitions
+    // Smooth transitions between pages (fade-out)
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
@@ -116,7 +128,7 @@
       });
     }
 
-    // Label behavior: linger then hide; switch when selecting another orbit
+    // Planet label behavior (desktop + mobile)
     const label  = document.getElementById('planetLabel');
     const orbits = Array.from(document.querySelectorAll('.orbit'));
 
@@ -127,19 +139,16 @@
       label.textContent = text;
       label.style.opacity = '0.85';
     }
-
     function hideLabelNow(){
       label.style.opacity = '0';
       setTimeout(() => {
         if (label.style.opacity === '0') label.textContent = '';
       }, 200);
     }
-
     function scheduleHide(){
       clearTimeout(hideTimer);
       hideTimer = setTimeout(hideLabelNow, LABEL_HIDE_DELAY);
     }
-
     function cancelHide(){
       clearTimeout(hideTimer);
       hideTimer = null;
@@ -150,21 +159,17 @@
         cancelHide();
         showLabel(orbit.dataset.name);
       });
-
       orbit.addEventListener('pointerleave', () => {
         scheduleHide();
       });
-
       orbit.addEventListener('pointerdown', (e) => {
         orbit.setPointerCapture?.(e.pointerId);
         cancelHide();
         showLabel(orbit.dataset.name);
       });
-
       orbit.addEventListener('pointerup', () => {
         scheduleHide();
       });
-
       orbit.addEventListener('pointercancel', scheduleHide);
     });
 
@@ -176,5 +181,3 @@
 
 </body>
 </html>
-
-<head>
