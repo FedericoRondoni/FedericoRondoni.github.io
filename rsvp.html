@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSVP — Elisa e Federico</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page">
+
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="header-inner">
+      <button class="burger" id="burger" aria-label="Apri menu" type="button">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="header-title" style="opacity:.92;">Elisa e Federico</div>
+
+      <nav class="nav-panel" aria-label="Navigazione">
+        <a href="index.html">Home</a>
+        <a href="location.html">Location</a>
+        <a href="rsvp.html">RSVP</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1 class="page-title">RSVP</h1>
+      <div class="subtitle" style="margin-bottom: 18px;">
+        Conferma la tua presenza
+      </div>
+
+      <div style="width:84%; max-width: 900px; margin: 0 auto;">
+        <iframe
+          style="border:none;width:100%;"
+          id="elisa-e-federico-rsvp-afk5gc"
+          src="https://opnform.com/forms/elisa-e-federico-rsvp-afk5gc">
+        </iframe>
+        <script
+          type="text/javascript"
+          onload="initEmbed('elisa-e-federico-rsvp-afk5gc', { autoResize: true })"
+          src="https://opnform.com/widgets/iframe.min.js">
+        </script>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    const header = document.getElementById('siteHeader');
+    const burger = document.getElementById('burger');
+    burger.addEventListener('click', () => header.classList.toggle('open'));
+
+    document.querySelectorAll('.nav-panel a').forEach(a => {
+      a.addEventListener('click', () => header.classList.remove('open'));
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+      link.addEventListener('click', function(e){
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) return;
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => { window.location.href = href; }, 600);
+      });
+    });
+  </script>
+
+</body>
+</html>
