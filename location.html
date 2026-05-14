@@ -16,10 +16,10 @@
 
       <div class="header-title" style="opacity:.92;">Elisa e Federico</div>
 
-      <nav class="nav-panel" id="navPanel" aria-label="Navigazione">
+      <nav class="nav-panel" aria-label="Navigazione">
         <a href="index.html">Home</a>
         <a href="location.html">Location</a>
-        <a href="index.html#rsvp">RSVP</a>
+        <a href="rsvp.html">RSVP</a>
       </nav>
     </div>
   </header>
@@ -53,7 +53,6 @@
 
     const header = document.getElementById('siteHeader');
     const burger = document.getElementById('burger');
-
     burger.addEventListener('click', () => header.classList.toggle('open'));
 
     document.querySelectorAll('.nav-panel a').forEach(a => {
