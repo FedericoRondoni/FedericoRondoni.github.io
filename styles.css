@@ -7,22 +7,25 @@
 }
 
 :root{
-  --bg1:#1a2f6b;          /* chiaro sotto il Sole */
-  --bg2:#020611;          /* scuro generale */
+  --bg1:#1a2f6b;
+  --bg2:#020611;
 
   --white: rgba(255,255,255,1);
   --white-70: rgba(255,255,255,0.7);
   --white-12: rgba(255,255,255,0.12);
-  --black-85: rgba(0,0,0,0.85);
+  --black-65: rgba(2,6,17,0.65);
+  --black-35: rgba(2,6,17,0.35);
+
+  --header-h: 72px;
 
   /* Sistema solare responsive */
   --ss-size: clamp(260px, 60vmin, 560px);
 
-  /* Pluto orbit width = 75% del canvas => raggio = 37.5% del canvas */
+  /* Orbit Plutone: width 75% => raggio 37.5% */
   --pluto-radius: calc(var(--ss-size) * 0.375);
 
   /* Label */
-  --label-offset: clamp(70px, 12vmin, 140px);
+  --label-gap-desktop: 34px;
   --label-gap-mobile: clamp(18px, 3vmin, 28px);
 
   /* Pianeti responsive */
@@ -56,61 +59,133 @@ body.loaded{ opacity:1; }
   body{ opacity: 1 !important; }
 }
 
-/* Menu */
-.menu{
-  position:fixed;
-  top:30px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index: 1000;
-  user-select:none;
+/* =========================
+   Header (sticky + blur)
+   ========================= */
+.site-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-h);
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  transition: background .25s ease, backdrop-filter .25s ease;
 }
 
-.hamburger{
-  cursor:pointer;
-  display:inline-block;
-  padding:6px 10px;
-  border-radius:12px;
+.site-header.scrolled{
+  background: var(--black-35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.hamburger span{
+.header-inner{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  /* burger leggermente a sinistra */
+  padding-left: 22px;
+  padding-right: 16px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.header-title{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Alice", serif;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.site-header.scrolled .header-title{
+  opacity: 0.92;
+}
+
+.page{
+  padding-top: var(--header-h);
+}
+
+/* =========================
+   Burger + menu dropdown
+   ========================= */
+.burger{
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.burger span{
   display:block;
-  width:30px;
-  height:3px;
+  width: 30px;
+  height: 3px;
   background: var(--white);
-  margin:6px auto;
-  border-radius:4px;
-  opacity: .92;
+  border-radius: 4px;
+  opacity: 0.92;
 }
 
-.menu-content{
-  display:none;
-  background: var(--black-85);
-  padding:14px 16px;
-  border-radius:14px;
-  margin-top:10px;
-  min-width: 180px;
-  backdrop-filter: blur(8px);
+.nav-panel{
+  position: absolute;
+  top: calc(var(--header-h) - 6px);
+  left: 14px;
+
+  display: none;
+  min-width: 200px;
+  padding: 12px;
+  border-radius: 14px;
+
+  background: var(--black-65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.menu.open .menu-content{ display:block; }
+.site-header.open .nav-panel{
+  display: block;
+}
 
-.menu-content a{
+.nav-panel a{
   display:block;
   color: var(--white);
-  text-decoration:none;
-  padding:9px 8px;
-  border-radius:10px;
+  text-decoration: none;
+  padding: 10px 10px;
+  border-radius: 10px;
+  opacity: 0.92;
   transition: background .2s ease, opacity .2s ease;
-  opacity: .92;
 }
 
-.menu-content a:hover{
+.nav-panel a:hover{
   background: rgba(255,255,255,0.08);
   opacity: 1;
 }
 
-/* Typography */
+/* =========================
+   Typography
+   ========================= */
 h1, h2, .planet-label, .page-title{
   font-family: "Alice", serif;
   font-weight: 400;
@@ -135,16 +210,18 @@ h2{
   letter-spacing: 1px;
 }
 
-/* Layout */
+/* =========================
+   Layout
+   ========================= */
 .hero{
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--header-h));
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding: 90px 16px 40px;
+  padding: 40px 16px 40px;
   box-sizing: border-box;
 }
 
@@ -168,18 +245,21 @@ section{
   background: transparent;
 }
 
+/* Location container */
 .container{
-  min-height: 100vh;
+  min-height: calc(100vh - var(--header-h));
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding: 90px 16px 40px;
+  padding: 40px 16px 40px;
   box-sizing: border-box;
 }
 
-/* Solar system */
+/* =========================
+   Solar system
+   ========================= */
 .wrapper{
   position:relative;
   display:flex;
@@ -256,10 +336,12 @@ section{
 .orbit.nettuno  { width:65%; height:65%; animation:spin 42s linear infinite; z-index:2; }
 .orbit.plutone  { width:75%; height:75%; animation:spin 50s linear infinite; z-index:1; }
 
+/* Label DESKTOP: posizionata a destra, fuori dall'orbita di Plutone */
 .planet-label{
   position:absolute;
   top:50%;
-  right: calc(var(--label-offset) * -1);
+  left: calc(50% + var(--pluto-radius) + var(--label-gap-desktop));
+  right: auto;
   transform:translateY(-50%);
   font-size: clamp(16px, 2.8vmin, 22px);
   letter-spacing: 1px;
@@ -270,6 +352,7 @@ section{
   pointer-events:none;
 }
 
+/* MOBILE: NON TOCCARE (resta sotto, come richiesto) */
 @media (max-width: 560px){
   .planet-label{
     top: calc(100% + var(--label-gap-mobile));
@@ -282,7 +365,9 @@ section{
   }
 }
 
-/* Location map */
+/* =========================
+   Location map
+   ========================= */
 .map{
   width: 84%;
   max-width: 720px;
