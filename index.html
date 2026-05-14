@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Elisa e Federico</title>
-  <link rel="stylesheet" href="styles.css" />
+  styles.css
 </head>
 <body>
 
@@ -13,9 +13,9 @@
       <span></span><span></span><span></span>
     </div>
     <div class="menu-content">
-      <a href="index.html">Home</a>
-      <a href="location.html">Location</a>
-      <a href="#rsvp">RSVP</a>
+      index.htmlHome</a>
+      location.htmlLocation</a>
+      #rsvpRSVP</a>
     </div>
   </div>
 
@@ -53,11 +53,14 @@
   </section>
 
   <script>
+    // Fade in
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
       positionGlowUnderSun();
+      randomizeOrbitStartPositions();
     });
 
+    // Menu
     const menu = document.getElementById('menu');
     const hamburger = document.getElementById('hamburger');
 
@@ -72,6 +75,7 @@
       a.addEventListener('click', () => menu.classList.remove('open'));
     });
 
+    // Smooth page transitions
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
@@ -82,6 +86,7 @@
       });
     });
 
+    // Place gradient center exactly under sun
     function positionGlowUnderSun(){
       const hero = document.getElementById('hero');
       const sun  = document.getElementById('sun');
@@ -99,6 +104,24 @@
 
     window.addEventListener('resize', positionGlowUnderSun);
 
+    // Random start positions:
+    // sets a negative animation-delay based on each orbit duration
+    function randomizeOrbitStartPositions(){
+      const orbits = Array.from(document.querySelectorAll('.orbit'));
+      orbits.forEach(orbit => {
+        const cs = getComputedStyle(orbit);
+        const dur = cs.animationDuration;
+        if(!dur || dur === '0s') return;
+
+        const seconds = parseFloat(dur);
+        if(!Number.isFinite(seconds) || seconds <= 0) return;
+
+        const offset = Math.random() * seconds;
+        orbit.style.animationDelay = `-${offset}s`;
+      });
+    }
+
+    // Planet label behavior (desktop + mobile): linger then hide, or switch when selecting another orbit
     const label  = document.getElementById('planetLabel');
     const orbits = Array.from(document.querySelectorAll('.orbit'));
 
