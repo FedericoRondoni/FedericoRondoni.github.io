@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Location — Elisa e Federico</title>
-  <link rel="stylesheet" href="styles.css" />
+  styles.css
 </head>
 <body>
 
@@ -13,9 +13,9 @@
       <span></span><span></span><span></span>
     </div>
     <div class="menu-content">
-      <a href="index.html">Home</a>
-      <a href="location.html">Location</a>
-      <a href="index.html#rsvp">RSVP</a>
+      index.htmlHome</a>
+      location.htmlLocation</a>
+      index.html#rsvpRSVP</a>
     </div>
   </div>
 
@@ -27,11 +27,7 @@
     </div>
 
     <div class="map">
-      <iframe
-        title="Mappa Abbazia Castel d'Alfiolo"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps?q=Abbazia%20Castel%20d%27Alfiolo%20Gubbio&output=embed">
+      https://www.google.com/maps?q=Abbazia%20Castel%20d%27Alfiolo%20Gubbio&output=embed
       </iframe>
     </div>
 
@@ -45,6 +41,7 @@
       document.body.classList.add('loaded');
     });
 
+    // Menu toggle
     const menu = document.getElementById('menu');
     const hamburger = document.getElementById('hamburger');
 
@@ -59,6 +56,7 @@
       a.addEventListener('click', () => menu.classList.remove('open'));
     });
 
+    // Page transitions
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
