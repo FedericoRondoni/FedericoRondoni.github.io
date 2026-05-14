@@ -4,59 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Location — Elisa e Federico</title>
-  styles.css
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="page">
 
-  <div class="menu" id="menu">
-    <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Apri menu">
-      <span></span><span></span><span></span>
-    </div>
-    <div class="menu-content">
-      index.htmlHome</a>
-      location.htmlLocation</a>
-      index.html#rsvpRSVP</a>
-    </div>
-  </div>
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="header-inner">
+      <button class="burger" id="burger" aria-label="Apri menu" type="button">
+        <span></span><span></span><span></span>
+      </button>
 
-  <div class="container">
-    <h1 class="page-title">Location</h1>
-    <div class="subtitle" style="margin-bottom: 10px;">
-      Abbazia Castel d'Alfiolo<br>
-      Gubbio
-    </div>
+      <div class="header-title" style="opacity:.92;">Elisa e Federico</div>
 
-    <div class="map">
-      https://www.google.com/maps?q=Abbazia%20Castel%20d%27Alfiolo%20Gubbio&output=embed
-      </iframe>
+      <nav class="nav-panel" id="navPanel" aria-label="Navigazione">
+        <a href="index.html">Home</a>
+        <a href="location.html">Location</a>
+        <a href="index.html#rsvp">RSVP</a>
+      </nav>
     </div>
+  </header>
 
-    <p style="opacity:.7; margin-top:22px; max-width: 760px; line-height: 1.6;">
-      Indicazioni: uscita Fossato di Vico → seguire per Gubbio → Castel d'Alfiolo.
-    </p>
-  </div>
+  <main>
+    <div class="container">
+      <h1 class="page-title">Location</h1>
+      <div class="subtitle" style="margin-bottom: 10px;">
+        Abbazia Castel d'Alfiolo<br>
+        Gubbio
+      </div>
+
+      <div class="map">
+        <iframe
+          src="https://www.google.com/maps?q=Abbazia%20Castel%20d%27Alfiolo%20Gubbio&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <p style="opacity:.7; margin-top:22px; max-width: 760px; line-height: 1.6;">
+        Indicazioni: uscita Fossato di Vico → seguire per Gubbio → Castel d'Alfiolo.
+      </p>
+    </div>
+  </main>
 
   <script>
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
     });
 
-    // Menu toggle
-    const menu = document.getElementById('menu');
-    const hamburger = document.getElementById('hamburger');
+    const header = document.getElementById('siteHeader');
+    const burger = document.getElementById('burger');
 
-    function toggleMenu(){ menu.classList.toggle('open'); }
+    burger.addEventListener('click', () => header.classList.toggle('open'));
 
-    hamburger.addEventListener('click', toggleMenu);
-    hamburger.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') toggleMenu();
+    document.querySelectorAll('.nav-panel a').forEach(a => {
+      a.addEventListener('click', () => header.classList.remove('open'));
     });
 
-    document.querySelectorAll('.menu-content a').forEach(a => {
-      a.addEventListener('click', () => menu.classList.remove('open'));
-    });
-
-    // Page transitions
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
