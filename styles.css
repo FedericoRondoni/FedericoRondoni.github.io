@@ -18,7 +18,7 @@
   /* Sistema solare responsive */
   --ss-size: clamp(260px, 60vmin, 560px);
 
-  /* Pluto: orbit width 75% => radius 37.5% del canvas */
+  /* Pluto orbit width = 75% del canvas => raggio = 37.5% del canvas */
   --pluto-radius: calc(var(--ss-size) * 0.375);
 
   /* Label */
@@ -148,8 +148,7 @@ h2{
   box-sizing: border-box;
 }
 
-/* GRADIENTE: chiaro al Sole, scuro ESATTAMENTE al raggio di Plutone.
-   Fuori dal raggio di Plutone resta scuro (bg2), quindi niente linea di stacco. */
+/* Gradiente: chiaro al Sole, scuro ESATTAMENTE al raggio di Plutone */
 .hero::before{
   content:"";
   position:absolute;
