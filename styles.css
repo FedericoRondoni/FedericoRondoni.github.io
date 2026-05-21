@@ -401,3 +401,102 @@ body::after{
   from{transform:translateY(0);}
   to{transform:translateY(-400px);}
 }
+
+/* ===== ADVANCED STARS (NASA STYLE) ===== */
+
+/* layer base già esistente → aumentiamo densità */
+body::before{
+  background:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.9), transparent),
+    radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 50% 40%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 70% 10%, rgba(255,255,255,.8), transparent),
+    radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 20% 50%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,.6), transparent);
+  animation:starsSlow 240s linear infinite, twinkle1 6s ease-in-out infinite;
+}
+
+/* layer medio */
+body::after{
+  background:
+    radial-gradient(1.5px 1.5px at 20% 40%, rgba(255,255,255,1), transparent),
+    radial-gradient(1.5px 1.5px at 60% 70%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1.5px 1.5px at 85% 25%, rgba(255,255,255,0.8), transparent);
+  animation:starsMid 180s linear infinite, twinkle2 5s ease-in-out infinite;
+}
+
+/* stelle vicine */
+.hero::after{
+  animation:starsFast 120s linear infinite, twinkle3 4.5s ease-in-out infinite;
+}
+
+/* ===== TWINKLE (REALISTICO, NON FASTIDIOSO) ===== */
+
+@keyframes twinkle1{
+  0%,100%{opacity:.35;}
+  50%{opacity:.5;}
+}
+
+@keyframes twinkle2{
+  0%,100%{opacity:.55;}
+  50%{opacity:.75;}
+}
+
+@keyframes twinkle3{
+  0%,100%{opacity:.7;}
+  50%{opacity:.95;}
+}
+
+/* ===== SHOOTING STAR ===== */
+
+body{
+  position:relative;
+}
+
+body::marker{} /* hack safe per non rompere nulla */
+
+/* shooting star via gradient animato */
+@keyframes shooting{
+  0%{
+    opacity:0;
+    transform:translate(-20vw, -10vh) rotate(20deg);
+  }
+  10%{opacity:1;}
+  40%{opacity:0;}
+  100%{
+    transform:translate(120vw, 60vh) rotate(20deg);
+    opacity:0;
+  }
+}
+
+/* creiamo la scia */
+.hero::before{
+  box-shadow:
+    0 0 2px rgba(255,255,255,0.2),
+    0 0 6px rgba(255,255,255,0.1);
+}
+
+/* elemento shooting star */
+.hero::marker{} /* safe fallback */
+
+.hero{
+  overflow:hidden;
+}
+
+/* pseudo elemento shooting */
+.hero::selection{} /* safe separation */
+
+.hero::after{
+  background:
+    radial-gradient(2px 2px at 30% 50%, white, transparent),
+    radial-gradient(2px 2px at 75% 35%, rgba(255,255,255,0.9), transparent),
+    linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0));
+}
+
+/* singola shooting star (sottile, rara) */
+.hero::before{
+  animation:
+    shooting 8s linear infinite;
+  animation-delay: 5s;
+}
