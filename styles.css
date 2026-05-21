@@ -339,3 +339,108 @@ section{
   border:0;
   border-radius:14px;
 }
+
+/* ===== PAPER STYLE ===== */
+
+/* sfondo carta */
+body{
+  background:
+    radial-gradient(ellipse at center, rgba(255,255,255,0.04), transparent),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.02),
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    #0b0d12;
+}
+
+/* effetto “carta” leggero sopra tutto */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+  opacity:0.25;
+  mix-blend-mode:overlay;
+  z-index:1;
+}
+
+/* ===== HAND DRAWN SOLAR SYSTEM ===== */
+
+/* orbite irregolari */
+.orbit{
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:50%;
+  filter:
+    drop-shadow(0 0 1px rgba(255,255,255,0.2))
+    contrast(1.05);
+
+  /* distorsione leggera */
+  transform:
+    translate(-50%,-50%)
+    rotate(0.5deg)
+    scaleX(1.01)
+    scaleY(0.99);
+}
+
+/* aggiunge “vibrazione manuale” */
+.orbit::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.05);
+  transform:rotate(1deg);
+}
+
+/* pianeti “inchiostro” */
+.planet{
+  background:white;
+  filter:
+    drop-shadow(0 0 1px rgba(255,255,255,0.4))
+    blur(0.2px);
+}
+
+/* sole più “disegnato” */
+.sun{
+  box-shadow:
+    0 0 6px rgba(255,255,255,0.6),
+    0 0 12px rgba(255,255,255,0.2);
+}
+
+/* ===== TYPO “STAMPATO SU CARTA” ===== */
+
+h1,h2{
+  text-shadow:
+    0 0 1px rgba(255,255,255,0.15),
+    0 1px 0 rgba(255,255,255,0.05);
+}
+
+.subtitle{
+  opacity:0.65;
+  letter-spacing:0.5px;
+}
+
+/* leggero tremolio (quasi invisibile) */
+@keyframes inkShift{
+  0%{transform:translate(0,0);}
+  50%{transform:translate(0.3px,0.2px);}
+  100%{transform:translate(0,0);}
+}
+
+h1,.subtitle,.planet-label{
+  animation:inkShift 6s ease-in-out infinite;
+}
+
+/* ===== HERO meno digitale ===== */
+.hero::before{
+  background:
+    radial-gradient(
+      circle var(--pluto-radius) at var(--glow-x,50%) var(--glow-y,50%),
+      rgba(80,110,170,0.6),
+      #0b0d12 100%
+    );
+}
