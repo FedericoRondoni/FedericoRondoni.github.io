@@ -7,12 +7,17 @@ body{
   margin:0;
   font-family:"Alice",serif;
   color:#1f1f1f;
+
+  /* carta realistica */
   background:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.08), transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(0,0,0,0.05), transparent 60%),
+    radial-gradient(circle at 50% 90%, rgba(0,0,0,0.04), transparent 60%),
     url("https://www.transparenttextures.com/patterns/paper-fibers.png"),
     #f3ede3;
 }
 
-/* HEADER */
+/* header */
 .site-header{
   position:fixed;
   top:0;
@@ -20,7 +25,7 @@ body{
   height:70px;
 }
 
-/* BURGER */
+/* burger */
 .burger{
   position:absolute;
   left:20px;
@@ -30,25 +35,22 @@ body{
 }
 .burger span{
   display:block;
-  width:28px;
+  width:26px;
   height:2px;
   background:#1f1f1f;
   margin:6px 0;
-  transition:0.3s;
+  transition:.3s;
 }
 
-/* animazione */
 .burger.open span:nth-child(1){
   transform:translateY(8px) rotate(45deg);
 }
-.burger.open span:nth-child(2){
-  opacity:0;
-}
+.burger.open span:nth-child(2){opacity:0;}
 .burger.open span:nth-child(3){
   transform:translateY(-8px) rotate(-45deg);
 }
 
-/* MENU SENZA BOX */
+/* menu */
 .menu{
   position:absolute;
   top:70px;
@@ -60,11 +62,11 @@ body{
 .menu a{
   display:block;
   margin:6px 0;
-  color:#1f1f1f;
   text-decoration:none;
+  color:#1f1f1f;
 }
 
-/* HERO */
+/* hero */
 .hero{
   padding-top:110px;
   text-align:center;
@@ -74,30 +76,26 @@ body{
   margin-bottom:50px;
 }
 
-/* SYSTEM */
-.solar-wrap{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
+/* sistema */
 .solar{
   width:min(95vw,600px);
 }
 
-/* ORBITE → FINAL FIX */
-.line1{
+/* orbite con jitter leggero */
+.line{
   fill:none;
   stroke:#1f1f1f;
-  stroke-width:1.3;
-  opacity:0.45;
+  stroke-width:1.2;
+  opacity:0.4;
+
+  stroke-dasharray:2 3;
+  animation:jitter 6s infinite linear;
 }
 
-.line2{
-  fill:none;
-  stroke:#1f1f1f;
-  stroke-width:0.5;
-  opacity:0.2;
+@keyframes jitter{
+  0%{stroke-dashoffset:0}
+  50%{stroke-dashoffset:4}
+  100%{stroke-dashoffset:0}
 }
 
 /* pianeti */
@@ -115,5 +113,18 @@ body{
 .label{
   margin-top:20px;
   opacity:0;
-  transition:0.2s;
+  transition:.2s;
+}
+
+/* rsvp */
+.rsvp{
+  padding:100px 20px;
+  text-align:center;
+}
+
+.btn{
+  padding:12px 20px;
+  border:1px solid #1f1f1f;
+  text-decoration:none;
+  color:#1f1f1f;
 }
