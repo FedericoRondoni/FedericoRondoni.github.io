@@ -34,34 +34,56 @@
 
     <svg viewBox="0 0 500 500" class="solar">
 
-      <!-- filtro matita -->
       <defs>
+        <!-- MATITA + JITTER -->
         <filter id="pencil">
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2"/>
-          <feDisplacementMap in="SourceGraphic" scale="1.5"/>
+          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" id="noise"/>
+          <feDisplacementMap in="SourceGraphic" scale="0.8"/>
         </filter>
       </defs>
 
       <!-- sole -->
       <circle cx="250" cy="250" r="5" class="sun"/>
 
-      <!-- ORBITE HAND DRAWN REALI -->
+      <!-- ORBITE (quasi circolari + leggere variazioni) -->
       <g class="orbit" data-name="Mercurio">
-        <path d="M250,212 C270,210 292,225 290,250 C288,280 270,295 245,292 C215,288 210,260 215,235 C220,220 235,214 250,212 Z"/>
+        <ellipse cx="250" cy="250" rx="40" ry="41"/>
       </g>
-
       <g class="orbit" data-name="Venere">
-        <path d="M250,185 C300,180 340,215 338,255 C334,310 295,330 240,325 C190,320 160,280 170,230 C180,195 210,187 250,185 Z"/>
+        <ellipse cx="250" cy="250" rx="65" ry="63"/>
       </g>
-
       <g class="orbit" data-name="Terra">
-        <path d="M250,160 C330,150 385,200 380,260 C372,340 310,370 230,360 C160,350 120,300 135,230 C150,175 210,165 250,160 Z"/>
+        <ellipse cx="250" cy="250" rx="90" ry="92"/>
+      </g>
+      <g class="orbit" data-name="Marte">
+        <ellipse cx="250" cy="250" rx="120" ry="118"/>
+      </g>
+      <g class="orbit" data-name="Giove">
+        <ellipse cx="250" cy="250" rx="170" ry="175"/>
+      </g>
+      <g class="orbit" data-name="Saturno">
+        <ellipse cx="250" cy="250" rx="210" ry="205"/>
+      </g>
+      <g class="orbit" data-name="Urano">
+        <ellipse cx="250" cy="250" rx="250" ry="255"/>
+      </g>
+      <g class="orbit" data-name="Nettuno">
+        <ellipse cx="250" cy="250" rx="280" ry="275"/>
+      </g>
+      <g class="orbit" data-name="Plutone">
+        <ellipse cx="250" cy="250" rx="310" ry="305"/>
       </g>
 
       <!-- pianeti -->
-      <circle class="planet" id="p1" r="2"/>
-      <circle class="planet" id="p2" r="3"/>
-      <circle class="planet" id="p3" r="4"/>
+      <circle id="p1" r="2.5" class="planet"/>
+      <circle id="p2" r="3" class="planet"/>
+      <circle id="p3" r="4" class="planet"/>
+      <circle id="p4" r="3" class="planet"/>
+      <circle id="p5" r="8" class="planet"/>
+      <circle id="p6" r="7" class="planet"/>
+      <circle id="p7" r="6" class="planet"/>
+      <circle id="p8" r="6" class="planet"/>
+      <circle id="p9" r="2" class="planet"/>
 
     </svg>
 
@@ -79,45 +101,47 @@
 
 <script>
 /* menu */
-const burger = document.getElementById('burger');
-const menu = document.getElementById('menu');
-burger.onclick = ()=>menu.classList.toggle('open');
+document.getElementById('burger').onclick = () =>
+  document.getElementById('menu').classList.toggle('open');
 
-/* label */
+/* LABEL CLICK SU ORBITA */
 const label = document.getElementById('label');
 document.querySelectorAll('.orbit').forEach(o=>{
-  o.addEventListener('pointerenter',()=>{
+  o.addEventListener('click',()=>{
     label.textContent = o.dataset.name;
     label.style.opacity = 1;
   });
 });
-document.addEventListener('pointermove',(e)=>{
-  if(!e.target.closest('.orbit')){
-    label.style.opacity=0;
-  }
-});
 
-/* animazione NON circolare */
-const paths = [...document.querySelectorAll('.orbit path')];
-
-const planets = [
-  {id:"p1", path:paths[0], speed:0.0004},
-  {id:"p2", path:paths[1], speed:0.00025},
-  {id:"p3", path:paths[2], speed:0.00015}
+/* ANIMAZIONE PIÙ NATURALE (ELLITTICA + LENTA) */
+const orbits = [
+  {p:'p1', rx:40, ry:41, s:0.00015},
+  {p:'p2', rx:65, ry:63, s:0.00012},
+  {p:'p3', rx:90, ry:92, s:0.00010},
+  {p:'p4', rx:120, ry:118, s:0.00008},
+  {p:'p5', rx:170, ry:175, s:0.00005},
+  {p:'p6', rx:210, ry:205, s:0.00004},
+  {p:'p7', rx:250, ry:255, s:0.00003},
+  {p:'p8', rx:280, ry:275, s:0.000025},
+  {p:'p9', rx:310, ry:305, s:0.00002}
 ];
 
 function animate(){
   const t = performance.now();
 
-  planets.forEach(p=>{
-    const length = p.path.getTotalLength();
-    const pos = (t * p.speed * length) % length;
-    const point = p.path.getPointAtLength(pos);
+  orbits.forEach(o=>{
+    const angle = t * o.s;
+    const x = 250 + Math.cos(angle) * o.rx;
+    const y = 250 + Math.sin(angle) * o.ry;
 
-    const el = document.getElementById(p.id);
-    el.setAttribute("cx",point.x);
-    el.setAttribute("cy",point.y);
+    const el = document.getElementById(o.p);
+    el.setAttribute("cx", x);
+    el.setAttribute("cy", y);
   });
+
+  /* jitter dinamico */
+  const noise = document.querySelector('#noise');
+  noise.setAttribute('baseFrequency', 0.8 + Math.sin(t*0.002)*0.05);
 
   requestAnimationFrame(animate);
 }
