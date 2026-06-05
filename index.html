@@ -78,20 +78,19 @@ document.getElementById('burger')
 
 const label=document.getElementById('planetLabel');
 
-/* DESKTOP */
+/* desktop */
 document.querySelectorAll('.orbit').forEach(o=>{
   o.addEventListener('pointerenter',()=>{
     label.textContent=o.dataset.name;
     label.style.opacity=.85;
   });
-  o.addEventListener('pointerleave',()=>{label.style.opacity=0});
+  o.addEventListener('pointerleave',()=>label.style.opacity=0);
 });
 
-/* MOBILE FIX CORRETTO */
+/* ✅ MOBILE CORRETTO */
 document.addEventListener('pointermove',(e)=>{
   const els=document.elementsFromPoint(e.clientX,e.clientY);
 
-  /* prende ORBITA PIÙ INTERNA */
   const orbit=[...els]
     .filter(el=>el.classList?.contains('orbit'))
     .reverse()[0];
