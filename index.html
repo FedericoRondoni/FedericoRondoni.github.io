@@ -9,12 +9,12 @@
 
 <body>
 
-<header class="site-header" id="header">
+<header class="site-header">
   <button id="burger" class="burger">
     <span></span><span></span><span></span>
   </button>
 
-  <nav class="menu" id="menu">
+  <nav id="menu" class="menu">
     <a href="index.html">Home</a>
     <a href="location.html">Location</a>
     <a href="rsvp.html">RSVP</a>
@@ -34,30 +34,35 @@
 
     <svg viewBox="0 0 500 500" class="solar">
 
-      <g id="system">
+      <!-- filtro matita -->
+      <defs>
+        <filter id="pencil">
+          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2"/>
+          <feDisplacementMap in="SourceGraphic" scale="1.5"/>
+        </filter>
+      </defs>
 
-        <!-- sole -->
-        <circle cx="250" cy="250" r="5" class="sun"/>
+      <!-- sole -->
+      <circle cx="250" cy="250" r="5" class="sun"/>
 
-        <!-- orbite -->
-        <g class="orbit" data-name="Mercurio"><ellipse cx="250" cy="250" rx="40" ry="38"/></g>
-        <g class="orbit" data-name="Venere"><ellipse cx="250" cy="250" rx="65" ry="70"/></g>
-        <g class="orbit" data-name="Terra"><ellipse cx="250" cy="250" rx="90" ry="85"/></g>
-        <g class="orbit" data-name="Marte"><ellipse cx="250" cy="250" rx="120" ry="125"/></g>
-        <g class="orbit" data-name="Giove"><ellipse cx="250" cy="250" rx="170" ry="160"/></g>
-        <g class="orbit" data-name="Saturno"><ellipse cx="250" cy="250" rx="210" ry="225"/></g>
-        <g class="orbit" data-name="Urano"><ellipse cx="250" cy="250" rx="250" ry="240"/></g>
-
-        <!-- pianeti -->
-        <circle class="planet" id="p1" r="2"/>
-        <circle class="planet" id="p2" r="3"/>
-        <circle class="planet" id="p3" r="4"/>
-        <circle class="planet" id="p4" r="3"/>
-        <circle class="planet" id="p5" r="9"/>
-        <circle class="planet" id="p6" r="8"/>
-        <circle class="planet" id="p7" r="6"/>
-
+      <!-- ORBITE HAND DRAWN REALI -->
+      <g class="orbit" data-name="Mercurio">
+        <path d="M250,212 C270,210 292,225 290,250 C288,280 270,295 245,292 C215,288 210,260 215,235 C220,220 235,214 250,212 Z"/>
       </g>
+
+      <g class="orbit" data-name="Venere">
+        <path d="M250,185 C300,180 340,215 338,255 C334,310 295,330 240,325 C190,320 160,280 170,230 C180,195 210,187 250,185 Z"/>
+      </g>
+
+      <g class="orbit" data-name="Terra">
+        <path d="M250,160 C330,150 385,200 380,260 C372,340 310,370 230,360 C160,350 120,300 135,230 C150,175 210,165 250,160 Z"/>
+      </g>
+
+      <!-- pianeti -->
+      <circle class="planet" id="p1" r="2"/>
+      <circle class="planet" id="p2" r="3"/>
+      <circle class="planet" id="p3" r="4"/>
+
     </svg>
 
     <div id="label" class="label"></div>
@@ -76,42 +81,42 @@
 /* menu */
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
-burger.onclick = () => menu.classList.toggle('open');
+burger.onclick = ()=>menu.classList.toggle('open');
 
 /* label */
 const label = document.getElementById('label');
-
 document.querySelectorAll('.orbit').forEach(o=>{
   o.addEventListener('pointerenter',()=>{
     label.textContent = o.dataset.name;
     label.style.opacity = 1;
   });
 });
-
-document.addEventListener('pointerleave',()=>{
-  label.style.opacity = 0;
+document.addEventListener('pointermove',(e)=>{
+  if(!e.target.closest('.orbit')){
+    label.style.opacity=0;
+  }
 });
 
-/* animazione pianeti reale */
+/* animazione NON circolare */
+const paths = [...document.querySelectorAll('.orbit path')];
+
 const planets = [
-  {el:'p1', r:40, speed:0.02},
-  {el:'p2', r:65, speed:0.015},
-  {el:'p3', r:90, speed:0.01},
-  {el:'p4', r:120, speed:0.008},
-  {el:'p5', r:170, speed:0.004},
-  {el:'p6', r:210, speed:0.003},
-  {el:'p7', r:250, speed:0.002}
+  {id:"p1", path:paths[0], speed:0.0004},
+  {id:"p2", path:paths[1], speed:0.00025},
+  {id:"p3", path:paths[2], speed:0.00015}
 ];
 
 function animate(){
-  const t = Date.now();
+  const t = performance.now();
 
   planets.forEach(p=>{
-    const angle = t * p.speed;
-    const x = 250 + Math.cos(angle) * p.r;
-    const y = 250 + Math.sin(angle) * p.r;
-    document.getElementById(p.el).setAttribute("cx",x);
-    document.getElementById(p.el).setAttribute("cy",y);
+    const length = p.path.getTotalLength();
+    const pos = (t * p.speed * length) % length;
+    const point = p.path.getPointAtLength(pos);
+
+    const el = document.getElementById(p.id);
+    el.setAttribute("cx",point.x);
+    el.setAttribute("cy",point.y);
   });
 
   requestAnimationFrame(animate);
