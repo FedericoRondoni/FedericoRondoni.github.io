@@ -3,7 +3,7 @@
   src:url("fonts/Alice-Regular.woff2") format("woff2");
 }
 
-/* base */
+/* BASE */
 body{
   margin:0;
   font-family:"Alice",serif;
@@ -14,13 +14,14 @@ body{
     #f3ede3;
 }
 
-/* header */
+/* HEADER */
 .site-header{
   position:fixed;
   top:0;
   width:100%;
   height:70px;
 }
+
 .burger{
   position:absolute;
   left:20px;
@@ -28,6 +29,7 @@ body{
   background:none;
   border:0;
 }
+
 .burger span{
   display:block;
   width:28px;
@@ -36,18 +38,26 @@ body{
   margin:5px 0;
 }
 
-/* menu */
+/* MENU */
 .menu{
+  display:none;
   position:absolute;
   top:60px;
   left:20px;
-  display:none;
   background:#fff;
   padding:10px;
 }
+
 .menu.open{display:block;}
 
-/* hero */
+.menu a{
+  display:block;
+  padding:6px 10px;
+  text-decoration:none;
+  color:#1f1f1f;
+}
+
+/* HERO */
 .hero{
   padding-top:100px;
   text-align:center;
@@ -57,7 +67,7 @@ body{
   margin-bottom:40px;
 }
 
-/* sistema */
+/* SOLARE */
 .solar-wrap{
   display:flex;
   flex-direction:column;
@@ -68,14 +78,15 @@ body{
   width:min(90vw,500px);
 }
 
-/* orbite */
-.orbit path{
+/* ORBITE - grafite */
+.orbit ellipse{
   fill:none;
   stroke:#1f1f1f;
-  stroke-width:1.2;
-  opacity:0.5;
+  stroke-opacity:0.5;
 
-  /* ✅ effetto matita */
+  /* ✅ spessore variabile simulato */
+  stroke-width:1.2;
+
   filter:url(#pencil);
 }
 
@@ -84,20 +95,20 @@ body{
   fill:#1f1f1f;
 }
 
-/* pianeti con “sporco” */
+/* pianeti */
 .planet{
   fill:#1f1f1f;
   filter:url(#pencil);
 }
 
-/* label */
+/* LABEL */
 .label{
   margin-top:20px;
   opacity:0;
-  transition:.2s;
+  transition:0.3s;
 }
 
-/* sezione */
+/* SECTION */
 section{
   padding:80px 20px;
   text-align:center;
