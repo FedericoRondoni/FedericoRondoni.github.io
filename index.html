@@ -22,6 +22,7 @@
 </header>
 
 <main>
+
 <section class="hero">
   <h1>Elisa e Federico</h1>
   <div class="subtitle">
@@ -31,56 +32,37 @@
 
   <div class="solar-wrap">
 
-    <!-- VIEWBOX FIX → TUTTO VISIBILE -->
     <svg viewBox="-120 -120 740 740" class="solar">
 
-      <!-- SOLE -->
       <circle cx="250" cy="250" r="5" class="sun"/>
 
-      <!-- ORBITE (NO FILTER!) -->
+      <!-- orbite -->
       <g class="orbit" data-name="Mercurio">
-        <circle cx="250" cy="250" r="40" class="line1"/>
-        <circle cx="250" cy="250" r="40.5" class="line2"/>
+        <circle cx="250" cy="250" r="40" class="line"/>
       </g>
-
       <g class="orbit" data-name="Venere">
-        <circle cx="250" cy="250" r="65" class="line1"/>
-        <circle cx="250" cy="250" r="65.6" class="line2"/>
+        <circle cx="250" cy="250" r="65" class="line"/>
       </g>
-
       <g class="orbit" data-name="Terra">
-        <circle cx="250" cy="250" r="90" class="line1"/>
-        <circle cx="250" cy="250" r="91" class="line2"/>
+        <circle cx="250" cy="250" r="90" class="line"/>
       </g>
-
       <g class="orbit" data-name="Marte">
-        <circle cx="250" cy="250" r="120" class="line1"/>
-        <circle cx="250" cy="250" r="121" class="line2"/>
+        <circle cx="250" cy="250" r="120" class="line"/>
       </g>
-
       <g class="orbit" data-name="Giove">
-        <circle cx="250" cy="250" r="170" class="line1"/>
-        <circle cx="250" cy="250" r="171" class="line2"/>
+        <circle cx="250" cy="250" r="170" class="line"/>
       </g>
-
       <g class="orbit" data-name="Saturno">
-        <circle cx="250" cy="250" r="210" class="line1"/>
-        <circle cx="250" cy="250" r="211" class="line2"/>
+        <circle cx="250" cy="250" r="210" class="line"/>
       </g>
-
       <g class="orbit" data-name="Urano">
-        <circle cx="250" cy="250" r="250" class="line1"/>
-        <circle cx="250" cy="250" r="251" class="line2"/>
+        <circle cx="250" cy="250" r="250" class="line"/>
       </g>
-
       <g class="orbit" data-name="Nettuno">
-        <circle cx="250" cy="250" r="290" class="line1"/>
-        <circle cx="250" cy="250" r="291" class="line2"/>
+        <circle cx="250" cy="250" r="290" class="line"/>
       </g>
-
       <g class="orbit" data-name="Plutone">
-        <circle cx="250" cy="250" r="330" class="line1"/>
-        <circle cx="250" cy="250" r="331" class="line2"/>
+        <circle cx="250" cy="250" r="330" class="line"/>
       </g>
 
       <!-- pianeti -->
@@ -99,10 +81,16 @@
     <div id="label" class="label"></div>
   </div>
 </section>
+
+<section class="rsvp">
+  <h2>Conferma la tua presenza</h2>
+  <a href="rsvp.html" class="btn">RSVP</a>
+</section>
+
 </main>
 
 <script>
-/* MENU */
+/* menu */
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
 
@@ -118,7 +106,7 @@ document.addEventListener('click', e=>{
   }
 });
 
-/* LABEL FIX (hover + touch) */
+/* label */
 const label = document.getElementById('label');
 
 document.querySelectorAll('.orbit').forEach(o=>{
@@ -127,16 +115,12 @@ document.querySelectorAll('.orbit').forEach(o=>{
     label.style.opacity = 1;
   });
   o.addEventListener('pointerleave',()=>label.style.opacity=0);
-  o.addEventListener('pointerdown',()=>{
-    label.textContent = o.dataset.name;
-    label.style.opacity = 1;
-  });
 });
 
-/* ANIMAZIONE LENTA */
+/* pianeti */
 const cfg = [
   {id:"p1", r:40, s:0.00012},
-  {id:"p2", r:65, s:0.00010},
+  {id:"p2", r:65, s:0.0001},
   {id:"p3", r:90, s:0.00008},
   {id:"p4", r:120, s:0.00006},
   {id:"p5", r:170, s:0.00004},
@@ -151,8 +135,8 @@ function animate(){
 
   cfg.forEach(p=>{
     const a = t * p.s;
-    const x = 250 + Math.cos(a) * p.r;
-    const y = 250 + Math.sin(a) * p.r;
+    const x = 250 + Math.cos(a)*p.r;
+    const y = 250 + Math.sin(a)*p.r;
 
     const el = document.getElementById(p.id);
     el.setAttribute("cx",x);
