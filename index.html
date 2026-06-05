@@ -7,98 +7,65 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="page">
+<body>
 
-<header class="site-header" id="siteHeader">
-  <div class="header-inner">
-    <button class="burger" id="burger">
-      <span></span><span></span><span></span>
-    </button>
+<h1>Elisa e Federico</h1>
+<div class="subtitle">
+  2 gennaio 2027<br>
+  Abbazia Castel d'Alfiolo — Gubbio
+</div>
 
-    <div class="header-title">Elisa e Federico</div>
+<div class="solar-wrap">
 
-    <nav class="nav-panel">
-      <a href="index.html">Home</a>
-      <a href="location.html">Location</a>
-      <a href="rsvp.html">RSVP</a>
-    </nav>
-  </div>
-</header>
+<svg viewBox="0 0 500 500" class="solar">
 
-<main>
+  <!-- Sole -->
+  <circle cx="250" cy="250" r="4" class="sun"/>
 
-<div class="hero">
-  <h1>Elisa e Federico</h1>
-  <div class="subtitle">
-    2 gennaio 2027<br>
-    Abbazia Castel d'Alfiolo — Gubbio
-  </div>
+  <!-- ORBITE HAND-DRAWN (irregolari) -->
+  <ellipse cx="250" cy="250" rx="30" ry="28" class="orbit" data-name="Mercurio"/>
+  <ellipse cx="250" cy="250" rx="50" ry="52" class="orbit" data-name="Venere"/>
+  <ellipse cx="250" cy="250" rx="70" ry="68" class="orbit" data-name="Terra"/>
+  <ellipse cx="250" cy="250" rx="90" ry="94" class="orbit" data-name="Marte"/>
+  <ellipse cx="250" cy="250" rx="130" ry="125" class="orbit" data-name="Giove"/>
+  <ellipse cx="250" cy="250" rx="170" ry="180" class="orbit" data-name="Saturno"/>
+  <ellipse cx="250" cy="250" rx="210" ry="200" class="orbit" data-name="Urano"/>
+  <ellipse cx="250" cy="250" rx="240" ry="250" class="orbit" data-name="Nettuno"/>
+  <ellipse cx="250" cy="250" rx="270" ry="265" class="orbit" data-name="Plutone"/>
 
-  <div class="solar-system">
-    <div class="sun"></div>
+  <!-- PIANETI (in scala e NON overlapping) -->
+  <circle cx="280" cy="250" r="2" class="planet"/>
+  <circle cx="300" cy="250" r="3" class="planet"/>
+  <circle cx="320" cy="250" r="4" class="planet"/>
+  <circle cx="340" cy="250" r="3" class="planet"/>
+  <circle cx="380" cy="250" r="9" class="planet"/>
+  <circle cx="420" cy="250" r="8" class="planet"/>
+  <circle cx="460" cy="250" r="6" class="planet"/>
+  <circle cx="485" cy="250" r="6" class="planet"/>
+  <circle cx="510" cy="250" r="2" class="planet"/>
 
-    <div class="orbit mercurio" data-name="Mercurio"><div class="planet mercurio"></div></div>
-    <div class="orbit venere" data-name="Venere"><div class="planet venere"></div></div>
-    <div class="orbit terra" data-name="Terra"><div class="planet terra"></div></div>
-    <div class="orbit marte" data-name="Marte"><div class="planet marte"></div></div>
-    <div class="orbit giove" data-name="Giove"><div class="planet giove"></div></div>
-    <div class="orbit saturno" data-name="Saturno"><div class="planet saturno"></div></div>
-    <div class="orbit urano" data-name="Urano"><div class="planet urano"></div></div>
-    <div class="orbit nettuno" data-name="Nettuno"><div class="planet nettuno"></div></div>
-    <div class="orbit plutone" data-name="Plutone"><div class="planet plutone"></div></div>
+</svg>
 
-    <div class="planet-label" id="planetLabel"></div>
-  </div>
+<div id="label" class="label"></div>
+
 </div>
 
 <section>
   <h2>Conferma la tua presenza</h2>
-  <a href="rsvp.html" class="rsvp-btn">RSVP</a>
+  <a href="rsvp.html" class="btn">RSVP</a>
 </section>
 
-</main>
-
 <script>
-window.addEventListener('load',()=>{
-  document.body.classList.add('loaded');
+const label = document.getElementById('label');
 
-  document.querySelectorAll('.orbit').forEach(o=>{
-    const d=parseFloat(getComputedStyle(o).animationDuration);
-    o.style.animationDelay=`-${Math.random()*d}s`;
+document.querySelectorAll('.orbit').forEach(el=>{
+  el.addEventListener('pointerenter',()=>{
+    label.textContent = el.dataset.name;
+    label.style.opacity = 1;
   });
-});
-
-const header=document.getElementById('siteHeader');
-window.addEventListener('scroll',()=>{
-  header.classList.toggle('scrolled',window.scrollY>40);
-});
-
-document.getElementById('burger')
-.addEventListener('click',()=>header.classList.toggle('open'));
-
-const label=document.getElementById('planetLabel');
-
-/* desktop */
-document.querySelectorAll('.orbit').forEach(o=>{
-  o.addEventListener('pointerenter',()=>{
-    label.textContent=o.dataset.name;
-    label.style.opacity=.85;
+  el.addEventListener('pointerleave',()=>{
+    label.style.opacity = 0;
   });
-  o.addEventListener('pointerleave',()=>label.style.opacity=0);
-});
-
-/* ✅ MOBILE CORRETTO */
-document.addEventListener('pointermove',(e)=>{
-  const els=document.elementsFromPoint(e.clientX,e.clientY);
-
-  const orbit=[...els]
-    .filter(el=>el.classList?.contains('orbit'))
-    .reverse()[0];
-
-  if(orbit){
-    label.textContent=orbit.dataset.name;
-    label.style.opacity=.85;
-  }
 });
 </script>
 
