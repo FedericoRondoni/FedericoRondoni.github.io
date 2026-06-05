@@ -76,24 +76,26 @@ window.addEventListener('scroll',()=>{
 document.getElementById('burger')
 .addEventListener('click',()=>header.classList.toggle('open'));
 
-/* label comportamento completo */
 const label=document.getElementById('planetLabel');
 
-/* desktop */
+/* DESKTOP */
 document.querySelectorAll('.orbit').forEach(o=>{
   o.addEventListener('pointerenter',()=>{
     label.textContent=o.dataset.name;
     label.style.opacity=.85;
   });
-  o.addEventListener('pointerleave',()=>{
-    label.style.opacity=0;
-  });
+  o.addEventListener('pointerleave',()=>{label.style.opacity=0});
 });
 
-/* mobile fix vero */
+/* MOBILE FIX CORRETTO */
 document.addEventListener('pointermove',(e)=>{
   const els=document.elementsFromPoint(e.clientX,e.clientY);
-  const orbit=els.find(el=>el.classList?.contains('orbit'));
+
+  /* prende ORBITA PIÙ INTERNA */
+  const orbit=[...els]
+    .filter(el=>el.classList?.contains('orbit'))
+    .reverse()[0];
+
   if(orbit){
     label.textContent=orbit.dataset.name;
     label.style.opacity=.85;
