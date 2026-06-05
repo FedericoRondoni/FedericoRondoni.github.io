@@ -28,7 +28,10 @@
   <div class="title">Elisa e Federico</div>
   <div class="date">2 gennaio 2027</div>
 
-  <a href="rsvp.html" class="btn">RSVP</a>
+  <div class="cta">
+    <div class="cta-label">Conferma la tua presenza</div>
+    <a href="rsvp.html" class="btn">RSVP</a>
+  </div>
 
   <div class="solar-wrap">
 
@@ -37,30 +40,61 @@
       <!-- sole -->
       <circle cx="250" cy="250" r="4" class="sun"/>
 
-      <!-- orbite (leggermente irregolari, NON rotte) -->
+      <!-- ORBITE con HITBOX LARGA -->
+      <!-- ogni orbita ha: 1 linea visiva + 1 linea invisibile larga -->
+
+      <!-- Mercurio -->
       <g class="orbit" data-name="Mercurio">
-        <ellipse cx="250" cy="250" rx="40" ry="41"/>
+        <ellipse cx="250" cy="250" rx="40" ry="41" class="stroke"/>
+        <ellipse cx="250" cy="250" rx="40" ry="41" class="hit"/>
       </g>
+
+      <!-- Venere -->
       <g class="orbit" data-name="Venere">
-        <ellipse cx="250" cy="250" rx="65" ry="63"/>
+        <ellipse cx="250" cy="250" rx="65" ry="63" class="stroke"/>
+        <ellipse cx="250" cy="250" rx="65" ry="63" class="hit"/>
       </g>
+
+      <!-- Terra -->
       <g class="orbit" data-name="Terra">
-        <ellipse cx="250" cy="250" rx="90" ry="92"/>
+        <ellipse cx="250" cy="250" rx="90" ry="92" class="stroke"/>
+        <ellipse cx="250" cy="250" rx="90" ry="92" class="hit"/>
       </g>
+
+      <!-- Marte -->
       <g class="orbit" data-name="Marte">
-        <ellipse cx="250" cy="250" rx="120" ry="118"/>
+        <ellipse cx="250" cy="250" rx="120" ry="118" class="stroke"/>
+        <ellipse cx="250" cy="250" rx="120" ry="118" class="hit"/>
       </g>
+
+      <!-- Giove -->
       <g class="orbit" data-name="Giove">
-        <ellipse cx="250" cy="250" rx="170" ry="175"/>
+        <ellipse cx="250" cy="250" rx="170" ry="175" class="stroke"/>
+        <ellipse cx="250" cy="250" rx="170" ry="175" class="hit"/>
       </g>
+
+      <!-- Saturno -->
       <g class="orbit" data-name="Saturno">
-        <ellipse cx="250" cy="250" rx="210" ry="205"/>
+        <ellipse cx="250" cy="250" rx="210" ry="205" class="stroke"/>
+        <ellipse cx="250" cy="250" rx="210" ry="205" class="hit"/>
       </g>
+
+      <!-- Urano -->
       <g class="orbit" data-name="Urano">
-        <ellipse cx="250" cy="250" rx="250" ry="255"/>
+        <ellipse cx="250" cy="250" rx="250" ry="255" class="stroke"/>
+        <ellipse cx="250" cy="250" rx="250" ry="255" class="hit"/>
       </g>
+
+      <!-- Nettuno -->
       <g class="orbit" data-name="Nettuno">
-        <ellipse cx="250" cy="250" rx="290" ry="285"/>
+        <ellipse cx="250" cy="250" rx="290" ry="285" class="stroke"/>
+        <ellipse cx="250" cy="250" rx="290" ry="285" class="hit"/>
+      </g>
+
+      <!-- ✅ PLUTONE RIPRISTINATO -->
+      <g class="orbit" data-name="Plutone">
+        <ellipse cx="250" cy="250" rx="330" ry="325" class="stroke"/>
+        <ellipse cx="250" cy="250" rx="330" ry="325" class="hit"/>
       </g>
 
       <!-- pianeti -->
@@ -72,17 +106,19 @@
       <circle id="p6" r="7" class="planet"/>
       <circle id="p7" r="6" class="planet"/>
       <circle id="p8" r="6" class="planet"/>
+      <circle id="p9" r="2" class="planet"/>
 
     </svg>
 
     <div id="label" class="label"></div>
+
   </div>
 </section>
 
 </main>
 
 <script>
-/* MENU */
+/* menu */
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
 
@@ -98,7 +134,7 @@ document.addEventListener('click', e=>{
   }
 });
 
-/* LABEL */
+/* ✅ HOVER STABILE (hitbox large) */
 const label = document.getElementById('label');
 
 document.querySelectorAll('.orbit').forEach(o=>{
@@ -109,7 +145,7 @@ document.querySelectorAll('.orbit').forEach(o=>{
   o.addEventListener('pointerleave',()=>label.style.opacity=0);
 });
 
-/* ORBITE MOVIMENTO */
+/* pianeti (con plutone) */
 const cfg = [
   {id:"p1", rx:40, ry:41, s:0.00012},
   {id:"p2", rx:65, ry:63, s:0.0001},
@@ -118,7 +154,8 @@ const cfg = [
   {id:"p5", rx:170, ry:175, s:0.00004},
   {id:"p6", rx:210, ry:205, s:0.000035},
   {id:"p7", rx:250, ry:255, s:0.00003},
-  {id:"p8", rx:290, ry:285, s:0.000025}
+  {id:"p8", rx:290, ry:285, s:0.000025},
+  {id:"p9", rx:330, ry:325, s:0.00002}
 ];
 
 function animate(){
