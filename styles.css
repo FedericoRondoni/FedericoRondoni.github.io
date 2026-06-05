@@ -3,12 +3,10 @@
   src:url("fonts/Alice-Regular.woff2") format("woff2");
 }
 
-/* BASE */
 body{
   margin:0;
   font-family:"Alice",serif;
   color:#1f1f1f;
-
   background:
     url("https://www.transparenttextures.com/patterns/paper-fibers.png"),
     #f3ede3;
@@ -22,6 +20,7 @@ body{
   height:70px;
 }
 
+/* BURGER ANIMATO */
 .burger{
   position:absolute;
   left:20px;
@@ -29,45 +28,46 @@ body{
   background:none;
   border:0;
 }
-
 .burger span{
   display:block;
   width:28px;
   height:2px;
   background:#1f1f1f;
-  margin:5px 0;
+  margin:6px 0;
+  transition:.3s;
 }
 
-/* MENU */
+.burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+
+/* MENU minimal */
 .menu{
-  display:none;
   position:absolute;
-  top:60px;
+  top:70px;
   left:20px;
-  background:#fff;
-  padding:10px;
+  display:none;
 }
-
 .menu.open{display:block;}
 
 .menu a{
   display:block;
-  padding:6px 10px;
+  margin:6px 0;
   text-decoration:none;
   color:#1f1f1f;
 }
 
 /* HERO */
 .hero{
-  padding-top:100px;
+  padding-top:110px;
   text-align:center;
 }
 
 .subtitle{
-  margin-bottom:40px;
+  margin-bottom:50px;
 }
 
-/* SOLARE */
+/* SISTEMA */
 .solar-wrap{
   display:flex;
   flex-direction:column;
@@ -75,24 +75,25 @@ body{
 }
 
 .solar{
-  width:min(90vw,500px);
+  width:min(92vw,560px);
 }
 
-/* ORBITE - grafite */
-.orbit ellipse{
+/* ORBITE grafite reale */
+.stroke{
   fill:none;
   stroke:#1f1f1f;
-  stroke-opacity:0.5;
-
-  /* ✅ spessore variabile simulato */
-  stroke-width:1.2;
-
+  stroke-linecap:round;
   filter:url(#pencil);
 }
 
-/* sole */
-.sun{
-  fill:#1f1f1f;
+.stroke.a{
+  stroke-width:1.4;
+  opacity:0.55;
+}
+
+.stroke.b{
+  stroke-width:0.6;
+  opacity:0.25;
 }
 
 /* pianeti */
@@ -101,16 +102,22 @@ body{
   filter:url(#pencil);
 }
 
-/* LABEL */
-.label{
-  margin-top:20px;
-  opacity:0;
-  transition:0.3s;
+/* sole */
+.sun{
+  fill:#1f1f1f;
 }
 
-/* SECTION */
+/* label */
+.label{
+  margin-top:20px;
+  font-size:18px;
+  opacity:0;
+  transition:.3s;
+}
+
+/* sezione */
 section{
-  padding:80px 20px;
+  padding:90px 20px;
   text-align:center;
 }
 
