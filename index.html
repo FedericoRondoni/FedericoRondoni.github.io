@@ -1,186 +1,87 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Elisa e Federico</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="page">
+<body>
 
-  <header class="site-header" id="siteHeader">
-    <div class="header-inner">
-      <button class="burger" id="burger" aria-label="Apri menu" type="button">
-        <span></span><span></span><span></span>
-      </button>
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <button class="burger" id="burger">
+      <span></span><span></span><span></span>
+    </button>
 
-      <div class="header-title">Elisa e Federico</div>
+    <div class="header-title">Elisa e Federico</div>
 
-      <nav class="nav-panel" aria-label="Navigazione">
-        <a href="index.html">Home</a>
-        <a href="location.html">Location</a>
-        <a href="rsvp.html">RSVP</a>
-      </nav>
+    <nav class="nav-panel">
+      <a href="index.html">Home</a>
+      <a href="location.html">Location</a>
+      <a href="rsvp.html">RSVP</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<div class="hero">
+  <h1>Elisa e Federico</h1>
+  <div class="subtitle">
+    2 gennaio 2027<br>
+    Abbazia Castel d'Alfiolo — Gubbio
+  </div>
+
+  <div class="wrapper">
+    <div class="solar-system">
+      <div class="sun"></div>
+
+      <div class="orbit mercurio" data-name="Mercurio"><div class="planet mercurio"></div></div>
+      <div class="orbit venere" data-name="Venere"><div class="planet venere"></div></div>
+      <div class="orbit terra" data-name="Terra"><div class="planet terra"></div></div>
+      <div class="orbit marte" data-name="Marte"><div class="planet marte"></div></div>
+      <div class="orbit giove" data-name="Giove"><div class="planet giove"></div></div>
+      <div class="orbit saturno" data-name="Saturno"><div class="planet saturno"></div></div>
+      <div class="orbit urano" data-name="Urano"><div class="planet urano"></div></div>
+      <div class="orbit nettuno" data-name="Nettuno"><div class="planet nettuno"></div></div>
+      <div class="orbit plutone" data-name="Plutone"><div class="planet plutone"></div></div>
+
+      <div class="planet-label" id="planetLabel"></div>
     </div>
-  </header>
+  </div>
+</div>
 
-  <main>
-    <div class="hero" id="hero">
-      <h1>Elisa e Federico</h1>
-      <div class="subtitle">
-        2 gennaio 2027<br>
-        Abbazia Castel d'Alfiolo — Gubbio
-      </div>
+<section>
+  <h2>Conferma la tua presenza</h2>
+  <a href="rsvp.html" class="rsvp-btn">RSVP</a>
+</section>
 
-      <div class="wrapper">
-        <div class="solar-system" aria-label="Sistema solare stilizzato">
-          <div class="sun" id="sun"></div>
+</main>
 
-          <div class="orbit mercurio" data-name="Mercurio"><div class="planet mercurio"></div></div>
-          <div class="orbit venere" data-name="Venere"><div class="planet venere"></div></div>
-          <div class="orbit terra" data-name="Terra"><div class="planet terra"></div></div>
-          <div class="orbit marte" data-name="Marte"><div class="planet marte"></div></div>
-          <div class="orbit giove" data-name="Giove"><div class="planet giove"></div></div>
-          <div class="orbit saturno" data-name="Saturno"><div class="planet saturno"></div></div>
-          <div class="orbit urano" data-name="Urano"><div class="planet urano"></div></div>
-          <div class="orbit nettuno" data-name="Nettuno"><div class="planet nettuno"></div></div>
-          <div class="orbit plutone" data-name="Plutone"><div class="planet plutone"></div></div>
+<script>
+window.addEventListener('load',()=>{
+  document.body.classList.add('loaded');
+  document.querySelectorAll('.orbit').forEach(o=>{
+    const d=parseFloat(getComputedStyle(o).animationDuration);
+    o.style.animationDelay=`-${Math.random()*d}s`;
+  });
+});
 
-          <div class="planet-label" id="planetLabel" aria-hidden="true"></div>
-        </div>
-      </div>
-    </div>
+const header=document.getElementById('siteHeader');
+window.addEventListener('scroll',()=>{
+  header.classList.toggle('scrolled',window.scrollY>40);
+});
 
-    <section id="rsvp">
-      <h2>Conferma la tua presenza</h2>
+document.getElementById('burger')
+.addEventListener('click',()=>header.classList.toggle('open'));
 
-      <a href="rsvp.html"
-         style="
-           display:inline-block;
-           padding:14px 22px;
-           border-radius:14px;
-           text-decoration:none;
-           background: rgba(255,255,255,0.92);
-           color: #020611;
-           font-family: 'Alice', serif;
-           letter-spacing: 1px;
-         ">
-        RSVP
-      </a>
-    </section>
-  </main>
-
-  <script>
-    window.addEventListener('load', () => {
-      document.body.classList.add('loaded');
-      positionGlowUnderSun();
-      randomizeOrbitStartPositions();
-      updateHeaderState();
-    });
-
-    const header = document.getElementById('siteHeader');
-    function updateHeaderState(){
-      if (window.scrollY > 40) header.classList.add('scrolled');
-      else header.classList.remove('scrolled');
-    }
-    window.addEventListener('scroll', updateHeaderState, { passive: true });
-
-    const burger = document.getElementById('burger');
-    burger.addEventListener('click', () => header.classList.toggle('open'));
-
-    document.querySelectorAll('.nav-panel a').forEach(a => {
-      a.addEventListener('click', () => header.classList.remove('open'));
-    });
-
-    document.querySelectorAll('a[href]').forEach(link => {
-      link.addEventListener('click', function(e){
-        const href = this.getAttribute('href');
-        if (href && href.startsWith('#')) return;
-        e.preventDefault();
-        document.body.classList.remove('loaded');
-        setTimeout(() => { window.location.href = href; }, 600);
-      });
-    });
-
-    function positionGlowUnderSun(){
-      const hero = document.getElementById('hero');
-      const sun  = document.getElementById('sun');
-      if(!hero || !sun) return;
-
-      const heroRect = hero.getBoundingClientRect();
-      const sunRect  = sun.getBoundingClientRect();
-
-      const x = (sunRect.left + sunRect.width/2) - heroRect.left;
-      const y = (sunRect.top  + sunRect.height/2) - heroRect.top;
-
-      hero.style.setProperty('--glow-x', `${x}px`);
-      hero.style.setProperty('--glow-y', `${y}px`);
-    }
-    window.addEventListener('resize', positionGlowUnderSun);
-
-    function randomizeOrbitStartPositions(){
-      const orbits = Array.from(document.querySelectorAll('.orbit'));
-      orbits.forEach(orbit => {
-        const cs = getComputedStyle(orbit);
-        const dur = cs.animationDuration;
-        if(!dur || dur === '0s') return;
-
-        const seconds = parseFloat(dur);
-        if(!Number.isFinite(seconds) || seconds <= 0) return;
-
-        const offset = Math.random() * seconds;
-        orbit.style.animationDelay = `-${offset}s`;
-      });
-    }
-
-    const label  = document.getElementById('planetLabel');
-    const orbits = Array.from(document.querySelectorAll('.orbit'));
-    let hideTimer = null;
-    const LABEL_HIDE_DELAY = 900;
-
-    function showLabel(text){
-      label.textContent = text;
-      label.style.opacity = '0.85';
-    }
-    function hideLabelNow(){
-      label.style.opacity = '0';
-      setTimeout(() => {
-        if (label.style.opacity === '0') label.textContent = '';
-      }, 200);
-    }
-    function scheduleHide(){
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(hideLabelNow, LABEL_HIDE_DELAY);
-    }
-    function cancelHide(){
-      clearTimeout(hideTimer);
-      hideTimer = null;
-    }
-
-    orbits.forEach(orbit => {
-      orbit.addEventListener('pointerenter', () => {
-        cancelHide();
-        showLabel(orbit.dataset.name);
-      });
-      orbit.addEventListener('pointerleave', () => {
-        scheduleHide();
-      });
-      orbit.addEventListener('pointerdown', (e) => {
-        orbit.setPointerCapture?.(e.pointerId);
-        cancelHide();
-        showLabel(orbit.dataset.name);
-      });
-      orbit.addEventListener('pointerup', () => {
-        scheduleHide();
-      });
-      orbit.addEventListener('pointercancel', scheduleHide);
-    });
-
-    document.addEventListener('pointerdown', (e) => {
-      const isOrbit = e.target && e.target.classList && e.target.classList.contains('orbit');
-      if(!isOrbit) scheduleHide();
-    });
-  </script>
+const label=document.getElementById('planetLabel');
+document.querySelectorAll('.orbit').forEach(o=>{
+  o.addEventListener('pointerenter',()=>{label.textContent=o.dataset.name;label.style.opacity=.85});
+  o.addEventListener('pointerleave',()=>{label.style.opacity=0});
+});
+</script>
 
 </body>
 </html>
