@@ -26,68 +26,85 @@
 <section class="hero">
   <h1>Elisa e Federico</h1>
   <div class="subtitle">
-    <h3>2 gennaio 2027</h3>
+    2 gennaio 2027<br>
+    Abbazia Castel d'Alfiolo — Gubbio
   </div>
 
   <div class="solar-wrap">
 
-    <svg viewBox="0 0 500 500" class="solar">
+    <!-- VIEWBOX AUMENTATO → NON TAGLIA -->
+    <svg viewBox="-80 -80 660 660" class="solar">
 
       <defs>
-        <!-- MATITA + JITTER -->
         <filter id="pencil">
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" id="noise"/>
-          <feDisplacementMap in="SourceGraphic" scale="0.8"/>
+          <feTurbulence id="noise" type="fractalNoise" baseFrequency="0.5" numOctaves="2"/>
+          <feDisplacementMap in="SourceGraphic" scale="0.6"/>
         </filter>
       </defs>
 
       <!-- sole -->
-      <circle cx="250" cy="250" r="5" class="sun"/>
+      <circle cx="250" cy="250" r="6" class="sun"/>
 
-      <!-- ORBITE (quasi circolari + leggere variazioni) -->
+      <!-- ORBITE MULTI LINE -->
       <g class="orbit" data-name="Mercurio">
-        <ellipse cx="250" cy="250" rx="40" ry="41"/>
+        <circle cx="250" cy="250" r="40" class="stroke a"/>
+        <circle cx="250" cy="250" r="40.7" class="stroke b"/>
       </g>
+
       <g class="orbit" data-name="Venere">
-        <ellipse cx="250" cy="250" rx="65" ry="63"/>
+        <circle cx="250" cy="250" r="65" class="stroke a"/>
+        <circle cx="250" cy="250" r="65.8" class="stroke b"/>
       </g>
+
       <g class="orbit" data-name="Terra">
-        <ellipse cx="250" cy="250" rx="90" ry="92"/>
+        <circle cx="250" cy="250" r="90" class="stroke a"/>
+        <circle cx="250" cy="250" r="91" class="stroke b"/>
       </g>
+
       <g class="orbit" data-name="Marte">
-        <ellipse cx="250" cy="250" rx="120" ry="118"/>
+        <circle cx="250" cy="250" r="120" class="stroke a"/>
+        <circle cx="250" cy="250" r="121" class="stroke b"/>
       </g>
+
       <g class="orbit" data-name="Giove">
-        <ellipse cx="250" cy="250" rx="170" ry="175"/>
+        <circle cx="250" cy="250" r="170" class="stroke a"/>
+        <circle cx="250" cy="250" r="171" class="stroke b"/>
       </g>
+
       <g class="orbit" data-name="Saturno">
-        <ellipse cx="250" cy="250" rx="210" ry="205"/>
+        <circle cx="250" cy="250" r="210" class="stroke a"/>
+        <circle cx="250" cy="250" r="211" class="stroke b"/>
       </g>
+
       <g class="orbit" data-name="Urano">
-        <ellipse cx="250" cy="250" rx="250" ry="255"/>
+        <circle cx="250" cy="250" r="250" class="stroke a"/>
+        <circle cx="250" cy="250" r="251" class="stroke b"/>
       </g>
+
       <g class="orbit" data-name="Nettuno">
-        <ellipse cx="250" cy="250" rx="280" ry="275"/>
+        <circle cx="250" cy="250" r="290" class="stroke a"/>
+        <circle cx="250" cy="250" r="291" class="stroke b"/>
       </g>
+
       <g class="orbit" data-name="Plutone">
-        <ellipse cx="250" cy="250" rx="310" ry="305"/>
+        <circle cx="250" cy="250" r="330" class="stroke a"/>
+        <circle cx="250" cy="250" r="331" class="stroke b"/>
       </g>
 
       <!-- pianeti -->
-      <circle id="p1" r="2.5" class="planet"/>
-      <circle id="p2" r="3" class="planet"/>
-      <circle id="p3" r="4" class="planet"/>
-      <circle id="p4" r="3" class="planet"/>
-      <circle id="p5" r="8" class="planet"/>
-      <circle id="p6" r="7" class="planet"/>
-      <circle id="p7" r="6" class="planet"/>
-      <circle id="p8" r="6" class="planet"/>
-      <circle id="p9" r="2" class="planet"/>
+      <circle id="p1" r="3" class="planet"/>
+      <circle id="p2" r="4" class="planet"/>
+      <circle id="p3" r="5" class="planet"/>
+      <circle id="p4" r="4" class="planet"/>
+      <circle id="p5" r="10" class="planet"/>
+      <circle id="p6" r="9" class="planet"/>
+      <circle id="p7" r="7" class="planet"/>
+      <circle id="p8" r="7" class="planet"/>
+      <circle id="p9" r="3" class="planet"/>
 
     </svg>
 
     <div id="label" class="label"></div>
-
   </div>
 </section>
 
@@ -99,53 +116,67 @@
 </main>
 
 <script>
-/* menu */
-document.getElementById('burger').onclick = () =>
-  document.getElementById('menu').classList.toggle('open');
+/* MENU */
+const burger = document.getElementById('burger');
+const menu = document.getElementById('menu');
 
-/* LABEL CLICK SU ORBITA */
+burger.onclick = () => burger.classList.toggle('open') || menu.classList.toggle('open');
+
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.burger') && !e.target.closest('.menu')){
+    menu.classList.remove('open');
+    burger.classList.remove('open');
+  }
+});
+
+/* LABEL hover + touch */
 const label = document.getElementById('label');
+
 document.querySelectorAll('.orbit').forEach(o=>{
+  o.addEventListener('pointerenter',()=>{
+    label.textContent = o.dataset.name;
+    label.style.opacity = 1;
+  });
+  o.addEventListener('pointerleave',()=>label.style.opacity=0);
   o.addEventListener('click',()=>{
     label.textContent = o.dataset.name;
     label.style.opacity = 1;
   });
 });
 
-/* ANIMAZIONE PIÙ NATURALE (ELLITTICA + LENTA) */
-const orbits = [
-  {p:'p1', rx:40, ry:41, s:0.00015},
-  {p:'p2', rx:65, ry:63, s:0.00012},
-  {p:'p3', rx:90, ry:92, s:0.00010},
-  {p:'p4', rx:120, ry:118, s:0.00008},
-  {p:'p5', rx:170, ry:175, s:0.00005},
-  {p:'p6', rx:210, ry:205, s:0.00004},
-  {p:'p7', rx:250, ry:255, s:0.00003},
-  {p:'p8', rx:280, ry:275, s:0.000025},
-  {p:'p9', rx:310, ry:305, s:0.00002}
+/* ANIMAZIONE PIANETI */
+const config = [
+  {id:"p1", r:40, s:0.00015},
+  {id:"p2", r:65, s:0.00012},
+  {id:"p3", r:90, s:0.0001},
+  {id:"p4", r:120, s:0.00008},
+  {id:"p5", r:170, s:0.00005},
+  {id:"p6", r:210, s:0.00004},
+  {id:"p7", r:250, s:0.00003},
+  {id:"p8", r:290, s:0.000025},
+  {id:"p9", r:330, s:0.00002}
 ];
 
 function animate(){
   const t = performance.now();
 
-  orbits.forEach(o=>{
-    const angle = t * o.s;
-    const x = 250 + Math.cos(angle) * o.rx;
-    const y = 250 + Math.sin(angle) * o.ry;
-
-    const el = document.getElementById(o.p);
-    el.setAttribute("cx", x);
-    el.setAttribute("cy", y);
+  config.forEach(p=>{
+    const a = t * p.s;
+    const x = 250 + Math.cos(a) * p.r;
+    const y = 250 + Math.sin(a) * p.r;
+    const el = document.getElementById(p.id);
+    el.setAttribute("cx",x);
+    el.setAttribute("cy",y);
   });
 
-  /* jitter dinamico */
-  const noise = document.querySelector('#noise');
-  noise.setAttribute('baseFrequency', 0.8 + Math.sin(t*0.002)*0.05);
+  /* jitter */
+  document.getElementById('noise')
+    .setAttribute('baseFrequency',0.5 + Math.sin(t*0.002)*0.03);
 
   requestAnimationFrame(animate);
 }
-
 animate();
 </script>
+
 </body>
 </html>
