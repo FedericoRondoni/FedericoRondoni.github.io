@@ -22,7 +22,6 @@
 </header>
 
 <main>
-
 <section class="hero">
   <h1>Elisa e Federico</h1>
   <div class="subtitle">
@@ -32,87 +31,74 @@
 
   <div class="solar-wrap">
 
-    <!-- VIEWBOX AUMENTATO → NON TAGLIA -->
-    <svg viewBox="-80 -80 660 660" class="solar">
+    <!-- VIEWBOX FIX → TUTTO VISIBILE -->
+    <svg viewBox="-120 -120 740 740" class="solar">
 
-      <defs>
-        <filter id="pencil">
-          <feTurbulence id="noise" type="fractalNoise" baseFrequency="0.5" numOctaves="2"/>
-          <feDisplacementMap in="SourceGraphic" scale="0.6"/>
-        </filter>
-      </defs>
+      <!-- SOLE -->
+      <circle cx="250" cy="250" r="5" class="sun"/>
 
-      <!-- sole -->
-      <circle cx="250" cy="250" r="6" class="sun"/>
-
-      <!-- ORBITE MULTI LINE -->
+      <!-- ORBITE (NO FILTER!) -->
       <g class="orbit" data-name="Mercurio">
-        <circle cx="250" cy="250" r="40" class="stroke a"/>
-        <circle cx="250" cy="250" r="40.7" class="stroke b"/>
+        <circle cx="250" cy="250" r="40" class="line1"/>
+        <circle cx="250" cy="250" r="40.5" class="line2"/>
       </g>
 
       <g class="orbit" data-name="Venere">
-        <circle cx="250" cy="250" r="65" class="stroke a"/>
-        <circle cx="250" cy="250" r="65.8" class="stroke b"/>
+        <circle cx="250" cy="250" r="65" class="line1"/>
+        <circle cx="250" cy="250" r="65.6" class="line2"/>
       </g>
 
       <g class="orbit" data-name="Terra">
-        <circle cx="250" cy="250" r="90" class="stroke a"/>
-        <circle cx="250" cy="250" r="91" class="stroke b"/>
+        <circle cx="250" cy="250" r="90" class="line1"/>
+        <circle cx="250" cy="250" r="91" class="line2"/>
       </g>
 
       <g class="orbit" data-name="Marte">
-        <circle cx="250" cy="250" r="120" class="stroke a"/>
-        <circle cx="250" cy="250" r="121" class="stroke b"/>
+        <circle cx="250" cy="250" r="120" class="line1"/>
+        <circle cx="250" cy="250" r="121" class="line2"/>
       </g>
 
       <g class="orbit" data-name="Giove">
-        <circle cx="250" cy="250" r="170" class="stroke a"/>
-        <circle cx="250" cy="250" r="171" class="stroke b"/>
+        <circle cx="250" cy="250" r="170" class="line1"/>
+        <circle cx="250" cy="250" r="171" class="line2"/>
       </g>
 
       <g class="orbit" data-name="Saturno">
-        <circle cx="250" cy="250" r="210" class="stroke a"/>
-        <circle cx="250" cy="250" r="211" class="stroke b"/>
+        <circle cx="250" cy="250" r="210" class="line1"/>
+        <circle cx="250" cy="250" r="211" class="line2"/>
       </g>
 
       <g class="orbit" data-name="Urano">
-        <circle cx="250" cy="250" r="250" class="stroke a"/>
-        <circle cx="250" cy="250" r="251" class="stroke b"/>
+        <circle cx="250" cy="250" r="250" class="line1"/>
+        <circle cx="250" cy="250" r="251" class="line2"/>
       </g>
 
       <g class="orbit" data-name="Nettuno">
-        <circle cx="250" cy="250" r="290" class="stroke a"/>
-        <circle cx="250" cy="250" r="291" class="stroke b"/>
+        <circle cx="250" cy="250" r="290" class="line1"/>
+        <circle cx="250" cy="250" r="291" class="line2"/>
       </g>
 
       <g class="orbit" data-name="Plutone">
-        <circle cx="250" cy="250" r="330" class="stroke a"/>
-        <circle cx="250" cy="250" r="331" class="stroke b"/>
+        <circle cx="250" cy="250" r="330" class="line1"/>
+        <circle cx="250" cy="250" r="331" class="line2"/>
       </g>
 
       <!-- pianeti -->
-      <circle id="p1" r="3" class="planet"/>
-      <circle id="p2" r="4" class="planet"/>
-      <circle id="p3" r="5" class="planet"/>
-      <circle id="p4" r="4" class="planet"/>
-      <circle id="p5" r="10" class="planet"/>
-      <circle id="p6" r="9" class="planet"/>
-      <circle id="p7" r="7" class="planet"/>
-      <circle id="p8" r="7" class="planet"/>
-      <circle id="p9" r="3" class="planet"/>
+      <circle id="p1" r="2" class="planet"/>
+      <circle id="p2" r="3" class="planet"/>
+      <circle id="p3" r="4" class="planet"/>
+      <circle id="p4" r="3" class="planet"/>
+      <circle id="p5" r="8" class="planet"/>
+      <circle id="p6" r="7" class="planet"/>
+      <circle id="p7" r="6" class="planet"/>
+      <circle id="p8" r="6" class="planet"/>
+      <circle id="p9" r="2" class="planet"/>
 
     </svg>
 
     <div id="label" class="label"></div>
   </div>
 </section>
-
-<section>
-  <h2>Conferma la tua presenza</h2>
-  <a href="rsvp.html" class="btn">RSVP</a>
-</section>
-
 </main>
 
 <script>
@@ -120,16 +106,19 @@
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
 
-burger.onclick = () => burger.classList.toggle('open') || menu.classList.toggle('open');
+burger.onclick = () => {
+  burger.classList.toggle('open');
+  menu.classList.toggle('open');
+};
 
-document.addEventListener('click',e=>{
+document.addEventListener('click', e=>{
   if(!e.target.closest('.burger') && !e.target.closest('.menu')){
     menu.classList.remove('open');
     burger.classList.remove('open');
   }
 });
 
-/* LABEL hover + touch */
+/* LABEL FIX (hover + touch) */
 const label = document.getElementById('label');
 
 document.querySelectorAll('.orbit').forEach(o=>{
@@ -138,20 +127,20 @@ document.querySelectorAll('.orbit').forEach(o=>{
     label.style.opacity = 1;
   });
   o.addEventListener('pointerleave',()=>label.style.opacity=0);
-  o.addEventListener('click',()=>{
+  o.addEventListener('pointerdown',()=>{
     label.textContent = o.dataset.name;
     label.style.opacity = 1;
   });
 });
 
-/* ANIMAZIONE PIANETI */
-const config = [
-  {id:"p1", r:40, s:0.00015},
-  {id:"p2", r:65, s:0.00012},
-  {id:"p3", r:90, s:0.0001},
-  {id:"p4", r:120, s:0.00008},
-  {id:"p5", r:170, s:0.00005},
-  {id:"p6", r:210, s:0.00004},
+/* ANIMAZIONE LENTA */
+const cfg = [
+  {id:"p1", r:40, s:0.00012},
+  {id:"p2", r:65, s:0.00010},
+  {id:"p3", r:90, s:0.00008},
+  {id:"p4", r:120, s:0.00006},
+  {id:"p5", r:170, s:0.00004},
+  {id:"p6", r:210, s:0.000035},
   {id:"p7", r:250, s:0.00003},
   {id:"p8", r:290, s:0.000025},
   {id:"p9", r:330, s:0.00002}
@@ -160,18 +149,15 @@ const config = [
 function animate(){
   const t = performance.now();
 
-  config.forEach(p=>{
+  cfg.forEach(p=>{
     const a = t * p.s;
     const x = 250 + Math.cos(a) * p.r;
     const y = 250 + Math.sin(a) * p.r;
+
     const el = document.getElementById(p.id);
     el.setAttribute("cx",x);
     el.setAttribute("cy",y);
   });
-
-  /* jitter */
-  document.getElementById('noise')
-    .setAttribute('baseFrequency',0.5 + Math.sin(t*0.002)*0.03);
 
   requestAnimationFrame(animate);
 }
