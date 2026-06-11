@@ -11,12 +11,14 @@
   <header class="site-header scrolled" id="siteHeader">
     <div class="header-inner">
       <button class="burger" id="burger" aria-label="Apri menu" type="button">
-        <span></span><span></span><span></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
       </button>
 
-      <div class="header-title" style="opacity:.92;">Elisa e Federico</div>
+      <div class="header-title">Elisa e Federico</div>
 
-      <nav class="nav-panel" aria-label="Navigazione">
+      <nav class="menu" id="menu" aria-label="Navigazione">
         <a href="index.html">Home</a>
         <a href="location.html">Location</a>
         <a href="rsvp.html">RSVP</a>
@@ -27,7 +29,7 @@
   <main>
     <div class="container">
       <h1 class="page-title">RSVP</h1>
-      <div class="subtitle" style="margin-bottom: 18px;">Conferma la tua presenza</div>
+      <div class="subtitle">Conferma la tua presenza</div>
 
       <div style="width:84%; max-width: 900px; margin: 0 auto;">
         <iframe
@@ -52,13 +54,43 @@
 
     const header = document.getElementById('siteHeader');
     const burger = document.getElementById('burger');
+    const menu = document.getElementById('menu');
+    let isMenuOpen = false;
 
-    burger.addEventListener('click', () => header.classList.toggle('open'));
+    function toggleMenu() {
+      isMenuOpen = !isMenuOpen;
+      menu.classList.toggle('open');
+      burger.classList.toggle('open');
+      document.body.classList.toggle('menu-open');
+    }
 
-    document.querySelectorAll('.nav-panel a').forEach(a => {
-      a.addEventListener('click', () => header.classList.remove('open'));
+    function closeMenu() {
+      isMenuOpen = false;
+      menu.classList.remove('open');
+      burger.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }
+
+    burger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
     });
 
+    // Chiudi menu se clicco fuori
+    document.addEventListener('click', (e) => {
+      if (isMenuOpen && !menu.contains(e.target) && !burger.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // Chiudi menu se clicco su un link
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // Transizione tra pagine
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');

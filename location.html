@@ -11,12 +11,14 @@
   <header class="site-header scrolled" id="siteHeader">
     <div class="header-inner">
       <button class="burger" id="burger" aria-label="Apri menu" type="button">
-        <span></span><span></span><span></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
       </button>
 
-      <div class="header-title" style="opacity:.92;">Elisa e Federico</div>
+      <div class="header-title">Elisa e Federico</div>
 
-      <nav class="nav-panel" aria-label="Navigazione">
+      <nav class="menu" id="menu" aria-label="Navigazione">
         <a href="index.html">Home</a>
         <a href="location.html">Location</a>
         <a href="rsvp.html">RSVP</a>
@@ -27,7 +29,7 @@
   <main>
     <div class="container">
       <h1 class="page-title">Location</h1>
-      <div class="subtitle" style="margin-bottom: 10px;">
+      <div class="subtitle">
         Abbazia Castel d'Alfiolo<br>
         Gubbio
       </div>
@@ -40,7 +42,7 @@
         </iframe>
       </div>
 
-      <p style="opacity:.7; margin-top:22px; max-width: 760px; line-height: 1.6;">
+      <p style="opacity:0.7; margin-top:22px; max-width: 760px; line-height: 1.6;">
         Indicazioni: uscita Fossato di Vico → seguire per Gubbio → Castel d'Alfiolo.
       </p>
     </div>
@@ -53,12 +55,43 @@
 
     const header = document.getElementById('siteHeader');
     const burger = document.getElementById('burger');
-    burger.addEventListener('click', () => header.classList.toggle('open'));
+    const menu = document.getElementById('menu');
+    let isMenuOpen = false;
 
-    document.querySelectorAll('.nav-panel a').forEach(a => {
-      a.addEventListener('click', () => header.classList.remove('open'));
+    function toggleMenu() {
+      isMenuOpen = !isMenuOpen;
+      menu.classList.toggle('open');
+      burger.classList.toggle('open');
+      document.body.classList.toggle('menu-open');
+    }
+
+    function closeMenu() {
+      isMenuOpen = false;
+      menu.classList.remove('open');
+      burger.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }
+
+    burger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
     });
 
+    // Chiudi menu se clicco fuori
+    document.addEventListener('click', (e) => {
+      if (isMenuOpen && !menu.contains(e.target) && !burger.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // Chiudi menu se clicco su un link
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // Transizione tra pagine
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
