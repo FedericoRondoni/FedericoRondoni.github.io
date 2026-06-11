@@ -9,17 +9,15 @@
 
 <body>
 
-<!-- POPUP INIZIALE -->
-<div id="welcome-popup" class="popup-overlay">
-  <div class="popup-content">
-    <div class="popup-letter">
-      <p class="popup-greeting">Cari amici,</p>
-      <p class="popup-names">Federico e Elisa</p>
-      <p class="popup-message">vi invitano al loro matrimonio</p>
-      <p class="popup-date">2 gennaio 2027</p>
-      <p class="popup-location">Abbazia Castel d'Alfiolo - Gubbio</p>
+<!-- POPUP BUSTA -->
+<div id="envelope-popup" class="envelope-overlay envelope-hidden">
+  <div class="envelope-container">
+    <div class="envelope">
+      <div class="envelope-flap"></div>
+      <div class="envelope-body"></div>
+      <div class="envelope-shadow"></div>
     </div>
-    <button id="close-popup" class="popup-close" aria-label="Chiudi">×</button>
+    <p class="envelope-text">Apri l'invito</p>
   </div>
 </div>
 
@@ -93,22 +91,30 @@
 </main>
 
 <script>
-const popup = document.getElementById('welcome-popup');
-const closePopup = document.getElementById('close-popup');
+const envelopePopup = document.getElementById('envelope-popup');
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
 
-/* POPUP INIZIALE */
-closePopup.addEventListener('click', () => {
-  popup.classList.add('popup-hidden');
-});
+/* ENVELOPE POPUP - Mostra solo alla prima visita */
+function checkFirstVisit() {
+  return localStorage.getItem('envelopeShown') !== 'true';
+}
 
-// Chiudi popup cliccando fuori dal contenuto
-popup.addEventListener('click', (e) => {
-  if (e.target === popup) {
-    popup.classList.add('popup-hidden');
-  }
-});
+function markAsVisited() {
+  localStorage.setItem('envelopeShown', 'true');
+}
+
+if (checkFirstVisit()) {
+  envelopePopup.classList.remove('envelope-hidden');
+  
+  // Chiudi al click sulla busta
+  envelopePopup.addEventListener('click', () => {
+    envelopePopup.classList.add('envelope-hidden');
+    markAsVisited();
+  });
+} else {
+  envelopePopup.classList.add('envelope-hidden');
+}
 
 /* ANIMAZIONE PIANETI CON POSIZIONI RANDOMICHE */
 const cfg = [
