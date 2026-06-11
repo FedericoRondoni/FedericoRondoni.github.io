@@ -116,12 +116,24 @@ const translations = {
   it: {
     home: "Home",
     location: "Location",
-    rsvp: "RSVP"
+    rsvp: "RSVP",
+    cta: "Conferma la tua presenza",
+    invitationText: "Ti invitiamo al nostro matrimonio",
+    invitationNames: "Elisa e Federico",
+    invitationDate: "2 gennaio 2027",
+    invitationLocation: "Abbazia Castel d'Alfiolo - Gubbio",
+    enterSite: "Entra nel sito"
   },
   en: {
     home: "Home",
     location: "Location",
-    rsvp: "RSVP"
+    rsvp: "RSVP",
+    cta: "Please confirm your attendance",
+    invitationText: "We invite you to our wedding",
+    invitationNames: "Elisa & Federico",
+    invitationDate: "January 2nd, 2027",
+    invitationLocation: "Abbazia Castel d'Alfiolo - Gubbio",
+    enterSite: "Enter the website"
   }
 };
 
@@ -137,12 +149,35 @@ function applyLanguage(lang) {
   document.documentElement.lang = lang;
   localStorage.setItem('preferredLang', lang);
   const t = translations[lang];
+  
+  // Update menu links
   const menuLinks = document.querySelectorAll('.menu a');
   if (menuLinks.length >= 3) {
     menuLinks[0].textContent = t.home;
     menuLinks[1].textContent = t.location;
     menuLinks[2].textContent = t.rsvp;
   }
+  
+  // Update CTA button
+  const ctaBtn = document.querySelector('.btn');
+  if (ctaBtn) {
+    ctaBtn.textContent = t.cta;
+  }
+  
+  // Update invitation popup
+  const invitationText = document.querySelector('.invitation-text');
+  const invitationNames = document.querySelector('.invitation-names');
+  const invitationDate = document.querySelector('.invitation-date');
+  const invitationLocation = document.querySelector('.invitation-location');
+  const closeInvitationBtn = document.getElementById('close-invitation');
+  
+  if (invitationText) invitationText.textContent = t.invitationText;
+  if (invitationNames) invitationNames.textContent = t.invitationNames;
+  if (invitationDate) invitationDate.textContent = t.invitationDate;
+  if (invitationLocation) invitationLocation.textContent = t.invitationLocation;
+  if (closeInvitationBtn) closeInvitationBtn.textContent = t.enterSite;
+  
+  // Update active language button
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });

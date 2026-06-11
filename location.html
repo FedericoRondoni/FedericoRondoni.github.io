@@ -47,7 +47,7 @@
       </div>
 
       <div class="location-details" id="location-details">
-        <p>Indicazioni: da Umbertide seguire per Gubbio, poi per Castel d'Alfiolo.</p>
+        <p id="location-text">Indicazioni: da Umbertide seguire per Gubbio, poi per Castel d'Alfiolo.</p>
       </div>
     </div>
   </main>
@@ -93,7 +93,7 @@
       const t = translations[lang];
       document.getElementById('page-title').textContent = t.title;
       document.getElementById('subtitle').innerHTML = t.subtitle;
-      document.getElementById('location-details').innerHTML = `<p>${t.details}</p>`;
+      document.getElementById('location-text').textContent = t.details;
 
       // Update menu links
       const menuLinks = document.querySelectorAll('.menu a');

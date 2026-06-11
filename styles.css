@@ -518,6 +518,7 @@ circle:not(.sun):hover {
   margin: 0 auto;
   padding: 100px 20px 40px;
   width: 100%;
+  text-align: center;
 }
 
 .map {
