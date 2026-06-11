@@ -202,11 +202,9 @@ body{
   stroke-width: 1.2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 0.5, 1.5;
+  stroke-dasharray: 1, 1.8;
   opacity: 0.6;
   transition: opacity 0.3s ease;
-  /* Effetto "disegnato a mano" */
-  filter: url('#handDrawn');
 }
 
 .orbit:hover .line {
