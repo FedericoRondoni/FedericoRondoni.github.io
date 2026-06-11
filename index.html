@@ -10,7 +10,7 @@
 <body>
 
 <header class="site-header">
-  <button id="burger" class="burger">
+  <button id="burger" class="burger" aria-label="Apri menu">
     <span></span><span></span><span></span>
   </button>
 
@@ -27,7 +27,6 @@
 
   <div class="title">Elisa e Federico</div>
   <div class="date">2 gennaio 2027</div>
-
   
   <div class="cta-label">Conferma la tua presenza</div>
   <a href="rsvp.html" class="btn">RSVP</a>
@@ -36,52 +35,51 @@
 
     <svg viewBox="-120 -120 740 740" class="solar" id="solar">
 
-      <!-- sole -->
+      <!-- Sole -->
       <circle cx="250" cy="250" r="4" class="sun"/>
 
-      <!-- ORBITE DRAWING STYLE -->
-      <g class="orbit" data-r="40" data-name="Mercurio">
+      <!-- ORBITE -->
+      <g class="orbit" data-r="40" data-name="Mercurio" data-message="Come noi, veloci e determinati">
         <ellipse cx="250" cy="250" rx="40" ry="41" class="line a"/>
         <ellipse cx="250" cy="250" rx="40.4" ry="40" class="line b"/>
       </g>
 
-      <g class="orbit" data-r="65" data-name="Venere">
+      <g class="orbit" data-r="65" data-name="Venere" data-message="Brillante come il nostro amore">
         <ellipse cx="250" cy="250" rx="65" ry="64" class="line a"/>
         <ellipse cx="250" cy="250" rx="65.5" ry="65" class="line b"/>
       </g>
 
-      <g class="orbit" data-r="90" data-name="Terra">
+      <g class="orbit" data-r="90" data-name="Terra" data-message="Il nostro pianeta, il nostro inizio">
         <ellipse cx="250" cy="250" rx="90" ry="92" class="line a"/>
         <ellipse cx="250" cy="250" rx="91" ry="90" class="line b"/>
       </g>
 
-      <g class="orbit" data-r="120" data-name="Marte">
+      <g class="orbit" data-r="120" data-name="Marte" data-message="Passione e avventura, come noi">
         <ellipse cx="250" cy="250" rx="120" ry="119" class="line a"/>
         <ellipse cx="250" cy="250" rx="121" ry="120" class="line b"/>
       </g>
 
-      <g class="orbit" data-r="170" data-name="Giove">
+      <g class="orbit" data-r="170" data-name="Giove" data-message="Grande come il nostro sogno">
         <ellipse cx="250" cy="250" rx="170" ry="172" class="line a"/>
         <ellipse cx="250" cy="250" rx="171" ry="170" class="line b"/>
       </g>
 
-      <g class="orbit" data-r="210" data-name="Saturno">
+      <g class="orbit" data-r="210" data-name="Saturno" data-message="Unici, con i nostri anelli di promesse">
         <ellipse cx="250" cy="250" rx="210" ry="208" class="line a"/>
         <ellipse cx="250" cy="250" rx="211" ry="210" class="line b"/>
       </g>
 
-      <g class="orbit" data-r="250" data-name="Urano">
+      <g class="orbit" data-r="250" data-name="Urano" data-message="Inaspettati, ma perfetti insieme">
         <ellipse cx="250" cy="250" rx="250" ry="252" class="line a"/>
         <ellipse cx="250" cy="250" rx="251" ry="250" class="line b"/>
       </g>
 
-      <g class="orbit" data-r="290" data-name="Nettuno">
+      <g class="orbit" data-r="290" data-name="Nettuno" data-message="Profondi come i nostri sentimenti">
         <ellipse cx="250" cy="250" rx="290" ry="288" class="line a"/>
         <ellipse cx="250" cy="250" rx="291" ry="290" class="line b"/>
       </g>
 
-      <!-- ✅ plutone -->
-      <g class="orbit" data-r="330" data-name="Plutone">
+      <g class="orbit" data-r="330" data-name="Plutone" data-message="Lontani, ma sempre uniti">
         <ellipse cx="250" cy="250" rx="330" ry="328" class="line a"/>
         <ellipse cx="250" cy="250" rx="331" ry="330" class="line b"/>
       </g>
@@ -100,6 +98,7 @@
     </svg>
 
     <div id="label" class="label"></div>
+    <div id="message" class="label" style="bottom: -60px; font-size: 14px; opacity: 0;"></div>
 
   </div>
 
@@ -109,8 +108,9 @@
 
 <script>
 const label = document.getElementById('label');
+const message = document.getElementById('message');
 
-/* ✅ HOVER robusto */
+/* HOVER SU ORBITE E PIANETI */
 document.addEventListener('pointermove', e => {
   const svg = document.getElementById('solar');
   const rect = svg.getBoundingClientRect();
@@ -127,24 +127,56 @@ document.addEventListener('pointermove', e => {
   const dist = Math.sqrt(dx*dx + dy*dy);
 
   let found = null;
+  let foundMessage = null;
 
-  document.querySelectorAll('.orbit').forEach(o=>{
+  document.querySelectorAll('.orbit').forEach(o => {
     const r = parseFloat(o.dataset.r);
-
-    if(Math.abs(dist - r) < 12){
+    if (Math.abs(dist - r) < 12) {
       found = o.dataset.name;
+      foundMessage = o.dataset.message;
     }
   });
 
-  if(found){
+  // Controlla anche se il mouse è vicino a un pianeta
+  if (!found) {
+    const planets = [
+      { id: 'p1', r: 40, name: 'Mercurio', message: 'Come noi, veloci e determinati' },
+      { id: 'p2', r: 65, name: 'Venere', message: 'Brillante come il nostro amore' },
+      { id: 'p3', r: 90, name: 'Terra', message: 'Il nostro pianeta, il nostro inizio' },
+      { id: 'p4', r: 120, name: 'Marte', message: 'Passione e avventura, come noi' },
+      { id: 'p5', r: 170, name: 'Giove', message: 'Grande come il nostro sogno' },
+      { id: 'p6', r: 210, name: 'Saturno', message: 'Unici, con i nostri anelli di promesse' },
+      { id: 'p7', r: 250, name: 'Urano', message: 'Inaspettati, ma perfetti insieme' },
+      { id: 'p8', r: 290, name: 'Nettuno', message: 'Profondi come i nostri sentimenti' },
+      { id: 'p9', r: 330, name: 'Plutone', message: 'Lontani, ma sempre uniti' }
+    ];
+
+    planets.forEach(p => {
+      const planetEl = document.getElementById(p.id);
+      if (planetEl) {
+        const px = parseFloat(planetEl.getAttribute('cx') || '0');
+        const py = parseFloat(planetEl.getAttribute('cy') || '0');
+        const planetDist = Math.sqrt((x - px) * (x - px) + (y - py) * (y - py));
+        if (planetDist < 10) {
+          found = p.name;
+          foundMessage = p.message;
+        }
+      }
+    });
+  }
+
+  if (found) {
     label.textContent = found;
+    message.textContent = foundMessage;
     label.style.opacity = 1;
+    message.style.opacity = 1;
   } else {
     label.style.opacity = 0;
+    message.style.opacity = 0;
   }
 });
 
-/* ANIMAZIONE */
+/* ANIMAZIONE PIANETI */
 const cfg = [
   {id:"p1", r:40, s:0.00012},
   {id:"p2", r:65, s:0.0001},
@@ -157,22 +189,38 @@ const cfg = [
   {id:"p9", r:330, s:0.00002}
 ];
 
-function animate(){
+function animate() {
   const t = performance.now();
 
-  cfg.forEach(p=>{
+  cfg.forEach(p => {
     const a = t * p.s;
-    const x = 250 + Math.cos(a)*p.r;
-    const y = 250 + Math.sin(a)*p.r;
+    const x = 250 + Math.cos(a) * p.r;
+    const y = 250 + Math.sin(a) * p.r;
 
-    const el=document.getElementById(p.id);
-    el.setAttribute("cx",x);
-    el.setAttribute("cy",y);
+    const el = document.getElementById(p.id);
+    if (el) {
+      el.setAttribute("cx", x);
+      el.setAttribute("cy", y);
+    }
   });
 
   requestAnimationFrame(animate);
 }
+
+// Avvia l'animazione
 animate();
+
+// Gestione menu burger (se presente)
+document.addEventListener('DOMContentLoaded', () => {
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('menu');
+  
+  if (burger && menu) {
+    burger.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+  }
+});
 </script>
 
 </body>
