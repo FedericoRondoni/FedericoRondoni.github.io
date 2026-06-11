@@ -91,6 +91,7 @@
     </svg>
 
     <div id="label" class="label"></div>
+    <div id="message" class="label" style="bottom: -60px; font-size: 14px; opacity: 0;"></div>
 
   </div>
 
@@ -166,9 +167,12 @@ document.addEventListener('pointermove', e => {
 
   if (found) {
     label.textContent = found;
+    message.textContent = foundMessage;
     label.style.opacity = 1;
+    message.style.opacity = 1;
   } else {
     label.style.opacity = 0;
+    message.style.opacity = 0;
   }
 });
 
