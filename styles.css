@@ -205,6 +205,8 @@ body{
   stroke-dasharray: 0.5, 1.5;
   opacity: 0.6;
   transition: opacity 0.3s ease;
+  /* Effetto "disegnato a mano" */
+  filter: url('#handDrawn');
 }
 
 .orbit:hover .line {
