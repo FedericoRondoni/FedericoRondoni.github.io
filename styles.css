@@ -405,10 +405,10 @@ body{
 }
 
 .btn:hover {
-  background: #1f1f1f;
+  background: #1E3A8A;
   color: #f3ede3;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
 }
 
 .btn:active {
