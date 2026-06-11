@@ -17,6 +17,10 @@
       </button>
 
       <div class="header-title">Elisa e Federico</div>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="it">IT</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
 
       <nav class="menu" id="menu" aria-label="Navigazione">
         <a href="index.html">Home</a>
@@ -28,8 +32,8 @@
 
   <main>
     <div class="container">
-      <h1 class="page-title">RSVP</h1>
-      <div class="subtitle">Conferma la tua presenza</div>
+      <h1 class="page-title" id="page-title">RSVP</h1>
+      <div class="subtitle" id="subtitle">Conferma la tua presenza</div>
 
       <div style="width:84%; max-width: 900px; margin: 0 auto;">
         <iframe
@@ -48,9 +52,49 @@
   </main>
 
   <script>
-    window.addEventListener('load', () => {
-      document.body.classList.add('loaded');
-    });
+    // Language translations
+    const translations = {
+      it: {
+        title: "RSVP",
+        subtitle: "Conferma la tua presenza",
+        home: "Home",
+        location: "Location",
+        rsvp: "RSVP"
+      },
+      en: {
+        title: "RSVP",
+        subtitle: "Please confirm your attendance",
+        home: "Home",
+        location: "Location",
+        rsvp: "RSVP"
+      }
+    };
+
+    // Detect user language preference
+    function detectLanguage() {
+      const savedLang = localStorage.getItem('preferredLang');
+      if (savedLang) return savedLang;
+      const browserLang = navigator.language || navigator.userLanguage;
+      return browserLang.startsWith('it') ? 'it' : 'en';
+    }
+
+    // Apply language
+    function applyLanguage(lang) {
+      document.documentElement.lang = lang;
+      localStorage.setItem('preferredLang', lang);
+      const t = translations[lang];
+      document.getElementById('page-title').textContent = t.title;
+      document.getElementById('subtitle').textContent = t.subtitle;
+      const menuLinks = document.querySelectorAll('.menu a');
+      if (menuLinks.length >= 3) {
+        menuLinks[0].textContent = t.home;
+        menuLinks[1].textContent = t.location;
+        menuLinks[2].textContent = t.rsvp;
+      }
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+    }
 
     const burger = document.getElementById('burger');
     const menu = document.getElementById('menu');
@@ -96,8 +140,19 @@
         setTimeout(() => { window.location.href = href; }, 600);
       });
     });
-    window.addEventListener('load', function() {
+
+    // Initialize
+    window.addEventListener('load', () => {
       document.body.classList.add('loaded');
+      const lang = detectLanguage();
+      applyLanguage(lang);
+    });
+
+    // Language switcher
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyLanguage(btn.dataset.lang);
+      });
     });
   </script>
 
