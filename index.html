@@ -21,6 +21,14 @@
   </div>
 </div>
 
+<!-- INVITO POPUP (apre dopo la busta) -->
+<div id="invitation-popup" class="invitation-overlay invitation-hidden">
+  <div class="invitation-content">
+    <p class="invitation-text">Vi invitiamo al nostro matrimonio</p>
+    <button id="close-invitation" class="invitation-close">Entra nel sito</button>
+  </div>
+</div>
+
 <header class="site-header">
   <button id="burger" class="burger" aria-label="Apri menu">
     <span class="burger-line"></span>
@@ -96,6 +104,9 @@ const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
 
 /* ENVELOPE POPUP - Mostra solo alla prima visita */
+const invitationPopup = document.getElementById('invitation-popup');
+const closeInvitation = document.getElementById('close-invitation');
+
 function checkFirstVisit() {
   return localStorage.getItem('envelopeShown') !== 'true';
 }
@@ -107,13 +118,22 @@ function markAsVisited() {
 if (checkFirstVisit()) {
   envelopePopup.classList.remove('envelope-hidden');
   
-  // Chiudi al click sulla busta
+  // Chiudi busta e mostra invito
   envelopePopup.addEventListener('click', () => {
     envelopePopup.classList.add('envelope-hidden');
+    invitationPopup.classList.remove('invitation-hidden');
+  });
+  
+  // Chiudi invito e entra nel sito
+  closeInvitation.addEventListener('click', () => {
+    invitationPopup.classList.add('invitation-hidden');
     markAsVisited();
+    document.body.classList.add('loaded');
   });
 } else {
   envelopePopup.classList.add('envelope-hidden');
+  invitationPopup.classList.add('invitation-hidden');
+  document.body.classList.add('loaded');
 }
 
 /* ANIMAZIONE PIANETI CON POSIZIONI RANDOMICHE */
