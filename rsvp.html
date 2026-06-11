@@ -52,7 +52,6 @@
       document.body.classList.add('loaded');
     });
 
-    const header = document.getElementById('siteHeader');
     const burger = document.getElementById('burger');
     const menu = document.getElementById('menu');
     let isMenuOpen = false;
@@ -76,21 +75,18 @@
       toggleMenu();
     });
 
-    // Chiudi menu se clicco fuori
     document.addEventListener('click', (e) => {
       if (isMenuOpen && !menu.contains(e.target) && !burger.contains(e.target)) {
         closeMenu();
       }
     });
 
-    // Chiudi menu se clicco su un link
     document.querySelectorAll('.menu a').forEach(link => {
       link.addEventListener('click', () => {
         closeMenu();
       });
     });
 
-    // Transizione tra pagine
     document.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
