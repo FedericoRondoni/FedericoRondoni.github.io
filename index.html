@@ -9,6 +9,14 @@
 
 <body>
 
+<!-- POPUP INIZIALE -->
+<div id="welcome-popup" class="popup-overlay">
+  <div class="popup-content">
+    <p>Ti invitiamo al nostro matrimonio</p>
+    <button id="close-popup" class="popup-close" aria-label="Chiudi">×</button>
+  </div>
+</div>
+
 <header class="site-header">
   <button id="burger" class="burger" aria-label="Apri menu">
     <span class="burger-line"></span>
@@ -79,8 +87,22 @@
 </main>
 
 <script>
+const popup = document.getElementById('welcome-popup');
+const closePopup = document.getElementById('close-popup');
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
+
+/* POPUP INIZIALE */
+closePopup.addEventListener('click', () => {
+  popup.classList.add('popup-hidden');
+});
+
+// Chiudi popup cliccando fuori dal contenuto
+popup.addEventListener('click', (e) => {
+  if (e.target === popup) {
+    popup.classList.add('popup-hidden');
+  }
+});
 
 /* ANIMAZIONE PIANETI CON POSIZIONI RANDOMICHE */
 const cfg = [
