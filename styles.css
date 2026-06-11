@@ -3,7 +3,6 @@
   src:url("fonts/Alice-Regular.woff2") format("woff2");
 }
 
-/* RESET E BASE */
 * {
   box-sizing: border-box;
 }
@@ -12,7 +11,7 @@ body{
   margin:0;
   font-family:"Alice",serif;
   background:#f3ede3;
-  background-image: 
+  background-image:
     radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
     url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d8d0c8' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   color:#1f1f1f;
@@ -20,7 +19,6 @@ body{
   overflow-x: hidden;
 }
 
-/* HEADER (comune a tutte le pagine) */
 .site-header {
   position: fixed;
   top: 0;
@@ -54,7 +52,6 @@ body{
   opacity: 0.9;
 }
 
-/* BURGER MENU */
 .burger {
   display: flex;
   flex-direction: column;
@@ -91,7 +88,6 @@ body{
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* MENU */
 .menu {
   position: fixed;
   top: 0;
@@ -128,36 +124,6 @@ body{
   opacity: 0.7;
 }
 
-/* NAV PANEL (per location e rsvp) */
-.nav-panel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: rgba(243, 237, 227, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  display: flex;
-  gap: 20px;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-}
-
-.nav-panel.open {
-  transform: translateX(0);
-}
-
-.nav-panel a {
-  font-family: "Alice", serif;
-  font-size: 16px;
-  color: #1f1f1f;
-  text-decoration: none;
-}
-
-.nav-panel a:hover {
-  opacity: 0.7;
-}
-
-/* HERO */
 .hero{
   min-height:100vh;
   display:flex;
@@ -169,7 +135,6 @@ body{
   padding:80px 20px;
 }
 
-/* Titolo */
 .title{
   font-size:clamp(60px, 8vw, 86px);
   font-weight: 400;
@@ -179,7 +144,6 @@ body{
   text-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* Data */
 .date{
   font-size: 24px;
   opacity: 0.75;
@@ -187,7 +151,6 @@ body{
   margin-bottom: 10px;
 }
 
-/* CTA */
 .cta-label{
   font-size: 15px;
   opacity: 0.8;
@@ -219,7 +182,6 @@ body{
   transform: translateY(0);
 }
 
-/* Sistema solare */
 .solar-wrap {
   position: relative;
   width: min(70vw, 480px);
@@ -234,7 +196,6 @@ body{
   height: 100%;
 }
 
-/* ORBITE (stile disegnato a matita) */
 .line {
   fill: none;
   stroke: #1f1f1f;
@@ -250,7 +211,6 @@ body{
   opacity: 0.9;
 }
 
-/* Pianeti - Colori reali */
 circle:not(.sun) {
   filter: blur(0.4px);
   transition: all 0.3s ease;
@@ -262,67 +222,21 @@ circle:not(.sun):hover {
   opacity: 1 !important;
 }
 
-/* Sole */
 .sun {
   fill: #FFD700;
   filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.7));
 }
 
-/* Mercurio */
-#p1 {
-  fill: #A9A9A9;
-  opacity: 0.95;
-}
+#p1 { fill: #A9A9A9; opacity: 0.95; }
+#p2 { fill: #E6C229; opacity: 0.95; }
+#p3 { fill: #1DA1F2; opacity: 0.95; }
+#p4 { fill: #E27B58; opacity: 0.95; }
+#p5 { fill: #E67E22; opacity: 0.95; }
+#p6 { fill: #F7D358; opacity: 0.95; }
+#p7 { fill: #AED6F1; opacity: 0.95; }
+#p8 { fill: #5D6D7E; opacity: 0.95; }
+#p9 { fill: #8B4513; opacity: 0.95; }
 
-/* Venere */
-#p2 {
-  fill: #E6C229;
-  opacity: 0.95;
-}
-
-/* Terra */
-#p3 {
-  fill: #1DA1F2;
-  opacity: 0.95;
-}
-
-/* Marte */
-#p4 {
-  fill: #E27B58;
-  opacity: 0.95;
-}
-
-/* Giove */
-#p5 {
-  fill: #E67E22;
-  opacity: 0.95;
-}
-
-/* Saturno */
-#p6 {
-  fill: #F7D358;
-  opacity: 0.95;
-}
-
-/* Urano */
-#p7 {
-  fill: #AED6F1;
-  opacity: 0.95;
-}
-
-/* Nettuno */
-#p8 {
-  fill: #5D6D7E;
-  opacity: 0.95;
-}
-
-/* Plutone */
-#p9 {
-  fill: #8B4513;
-  opacity: 0.95;
-}
-
-/* Label */
 .label{
   position: absolute;
   bottom: -30px;
@@ -339,7 +253,6 @@ circle:not(.sun):hover {
   pointer-events: none;
 }
 
-/* PAGINE (location, rsvp) */
 .page {
   min-height: 100vh;
   display: flex;
@@ -387,7 +300,6 @@ circle:not(.sun):hover {
   width: 100%;
 }
 
-/* Mappa */
 .map {
   width: 100%;
   height: 400px;
@@ -404,7 +316,6 @@ circle:not(.sun):hover {
   border: none;
 }
 
-/* RSVP iframe */
 #elisa-e-federico-rsvp-afk5gc {
   width: 100%;
   min-height: 600px;
@@ -413,49 +324,39 @@ circle:not(.sun):hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .hero {
     gap: 20px;
     padding: 60px 15px;
   }
-  
   .title {
     font-size: clamp(40px, 10vw, 60px);
   }
-  
   .date {
     font-size: 20px;
   }
-  
   .solar-wrap {
     width: min(85vw, 400px);
     height: min(85vw, 400px);
   }
-  
   .container {
     padding: 80px 15px 30px;
   }
-  
   .map {
     height: 300px;
   }
-  
   #elisa-e-federico-rsvp-afk5gc {
     min-height: 500px;
   }
-  
   .menu {
     padding: 20px;
     gap: 20px;
   }
-  
   .menu a {
     font-size: 20px;
   }
 }
 
-/* Animazione fade per pagine */
 body.loaded {
   opacity: 1;
   transition: opacity 0.6s ease;
@@ -465,7 +366,6 @@ body:not(.loaded) {
   opacity: 0;
 }
 
-/* Fix per menu aperto su mobile */
 body.menu-open {
   overflow: hidden;
 }
