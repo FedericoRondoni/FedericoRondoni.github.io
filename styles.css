@@ -3,11 +3,20 @@
   src:url("fonts/Alice-Regular.woff2") format("woff2");
 }
 
+/* RESET E BASE */
+* {
+  box-sizing: border-box;
+}
+
 body{
   margin:0;
   font-family:"Alice",serif;
   background:#f3ede3;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d8d0c8' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   color:#1f1f1f;
+  min-height: 100vh;
 }
 
 /* HERO */
@@ -17,68 +26,212 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:22px; /* ✅ spacing UNIFORME */
+  gap:28px;
   text-align:center;
   padding:80px 20px;
 }
 
-/* titolo */
+/* Titolo */
 .title{
-  font-size:clamp(60px,8vw,86px);
+  font-size:clamp(60px, 8vw, 86px);
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: #1a1a1a;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* data */
+/* Data */
 .date{
-  font-size:22px;
-  opacity:0.7;
+  font-size: 24px;
+  opacity: 0.75;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
 }
 
 /* CTA */
 .cta-label{
-  font-size:14px;
+  font-size: 15px;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
 }
 
 .btn{
-  border:1px solid #1f1f1f;
-  padding:12px 26px;
-  border-radius:999px;
-  text-decoration:none;
-  color:#1f1f1f;
+  border: 1px solid #1f1f1f;
+  padding: 14px 30px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #1f1f1f;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  background: transparent;
+  cursor: pointer;
 }
 
-/* sistema */
+.btn:hover {
+  background: #1f1f1f;
+  color: #f3ede3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Sistema solare */
+.solar-wrap {
+  position: relative;
+  width: min(70vw, 480px);
+  height: min(70vw, 480px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .solar{
-  width:min(70vw,460px);
+  width: 100%;
+  height: 100%;
 }
 
-/* ORBITE DISEGNO */
+/* ORBITE */
 .line{
-  fill:none;
-  stroke:#1f1f1f;
+  fill: none;
+  stroke: #1f1f1f;
+  stroke-opacity: 0.3;
+  transition: stroke-opacity 0.3s ease;
 }
 
 .line.a{
-  stroke-width:1.2;
-  opacity:0.45;
+  stroke-width: 1.5;
+  opacity: 0.5;
 }
 
 .line.b{
-  stroke-width:0.6;
-  opacity:0.25;
-  transform:rotate(0.4deg);
-  transform-origin:center;
+  stroke-width: 0.8;
+  opacity: 0.3;
+  transform: rotate(0.4deg);
+  transform-origin: center;
 }
 
-/* pianeti */
-circle:not(.sun){
-  fill:#1f1f1f;
-  opacity:0.9;
-  filter:blur(0.4px);
+.orbit:hover .line.a,
+.orbit:hover .line.b {
+  stroke-opacity: 0.8;
 }
 
-/* label */
+/* Pianeti - Colori reali */
+circle:not(.sun) {
+  filter: blur(0.4px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+circle:not(.sun):hover {
+  filter: blur(0px);
+  opacity: 1 !important;
+}
+
+/* Sole */
+.sun {
+  fill: #FFD700;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.7));
+}
+
+/* Mercurio */
+#p1 {
+  fill: #A9A9A9;
+  opacity: 0.95;
+}
+
+/* Venere */
+#p2 {
+  fill: #E6C229;
+  opacity: 0.95;
+}
+
+/* Terra */
+#p3 {
+  fill: #1DA1F2;
+  opacity: 0.95;
+}
+
+/* Marte */
+#p4 {
+  fill: #E27B58;
+  opacity: 0.95;
+}
+
+/* Giove */
+#p5 {
+  fill: #E67E22;
+  opacity: 0.95;
+}
+
+/* Saturno */
+#p6 {
+  fill: #F7D358;
+  opacity: 0.95;
+}
+
+/* Urano */
+#p7 {
+  fill: #AED6F1;
+  opacity: 0.95;
+}
+
+/* Nettuno */
+#p8 {
+  fill: #5D6D7E;
+  opacity: 0.95;
+}
+
+/* Plutone */
+#p9 {
+  fill: #8B4513;
+  opacity: 0.95;
+}
+
+/* Label */
 .label{
-  margin-top:8px;
-  opacity:0;
-  transition:.15s;
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f1f1f;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background: rgba(243, 237, 227, 0.8);
+  padding: 6px 12px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Messaggio personalizzato al hover */
+.orbit:hover .label {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    gap: 20px;
+    padding: 60px 15px;
+  }
+  
+  .title {
+    font-size: clamp(40px, 10vw, 60px);
+  }
+  
+  .date {
+    font-size: 20px;
+  }
+  
+  .solar-wrap {
+    width: min(85vw, 400px);
+    height: min(85vw, 400px);
+  }
 }
