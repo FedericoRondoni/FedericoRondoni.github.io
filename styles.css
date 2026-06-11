@@ -238,20 +238,7 @@ circle:not(.sun):hover {
 #p8 { fill: #5D6D7E; opacity: 0.95; }
 #p9 { fill: #8B4513; opacity: 0.95; }
 
-.label{
-  position: absolute;
-  font-size: 16px;
-  font-weight: 500;
-  color: #1f1f1f;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  background: rgba(243, 237, 227, 0.8);
-  padding: 6px 12px;
-  border-radius: 4px;
-  pointer-events: none;
-  z-index: 10;
-  white-space: nowrap;
-}
+
 
 .page {
   min-height: 100vh;

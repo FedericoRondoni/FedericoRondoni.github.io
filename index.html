@@ -34,117 +34,53 @@
     <svg viewBox="-120 -120 740 740" class="solar" id="solar">
       <circle cx="250" cy="250" r="4" class="sun"/>
       
-      <!-- ORBITE (ellissi con effetto "disegnato a mano") -->
-      <g class="orbit" data-r="40" data-name="Mercurio">
+      <!-- ORBITE -->
+      <g class="orbit">
         <ellipse cx="250" cy="250" rx="40" ry="40" class="line a" />
       </g>
-      <g class="orbit" data-r="65" data-name="Venere">
+      <g class="orbit">
         <ellipse cx="250" cy="250" rx="65" ry="65" class="line a" />
       </g>
-      <g class="orbit" data-r="90" data-name="Terra">
+      <g class="orbit">
         <ellipse cx="250" cy="250" rx="90" ry="90" class="line a" />
       </g>
-      <g class="orbit" data-r="120" data-name="Marte">
+      <g class="orbit">
         <ellipse cx="250" cy="250" rx="120" ry="120" class="line a" />
       </g>
-      <g class="orbit" data-r="170" data-name="Giove">
+      <g class="orbit">
         <ellipse cx="250" cy="250" rx="170" ry="170" class="line a" />
       </g>
-      <g class="orbit" data-r="210" data-name="Saturno">
+      <g class="orbit">
         <ellipse cx="250" cy="250" rx="210" ry="210" class="line a" />
       </g>
-      <g class="orbit" data-r="250" data-name="Urano">
+      <g class="orbit">
         <ellipse cx="250" cy="250" rx="250" ry="250" class="line a" />
       </g>
-      <g class="orbit" data-r="290" data-name="Nettuno">
+      <g class="orbit">
         <ellipse cx="250" cy="250" rx="290" ry="290" class="line a" />
       </g>
-      <g class="orbit" data-r="330" data-name="Plutone">
+      <g class="orbit">
         <ellipse cx="250" cy="250" rx="330" ry="330" class="line a" />
       </g>
 
-      <!-- PIANETI (posizionati all'avvio) -->
-      <circle id="p1" cx="290" cy="250" r="2"/>
-      <circle id="p2" cx="315" cy="250" r="3"/>
-      <circle id="p3" cx="340" cy="250" r="4"/>
-      <circle id="p4" cx="370" cy="250" r="3"/>
-      <circle id="p5" cx="420" cy="250" r="8"/>
-      <circle id="p6" cx="460" cy="250" r="7"/>
-      <circle id="p7" cx="500" cy="250" r="6"/>
-      <circle id="p8" cx="540" cy="250" r="6"/>
-      <circle id="p9" cx="580" cy="250" r="2"/>
+      <!-- PIANETI -->
+      <circle id="p1" cx="290" cy="250" r="3" class="planet"/>
+      <circle id="p2" cx="315" cy="250" r="4" class="planet"/>
+      <circle id="p3" cx="340" cy="250" r="5" class="planet"/>
+      <circle id="p4" cx="370" cy="250" r="4" class="planet"/>
+      <circle id="p5" cx="420" cy="250" r="10" class="planet"/>
+      <circle id="p6" cx="460" cy="250" r="9" class="planet"/>
+      <circle id="p7" cx="500" cy="250" r="8" class="planet"/>
+      <circle id="p8" cx="540" cy="250" r="8" class="planet"/>
+      <circle id="p9" cx="580" cy="250" r="3" class="planet"/>
     </svg>
-
-    <div id="label" class="label"></div>
   </div>
 </section>
 </main>
 
 <script>
-const label = document.getElementById('label');
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
-
-/* HOVER SU ORBITE E PIANETI */
-document.addEventListener('pointermove', e => {
-  const solarWrap = document.querySelector('.solar-wrap');
-  const wrapRect = solarWrap.getBoundingClientRect();
-  const svg = document.getElementById('solar');
-  const svgRect = svg.getBoundingClientRect();
-  
-  // Coordinate relative all'SVG (per il calcolo delle orbite)
-  const x = e.clientX - svgRect.left;
-  const y = e.clientY - svgRect.top;
-  const cx = 250;
-  const cy = 250;
-  const dx = x - cx;
-  const dy = y - cy;
-  const dist = Math.sqrt(dx*dx + dy*dy);
-
-  let found = null;
-  document.querySelectorAll('.orbit').forEach(o => {
-    const r = parseFloat(o.dataset.r);
-    if (Math.abs(dist - r) < 5) {
-      found = o.dataset.name;
-    }
-  });
-
-  if (!found) {
-    const planets = [
-      { id: 'p1', name: 'Mercurio' },
-      { id: 'p2', name: 'Venere' },
-      { id: 'p3', name: 'Terra' },
-      { id: 'p4', name: 'Marte' },
-      { id: 'p5', name: 'Giove' },
-      { id: 'p6', name: 'Saturno' },
-      { id: 'p7', name: 'Urano' },
-      { id: 'p8', name: 'Nettuno' },
-      { id: 'p9', name: 'Plutone' }
-    ];
-
-    planets.forEach(p => {
-      const planetEl = document.getElementById(p.id);
-      if (planetEl) {
-        const px = parseFloat(planetEl.getAttribute('cx') || '0');
-        const py = parseFloat(planetEl.getAttribute('cy') || '0');
-        const planetDist = Math.sqrt((x - px) * (x - px) + (y - py) * (y - py));
-        if (planetDist < 8) {
-          found = p.name;
-        }
-      }
-    });
-  }
-
-  if (found) {
-    label.textContent = found;
-    // Posiziona il label relativo al solar-wrap
-    label.style.left = `${e.clientX - wrapRect.left}px`;
-    label.style.top = `${e.clientY - wrapRect.top - 30}px`;
-    label.style.opacity = 1;
-  } else {
-    label.style.opacity = 0;
-  }
-});
 
 /* ANIMAZIONE PIANETI CON POSIZIONI RANDOMICHE */
 const cfg = [
