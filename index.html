@@ -87,10 +87,14 @@ const menu = document.getElementById('menu');
 
 /* HOVER SU ORBITE E PIANETI */
 document.addEventListener('pointermove', e => {
+  const solarWrap = document.querySelector('.solar-wrap');
+  const wrapRect = solarWrap.getBoundingClientRect();
   const svg = document.getElementById('solar');
-  const rect = svg.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
+  const svgRect = svg.getBoundingClientRect();
+  
+  // Coordinate relative all'SVG (per il calcolo delle orbite)
+  const x = e.clientX - svgRect.left;
+  const y = e.clientY - svgRect.top;
   const cx = 250;
   const cy = 250;
   const dx = x - cx;
@@ -100,7 +104,6 @@ document.addEventListener('pointermove', e => {
   let found = null;
   document.querySelectorAll('.orbit').forEach(o => {
     const r = parseFloat(o.dataset.r);
-    // Tollerenza ridotta a 5px per evitare sovrapposizioni
     if (Math.abs(dist - r) < 5) {
       found = o.dataset.name;
     }
@@ -134,9 +137,9 @@ document.addEventListener('pointermove', e => {
 
   if (found) {
     label.textContent = found;
-    // Posiziona il label vicino al mouse
-    label.style.left = `${e.clientX - rect.left + 15}px`;
-    label.style.top = `${e.clientY - rect.top - 10}px`;
+    // Posiziona il label relativo al solar-wrap
+    label.style.left = `${e.clientX - wrapRect.left}px`;
+    label.style.top = `${e.clientY - wrapRect.top - 30}px`;
     label.style.opacity = 1;
   } else {
     label.style.opacity = 0;
