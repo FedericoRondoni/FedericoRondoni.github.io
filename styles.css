@@ -111,7 +111,6 @@ body{
   border-bottom: 40px solid #8B0000;
   box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
   z-index: 2;
-  border-bottom: 2px solid #1E3A8A;
 }
 
 .envelope-flap::before {
@@ -125,6 +124,19 @@ body{
   border-left: 50px solid transparent;
   border-right: 50px solid transparent;
   border-bottom: 30px solid #4A0E4E;
+}
+
+.envelope-flap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 58px solid transparent;
+  border-right: 58px solid transparent;
+  border-bottom: 2px solid #1E3A8A;
 }
 
 .envelope-shadow {
@@ -279,6 +291,11 @@ body{
     border-left-width: 38px;
     border-right-width: 38px;
     border-bottom-width: 22px;
+  }
+  .envelope-flap::after {
+    border-left-width: 43px;
+    border-right-width: 43px;
+    border-bottom-width: 2px;
   }
   .envelope-shadow {
     top: 110px;
@@ -504,19 +521,18 @@ body{
 
 .line {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.4);
-  stroke-width: 1;
+  stroke: rgba(255, 255, 255, 0.6);
+  stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 1, 1.5;
   opacity: 1;
   transition: all 0.3s ease;
 }
 
 .line:hover {
-  stroke: rgba(255, 255, 255, 0.7);
-  stroke-width: 1.5;
-  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+  stroke: rgba(255, 255, 255, 0.9);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
 }
 
 .orbit:hover .line {
@@ -524,20 +540,20 @@ body{
 }
 
 circle:not(.sun) {
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 circle:not(.sun):hover {
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
-  transform: scale(1.3);
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+  transform: scale(1.4);
   opacity: 1 !important;
 }
 
 .sun {
   fill: #FFD700;
-  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1));
 }
 
 #p1 { fill: #A9A9A9; opacity: 0.95; }
