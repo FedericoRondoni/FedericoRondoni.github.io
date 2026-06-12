@@ -17,19 +17,12 @@
         <!-- Corpo busta con angoli arrotondati -->
         <rect x="10" y="10" width="180" height="80" rx="4" ry="4" fill="#8B0000" stroke="#f5f0e6" stroke-width="1"/>
         
-        <!-- Lembo: UN SOLO triangolo con punta leggermente stondata -->
+        <!-- Lembo: UN SOLO triangolo -->
         <path d="M15 90 L100 45 L185 90 Z" fill="#8B0000" stroke="#f5f0e6" stroke-width="1"/>
         
         <!-- Linea di chiusura lembo -->
         <line x1="100" y1="90" x2="100" y2="45" stroke="#f5f0e6" stroke-width="1"/>
       </g>
-      
-      <!-- Ombra sotto la busta (non ruotata) -->
-      <ellipse id="envelope-shadow" cx="100" cy="150" rx="55" ry="6" fill="rgba(0,0,0,0.2)" filter="url(#blur)"/>
-      
-      <filter id="blur">
-        <feGaussianBlur stdDeviation="2"/>
-      </filter>
     </svg>
     <p class="envelope-text">Apri l'invito</p>
   </div>

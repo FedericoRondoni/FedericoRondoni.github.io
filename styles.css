@@ -91,23 +91,6 @@ body{
   height: 130px;
 }
 
-#envelope-shadow {
-  animation: shadowPulse 3s ease-in-out infinite;
-}
-
-@keyframes shadowPulse {
-  0%, 100% {
-    rx: 50;
-    ry: 3;
-    opacity: 0.8;
-  }
-  50% {
-    rx: 55;
-    ry: 4;
-    opacity: 0.6;
-  }
-}
-
 .envelope-text {
   font-family: "Alice", serif;
   font-size: 18px;
