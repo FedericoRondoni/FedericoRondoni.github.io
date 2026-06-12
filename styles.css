@@ -441,29 +441,10 @@ body{
   stroke-linecap: round;
   stroke-linejoin: round;
   opacity: 1;
-  transition: all 0.3s ease;
-}
-
-.line:hover {
-  stroke: rgba(255, 255, 255, 0.9);
-  stroke-width: 2;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
-}
-
-.orbit:hover .line {
-  opacity: 1;
 }
 
 circle:not(.sun) {
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-circle:not(.sun):hover {
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
-  transform: scale(1.4);
-  opacity: 1 !important;
 }
 
 .sun {
