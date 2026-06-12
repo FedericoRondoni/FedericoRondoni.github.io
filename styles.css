@@ -18,7 +18,7 @@ main {
   display: flex;
   justify-content: center;
   gap: 40px;
-  margin-bottom: 20px;
+  margin: 40px auto 20px;
   z-index: 1;
 }
 
