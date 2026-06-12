@@ -17,16 +17,16 @@
       <ellipse cx="100" cy="125" rx="60" ry="4" fill="rgba(0,0,0,0.08)" filter="url(#blur)"/>
       
       <!-- Corpo busta -->
-      <rect x="10" y="40" width="180" height="80" rx="1" fill="#f5f0e6" stroke="#8B0000" stroke-width="0.5"/>
+      <rect x="10" y="10" width="180" height="80" rx="1" fill="#f5f0e6" stroke="#8B0000" stroke-width="0.5"/>
       
-      <!-- Lembo superiore -->
-      <path d="M10 40 L100 15 L190 40 Z" fill="#f5f0e6" stroke="#8B0000" stroke-width="0.5"/>
+      <!-- Lembo inferiore (chiuso verso il basso) -->
+      <path d="M10 90 L100 50 L190 90 Z" fill="#f5f0e6" stroke="#8B0000" stroke-width="0.5"/>
       
       <!-- Linea di chiusura lembo -->
-      <line x1="100" y1="40" x2="100" y2="15" stroke="#8B0000" stroke-width="0.5"/>
+      <line x1="100" y1="90" x2="100" y2="50" stroke="#8B0000" stroke-width="0.5"/>
       
       <!-- Ombra tra lembo e corpo -->
-      <path d="M10 40 L100 15 L190 40 Z" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="1,1"/>
+      <path d="M10 90 L100 50 L190 90 Z" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="1,1"/>
       
       <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
         <feGaussianBlur stdDeviation="2"/>
