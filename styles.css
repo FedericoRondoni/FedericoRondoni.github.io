@@ -81,10 +81,11 @@ body{
 
 .envelope {
   position: relative;
-  width: 220px;
-  height: 140px;
+  width: 200px;
+  height: 120px;
   margin: 0 auto 20px;
   animation: float 3s ease-in-out infinite;
+  cursor: pointer;
 }
 
 .envelope-body {
@@ -93,23 +94,21 @@ body{
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%);
-  border-radius: 4px;
-  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+  background: #f5f0e6;
   border: 2px solid #8B0000;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .envelope-flap {
   position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 60px solid transparent;
-  border-right: 60px solid transparent;
-  border-bottom: 40px solid #8B0000;
-  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+  top: -15px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: #8B0000;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   z-index: 2;
 }
 
@@ -121,28 +120,40 @@ body{
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 30px solid #4A0E4E;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 25px solid #8B0000;
+}
+
+.envelope-flap::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
+  border-bottom: 20px solid #4A0E4E;
 }
 
 .envelope-shadow {
   position: absolute;
-  top: 135px;
+  top: 115px;
   left: 50%;
   transform: translateX(-30%);
-  width: 160px;
-  height: 15px;
-  background: rgba(139, 0, 0, 0.15);
+  width: 140px;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   filter: blur(4px);
 }
 
 .envelope-text {
   font-family: "Alice", serif;
-  font-size: 20px;
-  color: #1E3A8A;
-  opacity: 0.9;
+  font-size: 18px;
+  color: #8B0000;
   margin: 0;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -261,30 +272,34 @@ body{
 
 @media (max-width: 768px) {
   .envelope {
-    width: 180px;
-    height: 110px;
+    width: 160px;
+    height: 100px;
   }
   .envelope-body {
     height: 100%;
   }
   .envelope-flap {
-    top: -15px;
-    border-left-width: 45px;
-    border-right-width: 45px;
-    border-bottom-width: 30px;
+    top: -12px;
+    height: 25px;
   }
   .envelope-flap::before {
     top: -12px;
-    border-left-width: 38px;
-    border-right-width: 38px;
-    border-bottom-width: 22px;
+    border-left-width: 65px;
+    border-right-width: 65px;
+    border-bottom-width: 20px;
+  }
+  .envelope-flap::after {
+    top: -8px;
+    border-left-width: 55px;
+    border-right-width: 55px;
+    border-bottom-width: 15px;
   }
   .envelope-shadow {
-    top: 110px;
-    width: 130px;
+    top: 95px;
+    width: 110px;
   }
   .envelope-text {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
