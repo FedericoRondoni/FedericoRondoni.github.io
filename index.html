@@ -13,22 +13,22 @@
 <div id="envelope-popup" class="envelope-overlay envelope-hidden">
   <div class="envelope-container">
     <svg class="envelope-svg" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
-      <g transform="translate(100,65) rotate(180) translate(-100,-65)">
-        <!-- Ombra -->
-        <ellipse cx="100" cy="125" rx="60" ry="4" fill="rgba(0,0,0,0.08)" filter="url(#blur)"/>
+      <g id="envelope-group" transform="translate(100,65) rotate(180) translate(-100,-65)">
+        <!-- Corpo busta con angoli arrotondati -->
+        <rect x="10" y="10" width="180" height="80" rx="4" ry="4" fill="#8B0000" stroke="#f5f0e6" stroke-width="1"/>
         
-        <!-- Corpo busta -->
-        <rect x="10" y="10" width="180" height="80" rx="1" fill="#8B0000" stroke="#f5f0e6" stroke-width="1"/>
-        
-        <!-- Lembo (chiuso verso il basso, ma ruotato quindi in alto) -->
-        <path d="M10 90 L100 50 L190 90 Z" fill="#8B0000" stroke="#f5f0e6" stroke-width="1"/>
+        <!-- Lembo con angoli arrotondati -->
+        <path d="M15 90 Q100 45 185 90 L185 85 Q100 50 15 85 Z" fill="#8B0000" stroke="#f5f0e6" stroke-width="1"/>
         
         <!-- Linea di chiusura lembo -->
-        <line x1="100" y1="90" x2="100" y2="50" stroke="#f5f0e6" stroke-width="1"/>
+        <line x1="100" y1="87" x2="100" y2="50" stroke="#f5f0e6" stroke-width="1"/>
         
         <!-- Ombra tra lembo e corpo -->
-        <path d="M10 90 L100 50 L190 90 Z" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="1,1"/>
+        <path d="M15 90 Q100 45 185 90" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="1,1"/>
       </g>
+      
+      <!-- Ombra sotto la busta (non ruotata) -->
+      <ellipse id="envelope-shadow" cx="100" cy="120" rx="50" ry="3" fill="rgba(0,0,0,0.08)" filter="url(#blur)"/>
       
       <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
         <feGaussianBlur stdDeviation="2"/>
