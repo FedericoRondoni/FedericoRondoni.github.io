@@ -126,19 +126,6 @@ body{
   border-bottom: 30px solid #4A0E4E;
 }
 
-.envelope-flap::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 58px solid transparent;
-  border-right: 58px solid transparent;
-  border-bottom: 2px solid #1E3A8A;
-}
-
 .envelope-shadow {
   position: absolute;
   top: 135px;
@@ -291,11 +278,6 @@ body{
     border-left-width: 38px;
     border-right-width: 38px;
     border-bottom-width: 22px;
-  }
-  .envelope-flap::after {
-    border-left-width: 43px;
-    border-right-width: 43px;
-    border-bottom-width: 2px;
   }
   .envelope-shadow {
     top: 110px;
