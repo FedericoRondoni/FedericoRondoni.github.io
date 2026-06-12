@@ -37,15 +37,18 @@ main {
 .profile-photo {
   width: 120px;
   height: 160px;
-  object-fit: cover;
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
-  border: 2px solid #8B0000;
   transition: transform 0.3s ease;
 }
 
 .profile-photo:hover {
   transform: scale(1.05);
+}
+
+.profile-photo svg {
+  width: 100%;
+  height: 100%;
 }
 
 /* Responsive photos */
