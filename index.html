@@ -24,11 +24,11 @@
         <line x1="100" y1="90" x2="100" y2="45" stroke="#f5f0e6" stroke-width="1"/>
       </g>
       
-      <!-- Ombra sotto la busta (non ruotata) - PIU' IN BASSO -->
-      <ellipse id="envelope-shadow" cx="100" cy="125" rx="55" ry="5" fill="rgba(0,0,0,0.15)" opacity="1"/>
+      <!-- Ombra sotto la busta (non ruotata) - PIU' LONTANO E SFOCATA -->
+      <ellipse id="envelope-shadow" cx="100" cy="150" rx="55" ry="6" fill="rgba(0,0,0,0.15)" opacity="1" filter="url(#blur)"/>
       
       <filter id="blur">
-        <feGaussianBlur stdDeviation="3"/>
+        <feGaussianBlur stdDeviation="4"/>
       </filter>
     </svg>
     <p class="envelope-text">Apri l'invito</p>
