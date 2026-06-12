@@ -8,7 +8,61 @@
 }
 
 main {
-  padding-top: 60px;
+  padding-top: 80px;
+}
+
+/* FOTO PROFILO */
+.photos-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.photo-placeholder {
+  position: relative;
+}
+
+.photo-placeholder.left {
+  transform: rotate(-5deg);
+}
+
+.photo-placeholder.right {
+  transform: rotate(5deg);
+}
+
+.profile-photo {
+  width: 120px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
+  border: 2px solid #8B0000;
+  transition: transform 0.3s ease;
+}
+
+.profile-photo:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive photos */
+@media (max-width: 768px) {
+  .photos-container {
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .photo-placeholder.left,
+  .photo-placeholder.right {
+    transform: rotate(0deg);
+  }
+  .profile-photo {
+    width: 100px;
+    height: 130px;
+  }
 }
 
 body{
