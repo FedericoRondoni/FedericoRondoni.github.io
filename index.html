@@ -17,18 +17,18 @@
         <!-- Corpo busta con angoli arrotondati -->
         <rect x="10" y="10" width="180" height="80" rx="4" ry="4" fill="#8B0000" stroke="#f5f0e6" stroke-width="1"/>
         
-        <!-- Lembo con angoli arrotondati -->
-        <path d="M15 90 Q100 45 185 90 L185 85 Q100 50 15 85 Z" fill="#8B0000" stroke="#f5f0e6" stroke-width="1"/>
+        <!-- Lembo con stondatura MOLTO leggera -->
+        <path d="M12 90 L100 48 L188 90 L185 85 L100 52 L15 85 Z" fill="#8B0000" stroke="#f5f0e6" stroke-width="1"/>
         
         <!-- Linea di chiusura lembo -->
         <line x1="100" y1="87" x2="100" y2="50" stroke="#f5f0e6" stroke-width="1"/>
         
         <!-- Ombra tra lembo e corpo -->
-        <path d="M15 90 Q100 45 185 90" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="1,1"/>
+        <path d="M12 90 L100 48 L188 90" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="1,1"/>
       </g>
       
       <!-- Ombra sotto la busta (non ruotata) -->
-      <ellipse id="envelope-shadow" cx="100" cy="120" rx="50" ry="3" fill="rgba(0,0,0,0.08)" filter="url(#blur)"/>
+      <ellipse id="envelope-shadow" cx="100" cy="120" rx="50" ry="4" fill="rgba(0,0,0,0.12)" filter="url(#blur)"/>
       
       <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
         <feGaussianBlur stdDeviation="2"/>
