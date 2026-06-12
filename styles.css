@@ -82,7 +82,7 @@ body{
 .envelope {
   position: relative;
   width: 200px;
-  height: 120px;
+  height: 130px;
   margin: 0 auto 20px;
   animation: float 3s ease-in-out infinite;
   cursor: pointer;
@@ -95,44 +95,82 @@ body{
   width: 100%;
   height: 100%;
   background: #f5f0e6;
-  border: 2px solid #8B0000;
-  border-radius: 4px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid #1E3A8A;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
 }
 
 .envelope-flap {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background: #8B0000;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  top: 10px;
+  left: 20px;
+  right: 20px;
+  height: 60px;
+  background: #f5f0e6;
+  border: 1px solid #1E3A8A;
+  border-bottom: none;
+  border-radius: 2px 2px 0 0;
   z-index: 2;
 }
 
 .envelope-flap::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 100px solid #8B0000;
-  border-right: 100px solid #8B0000;
-  border-bottom: 30px solid #4A0E4E;
+  border-left: 85px solid transparent;
+  border-right: 85px solid transparent;
+  border-bottom: 25px solid #f5f0e6;
+  border-top: 1px solid #1E3A8A;
+}
+
+.envelope-flap::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(to bottom, rgba(30, 58, 138, 0.1), rgba(30, 58, 138, 0.05));
+  border-radius: 0 0 2px 2px;
+}
+
+.envelope-seal {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background: #8B0000;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(139, 0, 0, 0.3);
+  z-index: 3;
+}
+
+.envelope-seal::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15px;
+  height: 15px;
+  background: #1E3A8A;
+  border-radius: 50%;
 }
 
 .envelope-shadow {
   position: absolute;
-  top: 115px;
+  top: 125px;
   left: 50%;
   transform: translateX(-30%);
   width: 140px;
-  height: 12px;
-  background: rgba(0, 0, 0, 0.1);
+  height: 10px;
+  background: rgba(30, 58, 138, 0.1);
   border-radius: 50%;
   filter: blur(4px);
 }
@@ -140,8 +178,8 @@ body{
 .envelope-text {
   font-family: "Alice", serif;
   font-size: 18px;
-  color: #8B0000;
-  margin: 0;
+  color: #1E3A8A;
+  margin-top: 10px;
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -260,21 +298,34 @@ body{
 @media (max-width: 768px) {
   .envelope {
     width: 160px;
-    height: 100px;
+    height: 105px;
   }
   .envelope-body {
     height: 100%;
   }
   .envelope-flap {
-    height: 32px;
+    top: 8px;
+    left: 15px;
+    right: 15px;
+    height: 48px;
   }
   .envelope-flap::before {
-    border-left-width: 80px;
-    border-right-width: 80px;
-    border-bottom-width: 24px;
+    top: -8px;
+    border-left-width: 68px;
+    border-right-width: 68px;
+    border-bottom-width: 20px;
+  }
+  .envelope-seal {
+    top: 20px;
+    width: 24px;
+    height: 24px;
+  }
+  .envelope-seal::before {
+    width: 12px;
+    height: 12px;
   }
   .envelope-shadow {
-    top: 95px;
+    top: 100px;
     width: 110px;
   }
   .envelope-text {
