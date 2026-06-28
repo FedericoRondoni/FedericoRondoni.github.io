@@ -125,82 +125,94 @@ body{
   animation: float 3s ease-in-out infinite;
 }
 
-/* --- BUSTA ESAGONALE A TEMA SPAZIO --- */
-.hex-envelope {
+/* --- BUSTA RETTANGOLARE A TEMA SPAZIO --- */
+.rect-envelope {
   position: relative;
-  width: min(360px, 82vw);
-  height: calc(min(360px, 82vw) * 1.1547);
+  width: min(380px, 86vw);
+  height: calc(min(380px, 86vw) * 0.64);
   margin: 0 auto;
   transform-style: preserve-3d;
   transition: transform 0.7s ease, opacity 0.7s ease;
   filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.45));
 }
 
-.hex-rim {
+.env-body {
   position: absolute;
   inset: 0;
-  clip-path: var(--hex);
-  background: linear-gradient(135deg, #E9D9A8 0%, #C9A86A 38%, #9c7b3e 68%, #E3CE9B 100%);
-}
-
-.hex-body {
-  position: absolute;
-  inset: 3px;
-  clip-path: var(--hex);
-  background: radial-gradient(circle at 50% 42%, #1c2c6b 0%, #0c1430 55%, #05081c 100%);
+  border-radius: 8px;
+  background: radial-gradient(circle at 50% 45%, #1c2c6b 0%, #0c1430 60%, #05081c 100%);
+  border: 2px solid var(--gold);
   overflow: hidden;
 }
 
-.hex-stars {
+.env-stars {
   position: absolute;
   inset: 0;
-  opacity: 0.9;
+  opacity: 0.85;
   animation: twinkle 5s ease-in-out infinite;
   background-image:
-    radial-gradient(1.4px 1.4px at 28% 22%, #fff, transparent),
-    radial-gradient(1px 1px at 68% 18%, #fff, transparent),
-    radial-gradient(1.2px 1.2px at 80% 42%, #fff, transparent),
-    radial-gradient(1px 1px at 18% 48%, #fff, transparent),
-    radial-gradient(1.3px 1.3px at 38% 70%, #fff, transparent),
-    radial-gradient(1px 1px at 62% 74%, #fff, transparent),
-    radial-gradient(1.1px 1.1px at 50% 32%, #fff, transparent),
-    radial-gradient(1px 1px at 74% 60%, #fff, transparent),
-    radial-gradient(1.2px 1.2px at 24% 64%, #fff, transparent),
-    radial-gradient(1px 1px at 46% 84%, #fff, transparent),
-    radial-gradient(1px 1px at 86% 28%, #fff, transparent),
-    radial-gradient(1px 1px at 14% 32%, #fff, transparent);
+    radial-gradient(1.4px 1.4px at 18% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 22%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 84% 50%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 60%, #fff, transparent),
+    radial-gradient(1.3px 1.3px at 50% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 62% 68%, #fff, transparent),
+    radial-gradient(1.1px 1.1px at 12% 70%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 78%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 40% 38%, #fff, transparent),
+    radial-gradient(1px 1px at 78% 88%, #fff, transparent);
 }
 
-.hex-orbit {
+/* Tasca frontale (triangolo inferiore) con bordo dorato */
+.env-pocket {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 60%;
-  height: 60%;
-  transform: translate(-50%, -50%) rotate(-18deg);
-  border: 1px solid rgba(201, 168, 106, 0.5);
-  border-radius: 50%;
+  inset: 0;
+  z-index: 2;
+  clip-path: polygon(0 100%, 100% 100%, 50% 46%);
+  background: linear-gradient(135deg, #C9A86A, #9c7b3e);
 }
 
-.hex-orbit-dot {
+.env-pocket::before {
+  content: '';
   position: absolute;
-  top: 50%;
-  right: -3px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #E8C547;
-  box-shadow: 0 0 8px rgba(232, 197, 71, 0.9);
-  transform: translateY(-50%);
+  inset: 2px;
+  clip-path: polygon(0 100%, 100% 100%, 50% 46%);
+  background: linear-gradient(180deg, #16224e, #0e1838);
 }
 
-.hex-seal {
+/* Lembo superiore triangolare che si apre (con bordo dorato) */
+.env-flap {
   position: absolute;
-  top: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 54%;
+  z-index: 4;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(135deg, #E9D9A8, #C9A86A 55%, #9c7b3e);
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.9s cubic-bezier(0.5, 0.1, 0.2, 1);
+}
+
+.env-flap::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(180deg, #1c2c6b, #101d44);
+}
+
+/* Sigillo di ceralacca al centro (sopra la punta del lembo) */
+.env-seal {
+  position: absolute;
+  top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 76px;
-  height: 76px;
+  z-index: 6;
+  transition: box-shadow 0.6s ease, opacity 0.4s ease;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -209,41 +221,24 @@ body{
   color: var(--bordeaux);
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 25px;
+  font-size: 22px;
   letter-spacing: 1px;
   box-shadow: 0 0 0 2px rgba(227, 206, 155, 0.8), 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: box-shadow 0.6s ease;
 }
 
-/* Lembo superiore triangolare che si apre */
-.hex-flap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 25%;
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-  background: linear-gradient(180deg, #1a2860 0%, #111e48 100%);
-  border-bottom: 1px solid rgba(201, 168, 106, 0.45);
-  transform-origin: bottom center;
-  transform: rotateX(0deg);
-  transition: transform 0.8s cubic-bezier(0.5, 0.1, 0.2, 1), opacity 0.8s ease;
-  backface-visibility: hidden;
+.envelope-container.opening .env-flap {
+  transform: rotateX(-170deg);
 }
 
-.envelope-container.opening .hex-flap {
-  transform: rotateX(168deg);
-  opacity: 0.85;
-}
-
-.envelope-container.opening .hex-envelope {
-  transform: translateY(-12px) scale(0.95);
+.envelope-container.opening .rect-envelope {
+  transform: translateY(-10px) scale(0.96);
   opacity: 0;
-  transition-delay: 0.35s;
+  transition-delay: 0.45s;
 }
 
-.envelope-container.opening .hex-seal {
+.envelope-container.opening .env-seal {
   box-shadow: 0 0 0 2px rgba(227, 206, 155, 0.9), 0 0 24px rgba(232, 197, 71, 0.9);
+  opacity: 0;
 }
 
 .envelope-container.opening .envelope-text {
@@ -399,10 +394,10 @@ body{
   .envelope-text {
     font-size: 15px;
   }
-  .hex-seal {
-    width: 64px;
-    height: 64px;
-    font-size: 21px;
+  .env-seal {
+    width: 56px;
+    height: 56px;
+    font-size: 19px;
   }
 }
 
