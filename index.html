@@ -12,35 +12,34 @@
 
 <body>
 
-<!-- POPUP BUSTA -->
+<!-- POPUP BUSTA ESAGONALE -->
 <div id="envelope-popup" class="envelope-overlay envelope-hidden">
-  <div class="envelope-container">
-    <svg class="envelope-svg" viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
-      <!-- Corpo busta -->
-      <rect x="14" y="28" width="172" height="86" rx="6" ry="6" fill="#8B0000" stroke="#C9A86A" stroke-width="1.5"/>
-      <!-- Lembi interni accennati -->
-      <path d="M16 30 L100 84 L184 30" fill="none" stroke="#C9A86A" stroke-width="1" opacity="0.55"/>
-      <path d="M16 112 L78 70" fill="none" stroke="#C9A86A" stroke-width="1" opacity="0.3"/>
-      <path d="M184 112 L122 70" fill="none" stroke="#C9A86A" stroke-width="1" opacity="0.3"/>
-      <!-- Lembo superiore chiuso -->
-      <path d="M14 28 L100 82 L186 28 Z" fill="#7a0000" stroke="#C9A86A" stroke-width="1.5" stroke-linejoin="round"/>
-      <!-- Sigillo di ceralacca -->
-      <circle cx="100" cy="74" r="15" fill="#C9A86A" stroke="#E3CE9B" stroke-width="1.5"/>
-      <circle cx="100" cy="74" r="11" fill="none" stroke="#8B0000" stroke-width="0.8" opacity="0.5"/>
-      <text x="100" y="79.5" text-anchor="middle" font-size="12" fill="#8B0000" font-family="'Cormorant Garamond', serif" font-weight="600">E&amp;F</text>
-    </svg>
+  <div class="envelope-container" id="envelope-container">
+    <div class="hex-envelope">
+      <div class="hex-rim">
+        <div class="hex-body">
+          <div class="hex-stars"></div>
+          <div class="hex-orbit"><span class="hex-orbit-dot"></span></div>
+          <div class="hex-seal">E&amp;F</div>
+        </div>
+      </div>
+      <div class="hex-flap"></div>
+    </div>
     <p class="envelope-text">Apri l'invito</p>
   </div>
 </div>
 
-<!-- INVITO POPUP (apre dopo la busta) -->
+<!-- INVITO ESAGONALE (apre dopo la busta) -->
 <div id="invitation-popup" class="invitation-overlay invitation-hidden">
-  <div class="invitation-content">
-    <p class="invitation-text">Ti invitiamo al nostro matrimonio</p>
-    <p class="invitation-names">Elisa e Federico</p>
-    <p class="invitation-date">2 gennaio 2027</p>
-    <p class="invitation-location">Abbazia Castel d'Alfiolo - Gubbio</p>
-    <button id="close-invitation" class="invitation-close">Entra nel sito</button>
+  <div class="hex-invitation">
+    <div class="hex-invitation-inner">
+      <span class="hex-star">&#10022;</span>
+      <p class="invitation-text">Ti invitiamo al nostro matrimonio</p>
+      <p class="invitation-names">Elisa e Federico</p>
+      <p class="invitation-date">2 gennaio 2027</p>
+      <p class="invitation-location">Abbazia Castel d'Alfiolo - Gubbio</p>
+      <button id="close-invitation" class="invitation-close">Entra nel sito</button>
+    </div>
   </div>
 </div>
 
@@ -144,6 +143,15 @@
     </svg>
   </div>
 </section>
+
+<!-- SEZIONE FOTO A TUTTA PAGINA (placeholder a tema spazio) -->
+<section class="photo-band">
+  <div class="photo-band-content">
+    <div class="celestial-divider"><i></i></div>
+    <p class="photo-band-caption">Elisa &amp; Federico</p>
+    <p class="photo-band-date">2 gennaio 2027 · Gubbio</p>
+  </div>
+</section>
 </main>
 
 <script>
@@ -241,10 +249,15 @@ function markAsVisited() {
 if (checkFirstVisit()) {
   envelopePopup.classList.remove('envelope-hidden');
   
-  // Chiudi busta e mostra invito
+  // Apri la busta (lembo che si solleva) e poi mostra l'invito
+  const envelopeContainer = document.getElementById('envelope-container');
   envelopePopup.addEventListener('click', () => {
-    envelopePopup.classList.add('envelope-hidden');
-    invitationPopup.classList.remove('invitation-hidden');
+    if (envelopeContainer.classList.contains('opening')) return;
+    envelopeContainer.classList.add('opening');
+    setTimeout(() => {
+      envelopePopup.classList.add('envelope-hidden');
+      invitationPopup.classList.remove('invitation-hidden');
+    }, 900);
   });
   
   // Chiudi invito e entra nel sito
