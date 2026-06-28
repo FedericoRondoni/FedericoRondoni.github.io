@@ -140,12 +140,19 @@
   </div>
 </section>
 
-<!-- SEZIONE FOTO A TUTTA PAGINA (placeholder a tema spazio) -->
-<section class="photo-band">
-  <div class="photo-band-content">
-    <div class="celestial-divider"><i></i></div>
-    <p class="photo-band-caption">Elisa &amp; Federico</p>
-    <p class="photo-band-date">2 gennaio 2027 · Gubbio</p>
+<!-- GALLERIA A SCORRIMENTO CONTINUO -->
+<section class="gallery-section">
+  <div class="celestial-divider"><i></i></div>
+  <h2 class="gallery-title">I nostri momenti</h2>
+  <div class="gallery" id="gallery">
+    <div class="gallery-track" id="gallery-track">
+      <img src="pictures/IMG_1283.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
+      <img src="pictures/IMG_1532.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
+      <img src="pictures/IMG_1970.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
+      <img src="pictures/IMG_6785.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
+      <img src="pictures/IMG_9596.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
+      <img src="pictures/4f7357aa-4ff6-444d-b696-a6120faba187.JPG" alt="Elisa e Federico" class="gallery-img" loading="lazy">
+    </div>
   </div>
 </section>
 </main>
@@ -162,6 +169,8 @@ const translations = {
     location: "Location",
     rsvp: "RSVP",
     cta: "Conferma la tua presenza",
+    openInvite: "Apri l'invito",
+    galleryTitle: "I nostri momenti",
     invitationText: "Ti invitiamo al nostro matrimonio",
     invitationNames: "Elisa e Federico",
     invitationDate: "2 gennaio 2027",
@@ -173,6 +182,8 @@ const translations = {
     location: "Location",
     rsvp: "RSVP",
     cta: "Please confirm your attendance",
+    openInvite: "Open the invitation",
+    galleryTitle: "Our moments",
     invitationText: "We invite you to our wedding",
     invitationNames: "Elisa & Federico",
     invitationDate: "January 2nd, 2027",
@@ -207,7 +218,15 @@ function applyLanguage(lang) {
   if (ctaBtn) {
     ctaBtn.textContent = t.cta;
   }
-  
+
+  // Update envelope text
+  const envText = document.querySelector('.envelope-text');
+  if (envText) envText.textContent = t.openInvite;
+
+  // Update gallery title
+  const galleryTitle = document.querySelector('.gallery-title');
+  if (galleryTitle) galleryTitle.textContent = t.galleryTitle;
+
   // Update invitation popup
   const invitationText = document.querySelector('.invitation-text');
   const invitationNames = document.querySelector('.invitation-names');
@@ -266,12 +285,17 @@ if (checkFirstVisit()) {
   invitationPopup.classList.add('invitation-hidden');
 }
 
-/* Rendi visibile il body (fade-in) al caricamento, come le altre pagine.
-   Gli overlay del popup, essendo figli del body, hanno bisogno che il body
-   sia opaco per mostrarsi: il loro sfondo opaco copre comunque il contenuto. */
-window.addEventListener('load', () => {
+/* Rendi visibile il body (fade-in) appena il DOM è pronto, SENZA aspettare
+   il caricamento delle immagini della galleria (altrimenti busta ed hero
+   resterebbero nascosti finché le foto non sono scaricate). */
+function revealBody() {
   document.body.classList.add('loaded');
-});
+}
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', revealBody);
+} else {
+  revealBody();
+}
 
 /* LANGUAGE SWITCHER */
 document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -337,6 +361,55 @@ document.querySelectorAll('.menu a').forEach(link => {
     closeMenu();
   });
 });
+
+/* GALLERIA A SCORRIMENTO CONTINUO (auto + interazione) */
+const gallery = document.getElementById('gallery');
+const galleryTrack = document.getElementById('gallery-track');
+if (gallery && galleryTrack) {
+  // Duplica le immagini per un loop senza salti
+  galleryTrack.innerHTML += galleryTrack.innerHTML;
+
+  let paused = false;
+  const speed = 0.5; // px per frame
+
+  function galleryStep() {
+    const half = galleryTrack.scrollWidth / 2;
+    if (!paused && half > 0) {
+      gallery.scrollLeft += speed;
+      if (gallery.scrollLeft >= half) gallery.scrollLeft -= half;
+    }
+    requestAnimationFrame(galleryStep);
+  }
+  requestAnimationFrame(galleryStep);
+
+  // Pausa quando si interagisce
+  gallery.addEventListener('mouseenter', () => { paused = true; });
+  gallery.addEventListener('mouseleave', () => { paused = false; });
+  gallery.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+  gallery.addEventListener('touchend', () => { setTimeout(() => { paused = false; }, 2500); }, { passive: true });
+
+  // Trascinamento con il mouse (desktop)
+  let isDown = false, startX = 0, startScroll = 0;
+  gallery.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    isDown = true;
+    paused = true;
+    startX = e.pageX;
+    startScroll = gallery.scrollLeft;
+    gallery.classList.add('dragging');
+  });
+  gallery.addEventListener('pointermove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    gallery.scrollLeft = startScroll - (e.pageX - startX);
+  });
+  window.addEventListener('pointerup', (e) => {
+    if (!isDown) return;
+    isDown = false;
+    gallery.classList.remove('dragging');
+    setTimeout(() => { paused = false; }, 1500);
+  });
+}
 
 /* TRANSIZIONE FADE TRA PAGINE (coerente con le altre pagine) */
 document.querySelectorAll('a[href]').forEach(link => {
