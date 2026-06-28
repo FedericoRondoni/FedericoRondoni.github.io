@@ -401,68 +401,59 @@ body{
   }
 }
 
-/* SEZIONE FOTO A TUTTA PAGINA */
-.photo-band {
-  position: relative;
+/* GALLERIA A SCORRIMENTO CONTINUO */
+.gallery-section {
   width: 100%;
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 56px 0 66px;
   text-align: center;
-  background-color: #0c1b3a;
-  /* PLACEHOLDER a tema spazio. Per inserire la tua foto, sostituisci
-     l'intero blocco "background-image" qui sotto con:
-        background-image: url("foto-coppia.jpg");
-     (carica il file foto nel repository e usa il suo nome) */
-  background-image:
-    radial-gradient(2px 2px at 15% 25%, rgba(255,255,255,0.9), transparent),
-    radial-gradient(1.5px 1.5px at 80% 20%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1.5px 1.5px at 65% 65%, rgba(255,255,255,0.7), transparent),
-    radial-gradient(2px 2px at 35% 78%, rgba(255,255,255,0.85), transparent),
-    radial-gradient(1px 1px at 50% 40%, rgba(255,255,255,0.7), transparent),
-    radial-gradient(1.5px 1.5px at 25% 58%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 90% 72%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 45% 15%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(circle at 50% 38%, #1c3a78 0%, #0c1b3a 58%, #050d20 100%);
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(180deg, #0c1b3a 0%, #081427 100%);
   border-top: 1px solid rgba(201, 168, 106, 0.4);
   border-bottom: 1px solid rgba(201, 168, 106, 0.4);
-  overflow: hidden;
 }
 
-.photo-band::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(8,16,32,0.55), rgba(8,16,32,0.3) 50%, rgba(8,16,32,0.65));
-  pointer-events: none;
-}
-
-.photo-band-content {
-  position: relative;
-  z-index: 1;
-  padding: 40px 20px;
-}
-
-.photo-band-caption {
+.gallery-title {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(34px, 6vw, 56px);
+  font-size: clamp(28px, 5vw, 44px);
   color: #fff;
   letter-spacing: 1px;
-  margin: 16px 0 0;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+  margin: 14px 0 30px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
-.photo-band-date {
-  font-family: var(--font-body);
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold-soft);
-  margin: 12px 0 0;
+.gallery {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery.dragging {
+  cursor: grabbing;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 18px;
+  padding: 0 18px;
+  width: max-content;
+}
+
+.gallery-img {
+  height: clamp(220px, 38vh, 360px);
+  width: auto;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 168, 106, 0.5);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .site-header {
@@ -858,8 +849,8 @@ circle.planet {
   main {
     padding-top: 50px;
   }
-  .photo-band {
-    min-height: 56vh;
+  .gallery-section {
+    padding: 44px 0 52px;
   }
 }
 
