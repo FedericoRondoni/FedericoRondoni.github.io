@@ -1,3 +1,7 @@
+---
+# Front matter Jekyll: necessario per generare la galleria automaticamente.
+# NON rimuovere queste tre righe.
+---
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -146,12 +150,13 @@
   <h2 class="gallery-title">I nostri momenti</h2>
   <div class="gallery" id="gallery">
     <div class="gallery-track" id="gallery-track">
-      <img src="pictures/IMG_1283.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
-      <img src="pictures/IMG_1532.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
-      <img src="pictures/IMG_1970.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
-      <img src="pictures/IMG_6785.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
-      <img src="pictures/IMG_9596.jpg" alt="Elisa e Federico" class="gallery-img" loading="lazy">
-      <img src="pictures/4f7357aa-4ff6-444d-b696-a6120faba187.JPG" alt="Elisa e Federico" class="gallery-img" loading="lazy">
+      <!-- Galleria generata automaticamente da Jekyll: elenca i file nella
+           cartella /pictures. Per aggiungere o togliere una foto basta
+           caricarla o eliminarla in quella cartella, senza toccare il codice. -->
+      {% assign gallery_photos = site.static_files | where_exp: "f", "f.path contains '/pictures/'" %}
+      {% for photo in gallery_photos %}
+      <img src="{{ photo.path | relative_url }}" alt="Elisa e Federico" class="gallery-img" loading="lazy">
+      {% endfor %}
     </div>
   </div>
 </section>
