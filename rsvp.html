@@ -19,7 +19,7 @@
         <span class="burger-line"></span>
       </button>
 
-      <div class="header-title">Elisa e Federico</div>
+      <a href="index.html" class="header-title">Elisa e Federico</a>
       <div class="lang-switcher">
         <button class="lang-btn active" data-lang="it">IT</button>
         <button class="lang-btn" data-lang="en">EN</button>
@@ -108,13 +108,22 @@
         menuLinks[3].textContent = t.journey;
       }
 
-      // Mostra il form nella lingua giusta (IT o EN)
+      // Mostra il form nella lingua giusta (IT o EN). Quando un form passa
+      // da nascosto a visibile lo ricarichiamo, così OpnForm ricalcola
+      // l'altezza reale ed evitiamo lo spazio bianco in fondo.
       const rsvpIt = document.getElementById('rsvp-it');
       const rsvpEn = document.getElementById('rsvp-en');
       if (rsvpIt && rsvpEn) {
         const isEn = lang === 'en';
-        rsvpEn.hidden = !isEn;
-        rsvpIt.hidden = isEn;
+        const toShow = isEn ? rsvpEn : rsvpIt;
+        const toHide = isEn ? rsvpIt : rsvpEn;
+        const wasHidden = toShow.hidden;
+        toHide.hidden = true;
+        toShow.hidden = false;
+        if (wasHidden) {
+          const f = toShow.querySelector('iframe');
+          if (f && f.src) f.src = f.src;
+        }
       }
 
       document.querySelectorAll('.lang-btn').forEach(btn => {
