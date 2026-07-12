@@ -29,6 +29,7 @@
         <a href="index.html">Home</a>
         <a href="location.html">Location</a>
         <a href="rsvp.html">RSVP</a>
+        <a href="viaggio.html">Il nostro viaggio</a>
       </nav>
     </div>
   </header>
@@ -39,17 +40,26 @@
       <div class="subtitle" id="subtitle">Conferma la tua presenza</div>
 
       <div style="width:84%; max-width: 900px; margin: 0 auto;">
-        <iframe
-          style="border:none;width:100%;"
-          id="elisa-e-federico-rsvp-afk5gc"
-          src="https://opnform.com/forms/elisa-e-federico-rsvp-afk5gc">
-        </iframe>
+        <!-- Form italiano -->
+        <div id="rsvp-it" class="rsvp-frame">
+          <iframe
+            style="border:none;width:100%;"
+            id="elisa-e-federico-rsvp-afk5gc"
+            src="https://opnform.com/forms/elisa-e-federico-rsvp-afk5gc">
+          </iframe>
+        </div>
 
-        <script
-          type="text/javascript"
-          onload="initEmbed('elisa-e-federico-rsvp-afk5gc', { autoResize: true })"
-          src="https://opnform.com/widgets/iframe.min.js">
-        </script>
+        <!-- Form inglese -->
+        <div id="rsvp-en" class="rsvp-frame" hidden>
+          <iframe
+            style="border:none;width:100%;"
+            id="elisa-e-federico-rsvp-inarm1"
+            src="https://opnform.com/forms/elisa-e-federico-rsvp-inarm1">
+          </iframe>
+        </div>
+
+        <!-- SDK OpnForm: ridimensiona automaticamente entrambi i form -->
+        <script src="https://opnform.com/widgets/opnform-sdk.min.js"></script>
       </div>
     </div>
   </main>
@@ -62,14 +72,16 @@
         subtitle: "Conferma la tua presenza",
         home: "Home",
         location: "Location",
-        rsvp: "RSVP"
+        rsvp: "RSVP",
+        journey: "Il nostro viaggio"
       },
       en: {
         title: "RSVP",
         subtitle: "Please confirm your attendance",
         home: "Home",
         location: "Location",
-        rsvp: "RSVP"
+        rsvp: "RSVP",
+        journey: "Our journey"
       }
     };
 
@@ -89,11 +101,22 @@
       document.getElementById('page-title').textContent = t.title;
       document.getElementById('subtitle').textContent = t.subtitle;
       const menuLinks = document.querySelectorAll('.menu a');
-      if (menuLinks.length >= 3) {
+      if (menuLinks.length >= 4) {
         menuLinks[0].textContent = t.home;
         menuLinks[1].textContent = t.location;
         menuLinks[2].textContent = t.rsvp;
+        menuLinks[3].textContent = t.journey;
       }
+
+      // Mostra il form nella lingua giusta (IT o EN)
+      const rsvpIt = document.getElementById('rsvp-it');
+      const rsvpEn = document.getElementById('rsvp-en');
+      if (rsvpIt && rsvpEn) {
+        const isEn = lang === 'en';
+        rsvpEn.hidden = !isEn;
+        rsvpIt.hidden = isEn;
+      }
+
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
       });
