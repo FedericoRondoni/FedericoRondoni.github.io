@@ -228,6 +228,10 @@ function applyLanguage(lang) {
     ctaBtn.textContent = t.cta;
   }
 
+  // Update hero date
+  const heroDate = document.querySelector('.date');
+  if (heroDate) heroDate.textContent = t.invitationDate;
+
   // Update envelope text
   const envText = document.querySelector('.envelope-text');
   if (envText) envText.textContent = t.openInvite;
