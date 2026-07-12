@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RSVP — Elisa e Federico</title>
+  <title>Il nostro viaggio — Elisa e Federico</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -36,48 +36,55 @@
 
   <main>
     <div class="container">
-      <h1 class="page-title" id="page-title">RSVP</h1>
-      <div class="subtitle" id="subtitle">Conferma la tua presenza</div>
+      <h1 class="page-title" id="page-title">Il nostro viaggio</h1>
+      <div class="celestial-divider"><i></i></div>
 
-      <div style="width:84%; max-width: 900px; margin: 0 auto;">
-        <!-- Form italiano -->
-        <div id="rsvp-it" class="rsvp-frame">
-          <iframe
-            style="border:none;width:100%;"
-            id="elisa-e-federico-rsvp-afk5gc"
-            src="https://opnform.com/forms/elisa-e-federico-rsvp-afk5gc">
-          </iframe>
-        </div>
+      <p class="gift-intro" id="gift-intro">
+        Stiamo organizzando il nostro viaggio di nozze: il regalo più bello
+        sarà avervi accanto in questo giorno. Se però desiderate farci un
+        pensiero per il nostro viaggio tra le stelle, ne saremo felici.
+      </p>
 
-        <!-- Form inglese -->
-        <div id="rsvp-en" class="rsvp-frame" hidden>
-          <iframe
-            style="border:none;width:100%;"
-            id="elisa-e-federico-rsvp-inarm1"
-            src="https://opnform.com/forms/elisa-e-federico-rsvp-inarm1">
-          </iframe>
-        </div>
+      <div class="gift-card">
+        <span class="gift-label" id="gift-holder-label">Intestato a</span>
+        <p class="gift-holder" id="gift-holder">Elisa Sollevanti &middot; Federico Rondoni</p>
+        <p class="gift-bank">Banca Etica</p>
 
-        <!-- SDK OpnForm: ridimensiona automaticamente entrambi i form -->
-        <script src="https://opnform.com/widgets/opnform-sdk.min.js"></script>
+        <span class="gift-label">IBAN</span>
+        <p class="iban-value" id="iban-value">IT52 J050 1803 0000 0002 0000 161</p>
+
+        <button class="btn copy-btn" id="copy-btn">Copia IBAN</button>
+
+        <p class="gift-causale" id="gift-causale">Causale: Regalo di nozze Elisa e Federico</p>
       </div>
+
+      <p class="gift-thanks" id="gift-thanks">Grazie di cuore &#10022;</p>
     </div>
   </main>
 
   <script>
-    // Language translations
     const translations = {
       it: {
-        title: "RSVP",
-        subtitle: "Conferma la tua presenza",
+        title: "Il nostro viaggio",
+        intro: "Stiamo organizzando il nostro viaggio di nozze: il regalo più bello sarà avervi accanto in questo giorno. Se però desiderate farci un pensiero per il nostro viaggio tra le stelle, ne saremo felici.",
+        holderLabel: "Intestato a",
+        causale: "Causale: Regalo di nozze Elisa e Federico",
+        copy: "Copia IBAN",
+        copied: "Copiato!",
+        thanks: "Grazie di cuore ✦",
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
         journey: "Il nostro viaggio"
       },
       en: {
-        title: "RSVP",
-        subtitle: "Please confirm your attendance",
+        title: "Our journey",
+        intro: "We're planning our honeymoon: your presence on our day will be the greatest gift. But if you'd like to give us something for our journey among the stars, we'd be truly grateful.",
+        holderLabel: "Account holder",
+        causale: "Reference: Wedding gift Elisa & Federico",
+        copy: "Copy IBAN",
+        copied: "Copied!",
+        thanks: "Thank you from the heart ✦",
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
@@ -85,7 +92,6 @@
       }
     };
 
-    // Detect user language preference
     function detectLanguage() {
       const savedLang = localStorage.getItem('preferredLang');
       if (savedLang) return savedLang;
@@ -93,13 +99,18 @@
       return browserLang.startsWith('it') ? 'it' : 'en';
     }
 
-    // Apply language
     function applyLanguage(lang) {
       document.documentElement.lang = lang;
       localStorage.setItem('preferredLang', lang);
       const t = translations[lang];
       document.getElementById('page-title').textContent = t.title;
-      document.getElementById('subtitle').textContent = t.subtitle;
+      document.getElementById('gift-intro').textContent = t.intro;
+      document.getElementById('gift-holder-label').textContent = t.holderLabel;
+      document.getElementById('gift-causale').textContent = t.causale;
+      document.getElementById('gift-thanks').innerHTML = t.thanks;
+      const copyBtn = document.getElementById('copy-btn');
+      if (!copyBtn.dataset.copied) copyBtn.textContent = t.copy;
+
       const menuLinks = document.querySelectorAll('.menu a');
       if (menuLinks.length >= 4) {
         menuLinks[0].textContent = t.home;
@@ -107,20 +118,30 @@
         menuLinks[2].textContent = t.rsvp;
         menuLinks[3].textContent = t.journey;
       }
-
-      // Mostra il form nella lingua giusta (IT o EN)
-      const rsvpIt = document.getElementById('rsvp-it');
-      const rsvpEn = document.getElementById('rsvp-en');
-      if (rsvpIt && rsvpEn) {
-        const isEn = lang === 'en';
-        rsvpEn.hidden = !isEn;
-        rsvpIt.hidden = isEn;
-      }
-
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
       });
     }
+
+    // Copia IBAN negli appunti
+    const copyBtn = document.getElementById('copy-btn');
+    copyBtn.addEventListener('click', () => {
+      const iban = document.getElementById('iban-value').textContent.trim();
+      const done = () => {
+        const lang = document.documentElement.lang || 'it';
+        copyBtn.dataset.copied = "1";
+        copyBtn.textContent = translations[lang].copied;
+        setTimeout(() => {
+          delete copyBtn.dataset.copied;
+          copyBtn.textContent = translations[lang].copy;
+        }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(iban.replace(/\s+/g, '')).then(done).catch(done);
+      } else {
+        done();
+      }
+    });
 
     const burger = document.getElementById('burger');
     const menu = document.getElementById('menu');
@@ -167,14 +188,11 @@
       });
     });
 
-    // Initialize
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
-      const lang = detectLanguage();
-      applyLanguage(lang);
+      applyLanguage(detectLanguage());
     });
 
-    // Language switcher
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         applyLanguage(btn.dataset.lang);
