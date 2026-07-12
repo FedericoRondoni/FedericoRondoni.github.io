@@ -522,6 +522,13 @@ body{
   letter-spacing: 0.5px;
   color: var(--bordeaux);
   opacity: 0.95;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.header-title:hover {
+  opacity: 1;
 }
 
 .burger {
