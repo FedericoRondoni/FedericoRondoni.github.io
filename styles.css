@@ -871,12 +871,19 @@ circle.planet {
   display: none;
 }
 
+.rsvp-frame {
+  padding: 16px;
+  background: var(--cream);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 0 0 5px rgba(201, 168, 106, 0.12);
+}
+
 .rsvp-frame iframe {
   width: 100%;
   min-height: 600px;
   border: none;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 @media (max-width: 768px) {
