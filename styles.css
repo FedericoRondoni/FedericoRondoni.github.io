@@ -758,6 +758,77 @@ circle.planet {
   margin-bottom: 30px;
 }
 
+/* PAGINA REGALO / VIAGGIO DI NOZZE */
+.gift-intro {
+  max-width: 620px;
+  margin: 26px auto 34px;
+  font-size: clamp(16px, 2.4vw, 19px);
+  line-height: 1.7;
+  color: var(--ink);
+  opacity: 0.85;
+}
+
+.gift-card {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 36px 28px 32px;
+  background: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--cream) 80%);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 0 0 5px rgba(201, 168, 106, 0.12);
+}
+
+.gift-label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.gift-holder {
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+
+.gift-bank {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--navy);
+  opacity: 0.75;
+  margin: 0 0 22px;
+}
+
+.iban-value {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 4vw, 27px);
+  letter-spacing: 1px;
+  color: var(--bordeaux);
+  margin: 0 0 20px;
+  word-break: break-word;
+}
+
+.copy-btn {
+  margin: 0 auto 6px;
+}
+
+.gift-causale {
+  font-size: 14px;
+  color: var(--navy);
+  opacity: 0.8;
+  margin: 20px 0 0;
+}
+
+.gift-thanks {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 30px);
+  color: var(--bordeaux);
+  margin: 34px 0 0;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -796,7 +867,11 @@ circle.planet {
   border: none;
 }
 
-#elisa-e-federico-rsvp-afk5gc {
+.rsvp-frame[hidden] {
+  display: none;
+}
+
+.rsvp-frame iframe {
   width: 100%;
   min-height: 600px;
   border: none;
@@ -826,7 +901,7 @@ circle.planet {
   .map {
     height: 300px;
   }
-  #elisa-e-federico-rsvp-afk5gc {
+  .rsvp-frame iframe {
     min-height: 500px;
   }
   .menu {
