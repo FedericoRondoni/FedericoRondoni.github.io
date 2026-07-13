@@ -874,6 +874,48 @@ circle.planet {
   border: none;
 }
 
+/* CARD INDICAZIONI (più rilievo) */
+.directions-card {
+  max-width: 640px;
+  margin: 30px auto 0;
+  padding: 26px 26px 28px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--cream) 85%);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 0 5px rgba(201, 168, 106, 0.12);
+}
+
+.directions-label {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(22px, 4vw, 28px);
+  color: var(--bordeaux);
+  margin: 0 0 12px;
+}
+
+.directions-card p {
+  font-size: clamp(16px, 2.6vw, 19px);
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+.directions-btn {
+  display: inline-block;
+}
+
+/* IMMAGINE INDICAZIONI SOTTO LA MAPPA */
+.location-image {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 34px auto 0;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 168, 106, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
 .rsvp-frame[hidden] {
   display: none;
 }
