@@ -50,9 +50,15 @@
         </iframe>
       </div>
 
-      <div class="location-details" id="location-details">
+      <div class="directions-card" id="location-details">
+        <h2 class="directions-label" id="directions-title">Come arrivare</h2>
         <p id="location-text">Indicazioni: da Umbertide seguire per Gubbio, poi per Castel d'Alfiolo.</p>
+        <a class="btn directions-btn" id="maps-btn"
+           href="https://www.google.com/maps/dir/?api=1&destination=Abbazia%20Castel%20d%27Alfiolo%20Gubbio"
+           target="_blank" rel="noopener">Apri in Google Maps</a>
       </div>
+
+      <img src="Location.png" alt="Indicazioni per raggiungere la location" class="location-image" loading="lazy">
     </div>
   </main>
 
@@ -62,7 +68,9 @@
       it: {
         title: "Location",
         subtitle: "Abbazia Castel d'Alfiolo<br>Gubbio",
+        directionsTitle: "Come arrivare",
         details: "Indicazioni: da Umbertide seguire per Gubbio, poi per Castel d'Alfiolo.",
+        mapsBtn: "Apri in Google Maps",
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
@@ -71,7 +79,9 @@
       en: {
         title: "Location",
         subtitle: "Abbazia Castel d'Alfiolo<br>Gubbio",
+        directionsTitle: "How to get there",
         details: "Directions: from Umbertide follow signs to Gubbio, then to Castel d'Alfiolo.",
+        mapsBtn: "Open in Google Maps",
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
@@ -99,7 +109,9 @@
       const t = translations[lang];
       document.getElementById('page-title').textContent = t.title;
       document.getElementById('subtitle').innerHTML = t.subtitle;
+      document.getElementById('directions-title').textContent = t.directionsTitle;
       document.getElementById('location-text').textContent = t.details;
+      document.getElementById('maps-btn').textContent = t.mapsBtn;
 
       // Update menu links
       const menuLinks = document.querySelectorAll('.menu a');
@@ -169,6 +181,7 @@
       link.addEventListener('click', function(e){
         const href = this.getAttribute('href');
         if (href && href.startsWith('#')) return;
+        if (this.target === '_blank' || /^https?:\/\//i.test(href)) return;
         e.preventDefault();
         document.body.classList.remove('loaded');
         setTimeout(() => { window.location.href = href; }, 600);
