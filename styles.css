@@ -684,8 +684,8 @@ body{
 
 .line {
   fill: none;
-  stroke: rgba(201, 168, 106, 0.35);
-  stroke-width: 1;
+  stroke: rgba(216, 196, 140, 0.45);
+  stroke-width: 1.1;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
