@@ -702,13 +702,17 @@ body{
 circle.planet {
   opacity: 1;
   filter:
-    drop-shadow(0 0 3px rgba(255, 255, 255, 1))
-    drop-shadow(0 0 7px rgba(255, 255, 255, 0.85))
-    drop-shadow(0 0 13px rgba(255, 255, 255, 0.45));
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.55))
+    drop-shadow(0 0 11px rgba(140, 180, 255, 0.35));
 }
 
 .bodies-top .planet {
   opacity: 1;
+}
+
+/* Orbite nascoste: pianeti liberi sul blu */
+.orbit {
+  display: none;
 }
 
 .sun {
@@ -720,15 +724,15 @@ circle.planet {
 }
 
 /* Pianeti: tonalità luminose per buon contrasto sulla volta navy */
-#p1 { fill: #C9B27D; opacity: 0.95; } /* Mercurio */
-#p2 { fill: #EAD9A6; opacity: 0.95; } /* Venere */
-#p3 { fill: #8FB7D9; opacity: 0.95; } /* Terra */
-#p4 { fill: #D98A6A; opacity: 0.95; } /* Marte */
-#p5 { fill: #E0A94B; opacity: 0.95; } /* Giove */
-#p6 { fill: #EAD18B; opacity: 0.95; } /* Saturno */
-#p7 { fill: #B7D0E6; opacity: 0.95; } /* Urano */
-#p8 { fill: #7FA0D8; opacity: 0.95; } /* Nettuno */
-#p9 { fill: #C295AD; opacity: 0.95; } /* Plutone */
+#p1 { fill: url(#sph1); } /* Mercurio */
+#p2 { fill: url(#sph2); } /* Venere */
+#p3 { fill: url(#sph3); } /* Terra */
+#p4 { fill: url(#sph4); } /* Marte */
+#p5 { fill: url(#sph5); } /* Giove */
+#p6 { fill: url(#sph6); } /* Saturno */
+#p7 { fill: url(#sph7); } /* Urano */
+#p8 { fill: url(#sph8); } /* Nettuno */
+#p9 { fill: url(#sph9); } /* Plutone */
 
 
 

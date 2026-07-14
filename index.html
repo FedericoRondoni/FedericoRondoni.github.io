@@ -95,9 +95,9 @@
         <polygon points="570.0,388.6 530.0,457.8 450.0,457.8 410.0,388.6 450.0,319.3 530.0,319.3"/>
         </clipPath>
         <radialGradient id="mirror-bg" cx="50%" cy="44%" r="72%">
-          <stop offset="0%" stop-color="#1e56c0"/>
-          <stop offset="42%" stop-color="#123a86"/>
-          <stop offset="100%" stop-color="#081a3f"/>
+          <stop offset="0%" stop-color="#123257"/>
+          <stop offset="45%" stop-color="#0c1b3a"/>
+          <stop offset="100%" stop-color="#081427"/>
         </radialGradient>
         <radialGradient id="mirror-sheen" cx="34%" cy="26%" r="72%">
           <stop offset="0%" stop-color="#ffffff" stop-opacity="0.26"/>
@@ -109,6 +109,15 @@
           <stop offset="66%" stop-color="#03060f" stop-opacity="0"/>
           <stop offset="100%" stop-color="#03060f" stop-opacity="0.9"/>
         </radialGradient>
+        <radialGradient id="sph1" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#C9B27D"/><stop offset="100%" stop-color="#6f6038"/></radialGradient>
+        <radialGradient id="sph2" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#EAD9A6"/><stop offset="100%" stop-color="#a2915f"/></radialGradient>
+        <radialGradient id="sph3" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#8FB7D9"/><stop offset="100%" stop-color="#4a6b8a"/></radialGradient>
+        <radialGradient id="sph4" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#D98A6A"/><stop offset="100%" stop-color="#8a4a32"/></radialGradient>
+        <radialGradient id="sph5" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#E0A94B"/><stop offset="100%" stop-color="#8c631b"/></radialGradient>
+        <radialGradient id="sph6" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#EAD18B"/><stop offset="100%" stop-color="#9c8544"/></radialGradient>
+        <radialGradient id="sph7" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#B7D0E6"/><stop offset="100%" stop-color="#6b86a2"/></radialGradient>
+        <radialGradient id="sph8" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#7FA0D8"/><stop offset="100%" stop-color="#415c8a"/></radialGradient>
+        <radialGradient id="sph9" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#C295AD"/><stop offset="100%" stop-color="#745167"/></radialGradient>
       </defs>
 
       <!-- RIFLESSO: sistema solare dentro lo specchio JWST -->
@@ -184,20 +193,20 @@
         <!-- Sole e pianeti luminosi SOPRA la velatura, così risaltano -->
         <g class="bodies-top" transform="translate(250 250) scale(0.78) translate(-250 -250)">
           <circle cx="250" cy="250" r="4" class="sun"/>
-          <circle id="p1" cx="290" cy="250" r="3" class="planet"/>
-          <circle id="p2" cx="315" cy="250" r="4" class="planet"/>
-          <circle id="p3" cx="340" cy="250" r="5" class="planet"/>
-          <circle id="p4" cx="370" cy="250" r="4" class="planet"/>
-          <circle id="p5" cx="420" cy="250" r="10" class="planet"/>
-          <circle id="p6" cx="460" cy="250" r="9" class="planet"/>
-          <circle id="p7" cx="500" cy="250" r="8" class="planet"/>
-          <circle id="p8" cx="540" cy="250" r="8" class="planet"/>
-          <circle id="p9" cx="580" cy="250" r="3" class="planet"/>
+          <circle id="p1" cx="290" cy="250" r="6" class="planet"/>
+          <circle id="p2" cx="315" cy="250" r="7" class="planet"/>
+          <circle id="p3" cx="340" cy="250" r="9" class="planet"/>
+          <circle id="p4" cx="370" cy="250" r="8" class="planet"/>
+          <circle id="p5" cx="420" cy="250" r="15" class="planet"/>
+          <circle id="p6" cx="460" cy="250" r="13" class="planet"/>
+          <circle id="p7" cx="500" cy="250" r="12" class="planet"/>
+          <circle id="p8" cx="540" cy="250" r="12" class="planet"/>
+          <circle id="p9" cx="580" cy="250" r="7" class="planet"/>
         </g>
       </g>
 
       <!-- GIUNTI TRA I SEGMENTI (specchio JWST) -->
-      <g fill="none" stroke="#0a1430" stroke-width="1.6" stroke-linejoin="round" opacity="0.4">
+      <g fill="none" stroke="#0a1430" stroke-width="1.4" stroke-linejoin="round" opacity="0.3">
         <polygon points="87.2,111.4 48.6,178.3 -28.6,178.3 -67.2,111.4 -28.6,44.6 48.6,44.6"/>
         <polygon points="87.2,250.0 48.6,316.9 -28.6,316.9 -67.2,250.0 -28.6,183.1 48.6,183.1"/>
         <polygon points="87.2,388.6 48.6,455.4 -28.6,455.4 -67.2,388.6 -28.6,321.7 48.6,321.7"/>
@@ -218,7 +227,7 @@
         <polygon points="567.2,250.0 528.6,316.9 451.4,316.9 412.8,250.0 451.4,183.1 528.6,183.1"/>
         <polygon points="567.2,388.6 528.6,455.4 451.4,455.4 412.8,388.6 451.4,321.7 528.6,321.7"/>
       </g>
-      <g fill="none" stroke="#C9A86A" stroke-width="0.8" stroke-linejoin="round" opacity="0.32">
+      <g fill="none" stroke="#D8B978" stroke-width="1.3" stroke-linejoin="round" opacity="0.55">
         <polygon points="87.2,111.4 48.6,178.3 -28.6,178.3 -67.2,111.4 -28.6,44.6 48.6,44.6"/>
         <polygon points="87.2,250.0 48.6,316.9 -28.6,316.9 -67.2,250.0 -28.6,183.1 48.6,183.1"/>
         <polygon points="87.2,388.6 48.6,455.4 -28.6,455.4 -67.2,388.6 -28.6,321.7 48.6,321.7"/>
