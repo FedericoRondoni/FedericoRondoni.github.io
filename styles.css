@@ -516,6 +516,60 @@ body{
   text-align: center;
 }
 
+/* FOTONE: lampo di luce che "colpisce" l'esagono prima che si giri.
+   Solo due pseudo-elementi animati brevemente: costo minimo. */
+.hex-photon {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--hex);
+  pointer-events: none;
+  display: none;
+  z-index: 5;
+}
+
+.hex-photon.zap {
+  display: block;
+}
+
+/* La particella che viaggia dall'angolo verso il centro */
+.hex-photon.zap::before {
+  content: '';
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 14px 5px rgba(255, 255, 240, 0.95),
+    0 0 30px 12px rgba(201, 168, 106, 0.75);
+  animation: photon-travel 0.38s ease-in forwards;
+}
+
+/* Il bagliore che esplode quando il fotone arriva al centro */
+.hex-photon.zap::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: radial-gradient(circle, #fff 0%, rgba(227, 206, 155, 0.85) 40%, rgba(201, 168, 106, 0) 72%);
+  animation: photon-burst 0.32s ease-out 0.36s forwards;
+}
+
+@keyframes photon-travel {
+  0%   { left: -6%; top: -6%; opacity: 0; }
+  20%  { opacity: 1; }
+  100% { left: calc(50% - 4px); top: calc(50% - 4px); opacity: 1; }
+}
+
+@keyframes photon-burst {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(11); opacity: 0; }
+}
+
 .hex-back-date {
   color: var(--gold);
   font-size: 15px;
