@@ -527,14 +527,19 @@ fetch('pictures.json')
     });
 
     /* FLIP CON FOTONE: quando la foto sta per girarsi (a mano o da sola)
-       un "fotone" di luce colpisce l'esagono e innesca la rotazione.
+       un "fotone" arriva dallo spazio, perpendicolare alla superficie, e
+       colpisce l'esagono in un punto casuale innescando la rotazione.
        L'effetto vale solo nel verso foto -> retro; il ritorno è normale. */
-    const PHOTON_MS = 650;
+    const PHOTON_MS = 600;
 
     function flipToBack(card) {
       if (card.classList.contains('flipped') || card.dataset.busy) return;
       card.dataset.busy = '1';
       const photon = card.querySelector('.hex-photon');
+      // Punto d'impatto casuale, tenuto dentro alla zona centrale dell'esagono
+      // (20-80%) per non finire negli angoli tagliati dal clip-path.
+      photon.style.setProperty('--hit-x', (20 + Math.random() * 60) + '%');
+      photon.style.setProperty('--hit-y', (20 + Math.random() * 60) + '%');
       photon.classList.remove('zap');
       void photon.offsetWidth; // riavvia l'animazione CSS
       photon.classList.add('zap');
@@ -550,15 +555,29 @@ fetch('pictures.json')
       card.classList.remove('flipped');
     }
 
-    /* AUTO-FLIP RANDOM: a intervalli casuali un esagono a caso viene
-       "colpito" e si gira; resta girato per un tempo casuale e poi torna.
-       Nessun pattern fisso: sia la carta sia i tempi sono estratti a caso. */
+    /* AUTO-FLIP RANDOM: a intervalli casuali un esagono viene "colpito" e
+       si gira; resta girato per un tempo casuale e poi torna. La scelta è
+       casuale ma gli esagoni colpiti di recente restano esclusi per un po'
+       di iterazioni, così prima o poi si girano più o meno tutti. */
+    const recentlyHit = [];
+    const COOLDOWN = Math.min(10, cards.length - 1); // iterazioni di esclusione
+
+    function pickCard() {
+      const candidates = cards.filter((c, i) =>
+        !recentlyHit.includes(i) && !c.classList.contains('flipped') && !c.dataset.busy);
+      if (!candidates.length) return null;
+      const card = candidates[Math.floor(Math.random() * candidates.length)];
+      recentlyHit.push(cards.indexOf(card));
+      while (recentlyHit.length > COOLDOWN) recentlyHit.shift();
+      return card;
+    }
+
     function scheduleAutoFlip() {
-      const wait = 3000 + Math.random() * 6000; // 3-9s tra un fotone e l'altro
+      const wait = 1800 + Math.random() * 3200; // 1.8-5s tra un fotone e l'altro
       setTimeout(() => {
         if (!document.hidden) {
-          const card = cards[Math.floor(Math.random() * cards.length)];
-          if (!card.classList.contains('flipped') && !card.dataset.busy) {
+          const card = pickCard();
+          if (card) {
             flipToBack(card);
             const stay = 3500 + Math.random() * 5000; // 3.5-8.5s girato
             setTimeout(() => flipToFront(card), PHOTON_MS + stay);
