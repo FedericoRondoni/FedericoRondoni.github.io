@@ -396,7 +396,8 @@ fetch('pictures.json')
               '<span class="hex-back-location">' + (p.location || '') + '</span>' +
             '</div>' +
           '</div>' +
-        '</div>';
+        '</div>' +
+        '<div class="hex-photon"></div>';
       world.appendChild(card);
     });
 
@@ -525,6 +526,49 @@ fetch('pictures.json')
       scheduleTransform();
     });
 
+    /* FLIP CON FOTONE: quando la foto sta per girarsi (a mano o da sola)
+       un "fotone" di luce colpisce l'esagono e innesca la rotazione.
+       L'effetto vale solo nel verso foto -> retro; il ritorno è normale. */
+    const PHOTON_MS = 650;
+
+    function flipToBack(card) {
+      if (card.classList.contains('flipped') || card.dataset.busy) return;
+      card.dataset.busy = '1';
+      const photon = card.querySelector('.hex-photon');
+      photon.classList.remove('zap');
+      void photon.offsetWidth; // riavvia l'animazione CSS
+      photon.classList.add('zap');
+      setTimeout(() => {
+        card.classList.add('flipped');
+        photon.classList.remove('zap');
+        delete card.dataset.busy;
+      }, PHOTON_MS);
+    }
+
+    function flipToFront(card) {
+      if (card.dataset.busy) return;
+      card.classList.remove('flipped');
+    }
+
+    /* AUTO-FLIP RANDOM: a intervalli casuali un esagono a caso viene
+       "colpito" e si gira; resta girato per un tempo casuale e poi torna.
+       Nessun pattern fisso: sia la carta sia i tempi sono estratti a caso. */
+    function scheduleAutoFlip() {
+      const wait = 3000 + Math.random() * 6000; // 3-9s tra un fotone e l'altro
+      setTimeout(() => {
+        if (!document.hidden) {
+          const card = cards[Math.floor(Math.random() * cards.length)];
+          if (!card.classList.contains('flipped') && !card.dataset.busy) {
+            flipToBack(card);
+            const stay = 3500 + Math.random() * 5000; // 3.5-8.5s girato
+            setTimeout(() => flipToFront(card), PHOTON_MS + stay);
+          }
+        }
+        scheduleAutoFlip();
+      }, wait);
+    }
+    scheduleAutoFlip();
+
     // Il click viene gestito qui (e non con un listener 'click' sulla
     // singola carta) perché setPointerCapture sul viewport ridirige il
     // targeting del click nativo: usiamo elementFromPoint per capire su
@@ -537,7 +581,10 @@ fetch('pictures.json')
       if (checkFlip && !dragged && e) {
         const el = document.elementFromPoint(e.clientX, e.clientY);
         const card = el && el.closest('.hex-card');
-        if (card) card.classList.toggle('flipped');
+        if (card) {
+          if (card.classList.contains('flipped')) flipToFront(card);
+          else flipToBack(card);
+        }
       }
     }
     viewport.addEventListener('pointerup', (e) => finishDrag(e, true));
