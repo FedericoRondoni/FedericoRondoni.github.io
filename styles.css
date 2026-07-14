@@ -942,11 +942,11 @@ circle.planet {
 
 .iban-value {
   font-family: var(--font-display);
-  font-size: clamp(20px, 4vw, 27px);
-  letter-spacing: 1px;
+  font-size: clamp(15px, 5.6vw, 27px);
+  letter-spacing: 0.5px;
   color: var(--bordeaux);
   margin: 0 0 20px;
-  word-break: break-word;
+  white-space: nowrap;
 }
 
 .copy-btn {
