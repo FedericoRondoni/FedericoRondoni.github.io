@@ -665,19 +665,16 @@ body{
 
 .solar-wrap {
   position: relative;
-  width: min(70vw, 480px);
-  height: min(70vw, 480px);
+  width: min(80vw, 560px);
+  height: min(80vw, 560px);
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: visible;
-  background: radial-gradient(circle at 50% 42%, #16306f 0%, var(--navy-deep) 55%, #050d20 100%);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 1px rgba(201, 168, 106, 0.55),
-    0 0 50px rgba(201, 168, 106, 0.15),
-    0 18px 50px rgba(0, 0, 0, 0.35),
-    inset 0 0 70px rgba(0, 0, 0, 0.55);
+  /* Alone dorato attorno allo specchio JWST (la forma la definisce l'SVG) */
+  filter:
+    drop-shadow(0 0 42px rgba(201, 168, 106, 0.28))
+    drop-shadow(0 18px 44px rgba(0, 0, 0, 0.45));
 }
 
 .solar{
@@ -703,12 +700,23 @@ body{
 .star:nth-child(4n) { animation-delay: 2.2s; }
 
 circle.planet {
-  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.45));
+  opacity: 1;
+  filter:
+    drop-shadow(0 0 3px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 7px rgba(255, 255, 255, 0.85))
+    drop-shadow(0 0 13px rgba(255, 255, 255, 0.45));
+}
+
+.bodies-top .planet {
+  opacity: 1;
 }
 
 .sun {
-  fill: #E8C547;
-  filter: drop-shadow(0 0 16px rgba(232, 197, 71, 0.95));
+  fill: #FFE07A;
+  filter:
+    drop-shadow(0 0 6px rgba(255, 240, 170, 1))
+    drop-shadow(0 0 18px rgba(232, 197, 71, 0.95))
+    drop-shadow(0 0 30px rgba(232, 197, 71, 0.6));
 }
 
 /* Pianeti: tonalità luminose per buon contrasto sulla volta navy */
