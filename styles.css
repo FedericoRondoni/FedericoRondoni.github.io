@@ -748,11 +748,14 @@ body{
 
 .title{
   font-family: var(--font-body);
-  font-size:clamp(60px, 8vw, 90px);
+  /* Formula calcolata per far stare "Elisa e Federico" su una sola riga
+     a qualunque larghezza di schermo, senza mai andare a capo. */
+  font-size: clamp(24px, calc(9.5vw - 6px), 88px);
   font-weight: 500;
   letter-spacing: 1px;
   line-height: 1.05;
   color: var(--bordeaux);
+  white-space: nowrap;
 }
 
 .date{
@@ -942,7 +945,10 @@ circle.planet {
 
 .iban-value {
   font-family: var(--font-display);
-  font-size: clamp(15px, 5.6vw, 27px);
+  /* Scala col viewport calcolata per stare sempre dentro al box senza
+     sbordare: se sbordasse, l'sbordo può apparire asimmetrico (più
+     spazio da un lato che dall'altro) invece di restare centrato. */
+  font-size: clamp(12px, calc(6vw - 6.5px), 26px);
   letter-spacing: 0.5px;
   color: var(--bordeaux);
   margin: 0 0 20px;
@@ -1070,9 +1076,6 @@ circle.planet {
   .hero {
     gap: 20px;
     padding: 60px 15px;
-  }
-  .title {
-    font-size: clamp(48px, 13vw, 72px);
   }
   .date {
     font-size: 18px;
