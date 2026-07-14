@@ -531,38 +531,42 @@ body{
   display: block;
 }
 
-/* La particella che viaggia dall'angolo verso il centro */
+/* Il fotone arriva perpendicolare alla superficie (lungo l'asse di vista,
+   come dallo spazio verso lo specchio del JWST): appare come un alone
+   largo e sfocato che converge e si concentra sul punto d'impatto... */
 .hex-photon.zap::before {
   content: '';
   position: absolute;
-  width: 13px;
-  height: 13px;
+  left: var(--hit-x, 50%);
+  top: var(--hit-y, 50%);
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #fff;
   box-shadow:
     0 0 14px 5px rgba(255, 255, 240, 0.95),
     0 0 30px 12px rgba(201, 168, 106, 0.75);
-  animation: photon-travel 0.38s ease-in forwards;
+  animation: photon-arrive 0.34s ease-in forwards;
 }
 
-/* Il bagliore che esplode quando il fotone arriva al centro */
+/* ...e all'impatto esplode in un bagliore dorato che si irradia dal punto */
 .hex-photon.zap::after {
   content: '';
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: var(--hit-x, 50%);
+  top: var(--hit-y, 50%);
   width: 16px;
   height: 16px;
   border-radius: 50%;
   transform: translate(-50%, -50%) scale(0);
   background: radial-gradient(circle, #fff 0%, rgba(227, 206, 155, 0.85) 40%, rgba(201, 168, 106, 0) 72%);
-  animation: photon-burst 0.32s ease-out 0.36s forwards;
+  animation: photon-burst 0.3s ease-out 0.32s forwards;
 }
 
-@keyframes photon-travel {
-  0%   { left: -6%; top: -6%; opacity: 0; }
-  20%  { opacity: 1; }
-  100% { left: calc(50% - 4px); top: calc(50% - 4px); opacity: 1; }
+@keyframes photon-arrive {
+  0%   { transform: translate(-50%, -50%) scale(5); opacity: 0; filter: blur(6px); }
+  35%  { opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; filter: blur(0); }
 }
 
 @keyframes photon-burst {
