@@ -72,58 +72,6 @@
 
   <div class="solar-wrap">
     <svg viewBox="-120 -120 740 740" class="solar" id="solar">
-      <defs>
-        <clipPath id="jwst-clip">
-        <polygon points="90.0,111.4 50.0,180.7 -30.0,180.7 -70.0,111.4 -30.0,42.2 50.0,42.2"/>
-        <polygon points="90.0,250.0 50.0,319.3 -30.0,319.3 -70.0,250.0 -30.0,180.7 50.0,180.7"/>
-        <polygon points="90.0,388.6 50.0,457.8 -30.0,457.8 -70.0,388.6 -30.0,319.3 50.0,319.3"/>
-        <polygon points="210.0,42.2 170.0,111.4 90.0,111.4 50.0,42.2 90.0,-27.1 170.0,-27.1"/>
-        <polygon points="210.0,180.7 170.0,250.0 90.0,250.0 50.0,180.7 90.0,111.4 170.0,111.4"/>
-        <polygon points="210.0,319.3 170.0,388.6 90.0,388.6 50.0,319.3 90.0,250.0 170.0,250.0"/>
-        <polygon points="210.0,457.8 170.0,527.1 90.0,527.1 50.0,457.8 90.0,388.6 170.0,388.6"/>
-        <polygon points="330.0,-27.1 290.0,42.2 210.0,42.2 170.0,-27.1 210.0,-96.4 290.0,-96.4"/>
-        <polygon points="330.0,111.4 290.0,180.7 210.0,180.7 170.0,111.4 210.0,42.2 290.0,42.2"/>
-        <polygon points="330.0,250.0 290.0,319.3 210.0,319.3 170.0,250.0 210.0,180.7 290.0,180.7"/>
-        <polygon points="330.0,388.6 290.0,457.8 210.0,457.8 170.0,388.6 210.0,319.3 290.0,319.3"/>
-        <polygon points="330.0,527.1 290.0,596.4 210.0,596.4 170.0,527.1 210.0,457.8 290.0,457.8"/>
-        <polygon points="450.0,42.2 410.0,111.4 330.0,111.4 290.0,42.2 330.0,-27.1 410.0,-27.1"/>
-        <polygon points="450.0,180.7 410.0,250.0 330.0,250.0 290.0,180.7 330.0,111.4 410.0,111.4"/>
-        <polygon points="450.0,319.3 410.0,388.6 330.0,388.6 290.0,319.3 330.0,250.0 410.0,250.0"/>
-        <polygon points="450.0,457.8 410.0,527.1 330.0,527.1 290.0,457.8 330.0,388.6 410.0,388.6"/>
-        <polygon points="570.0,111.4 530.0,180.7 450.0,180.7 410.0,111.4 450.0,42.2 530.0,42.2"/>
-        <polygon points="570.0,250.0 530.0,319.3 450.0,319.3 410.0,250.0 450.0,180.7 530.0,180.7"/>
-        <polygon points="570.0,388.6 530.0,457.8 450.0,457.8 410.0,388.6 450.0,319.3 530.0,319.3"/>
-        </clipPath>
-        <radialGradient id="mirror-bg" cx="50%" cy="44%" r="72%">
-          <stop offset="0%" stop-color="#123257"/>
-          <stop offset="45%" stop-color="#0c1b3a"/>
-          <stop offset="100%" stop-color="#081427"/>
-        </radialGradient>
-        <radialGradient id="mirror-sheen" cx="34%" cy="26%" r="72%">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.26"/>
-          <stop offset="45%" stop-color="#cfe0ff" stop-opacity="0.06"/>
-          <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="mirror-vignette" cx="50%" cy="46%" r="62%">
-          <stop offset="0%" stop-color="#03060f" stop-opacity="0"/>
-          <stop offset="66%" stop-color="#03060f" stop-opacity="0"/>
-          <stop offset="100%" stop-color="#03060f" stop-opacity="0.9"/>
-        </radialGradient>
-        <radialGradient id="sph1" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#C9B27D"/><stop offset="100%" stop-color="#6f6038"/></radialGradient>
-        <radialGradient id="sph2" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#EAD9A6"/><stop offset="100%" stop-color="#a2915f"/></radialGradient>
-        <radialGradient id="sph3" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#8FB7D9"/><stop offset="100%" stop-color="#4a6b8a"/></radialGradient>
-        <radialGradient id="sph4" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#D98A6A"/><stop offset="100%" stop-color="#8a4a32"/></radialGradient>
-        <radialGradient id="sph5" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#E0A94B"/><stop offset="100%" stop-color="#8c631b"/></radialGradient>
-        <radialGradient id="sph6" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#EAD18B"/><stop offset="100%" stop-color="#9c8544"/></radialGradient>
-        <radialGradient id="sph7" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#B7D0E6"/><stop offset="100%" stop-color="#6b86a2"/></radialGradient>
-        <radialGradient id="sph8" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#7FA0D8"/><stop offset="100%" stop-color="#415c8a"/></radialGradient>
-        <radialGradient id="sph9" cx="34%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#C295AD"/><stop offset="100%" stop-color="#745167"/></radialGradient>
-      </defs>
-
-      <!-- RIFLESSO: sistema solare dentro lo specchio JWST -->
-      <g clip-path="url(#jwst-clip)">
-        <rect x="-120" y="-120" width="740" height="740" fill="url(#mirror-bg)"/>
-
       <!-- VOLTA STELLATA -->
       <g class="starfield">
         <circle class="star" cx="250" cy="60"  r="1.4"/>
@@ -152,8 +100,7 @@
         <circle class="star" cx="230" cy="200" r="0.8"/>
       </g>
 
-      <!-- meccanismo solare (ridotto per restare dentro lo specchio) -->
-      <g class="solar-mech" transform="translate(250 250) scale(0.78) translate(-250 -250)">
+      <circle cx="250" cy="250" r="4" class="sun"/>
 
       <!-- ORBITE -->
       <g class="orbit">
@@ -184,70 +131,16 @@
         <ellipse cx="250" cy="250" rx="330" ry="330" class="line a" />
       </g>
 
-      </g>
-
-        <!-- riflesso speculare tenue + vignettatura (centro blu in risalto) -->
-        <rect x="-120" y="-120" width="740" height="740" fill="url(#mirror-sheen)"/>
-        <rect x="-120" y="-120" width="740" height="740" fill="url(#mirror-vignette)"/>
-
-        <!-- Sole e pianeti luminosi SOPRA la velatura, così risaltano -->
-        <g class="bodies-top" transform="translate(250 250) scale(0.78) translate(-250 -250)">
-          <circle cx="250" cy="250" r="4" class="sun"/>
-          <circle id="p1" cx="290" cy="250" r="6" class="planet"/>
-          <circle id="p2" cx="315" cy="250" r="7" class="planet"/>
-          <circle id="p3" cx="340" cy="250" r="9" class="planet"/>
-          <circle id="p4" cx="370" cy="250" r="8" class="planet"/>
-          <circle id="p5" cx="420" cy="250" r="15" class="planet"/>
-          <circle id="p6" cx="460" cy="250" r="13" class="planet"/>
-          <circle id="p7" cx="500" cy="250" r="12" class="planet"/>
-          <circle id="p8" cx="540" cy="250" r="12" class="planet"/>
-          <circle id="p9" cx="580" cy="250" r="7" class="planet"/>
-        </g>
-      </g>
-
-      <!-- GIUNTI TRA I SEGMENTI (specchio JWST) -->
-      <g fill="none" stroke="#0a1430" stroke-width="1.4" stroke-linejoin="round" opacity="0.3">
-        <polygon points="87.2,111.4 48.6,178.3 -28.6,178.3 -67.2,111.4 -28.6,44.6 48.6,44.6"/>
-        <polygon points="87.2,250.0 48.6,316.9 -28.6,316.9 -67.2,250.0 -28.6,183.1 48.6,183.1"/>
-        <polygon points="87.2,388.6 48.6,455.4 -28.6,455.4 -67.2,388.6 -28.6,321.7 48.6,321.7"/>
-        <polygon points="207.2,42.2 168.6,109.0 91.4,109.0 52.8,42.2 91.4,-24.7 168.6,-24.7"/>
-        <polygon points="207.2,180.7 168.6,247.6 91.4,247.6 52.8,180.7 91.4,113.9 168.6,113.9"/>
-        <polygon points="207.2,319.3 168.6,386.1 91.4,386.1 52.8,319.3 91.4,252.4 168.6,252.4"/>
-        <polygon points="207.2,457.8 168.6,524.7 91.4,524.7 52.8,457.8 91.4,391.0 168.6,391.0"/>
-        <polygon points="327.2,-27.1 288.6,39.7 211.4,39.7 172.8,-27.1 211.4,-94.0 288.6,-94.0"/>
-        <polygon points="327.2,111.4 288.6,178.3 211.4,178.3 172.8,111.4 211.4,44.6 288.6,44.6"/>
-        <polygon points="327.2,250.0 288.6,316.9 211.4,316.9 172.8,250.0 211.4,183.1 288.6,183.1"/>
-        <polygon points="327.2,388.6 288.6,455.4 211.4,455.4 172.8,388.6 211.4,321.7 288.6,321.7"/>
-        <polygon points="327.2,527.1 288.6,594.0 211.4,594.0 172.8,527.1 211.4,460.3 288.6,460.3"/>
-        <polygon points="447.2,42.2 408.6,109.0 331.4,109.0 292.8,42.2 331.4,-24.7 408.6,-24.7"/>
-        <polygon points="447.2,180.7 408.6,247.6 331.4,247.6 292.8,180.7 331.4,113.9 408.6,113.9"/>
-        <polygon points="447.2,319.3 408.6,386.1 331.4,386.1 292.8,319.3 331.4,252.4 408.6,252.4"/>
-        <polygon points="447.2,457.8 408.6,524.7 331.4,524.7 292.8,457.8 331.4,391.0 408.6,391.0"/>
-        <polygon points="567.2,111.4 528.6,178.3 451.4,178.3 412.8,111.4 451.4,44.6 528.6,44.6"/>
-        <polygon points="567.2,250.0 528.6,316.9 451.4,316.9 412.8,250.0 451.4,183.1 528.6,183.1"/>
-        <polygon points="567.2,388.6 528.6,455.4 451.4,455.4 412.8,388.6 451.4,321.7 528.6,321.7"/>
-      </g>
-      <g fill="none" stroke="#D8B978" stroke-width="1.3" stroke-linejoin="round" opacity="0.55">
-        <polygon points="87.2,111.4 48.6,178.3 -28.6,178.3 -67.2,111.4 -28.6,44.6 48.6,44.6"/>
-        <polygon points="87.2,250.0 48.6,316.9 -28.6,316.9 -67.2,250.0 -28.6,183.1 48.6,183.1"/>
-        <polygon points="87.2,388.6 48.6,455.4 -28.6,455.4 -67.2,388.6 -28.6,321.7 48.6,321.7"/>
-        <polygon points="207.2,42.2 168.6,109.0 91.4,109.0 52.8,42.2 91.4,-24.7 168.6,-24.7"/>
-        <polygon points="207.2,180.7 168.6,247.6 91.4,247.6 52.8,180.7 91.4,113.9 168.6,113.9"/>
-        <polygon points="207.2,319.3 168.6,386.1 91.4,386.1 52.8,319.3 91.4,252.4 168.6,252.4"/>
-        <polygon points="207.2,457.8 168.6,524.7 91.4,524.7 52.8,457.8 91.4,391.0 168.6,391.0"/>
-        <polygon points="327.2,-27.1 288.6,39.7 211.4,39.7 172.8,-27.1 211.4,-94.0 288.6,-94.0"/>
-        <polygon points="327.2,111.4 288.6,178.3 211.4,178.3 172.8,111.4 211.4,44.6 288.6,44.6"/>
-        <polygon points="327.2,250.0 288.6,316.9 211.4,316.9 172.8,250.0 211.4,183.1 288.6,183.1"/>
-        <polygon points="327.2,388.6 288.6,455.4 211.4,455.4 172.8,388.6 211.4,321.7 288.6,321.7"/>
-        <polygon points="327.2,527.1 288.6,594.0 211.4,594.0 172.8,527.1 211.4,460.3 288.6,460.3"/>
-        <polygon points="447.2,42.2 408.6,109.0 331.4,109.0 292.8,42.2 331.4,-24.7 408.6,-24.7"/>
-        <polygon points="447.2,180.7 408.6,247.6 331.4,247.6 292.8,180.7 331.4,113.9 408.6,113.9"/>
-        <polygon points="447.2,319.3 408.6,386.1 331.4,386.1 292.8,319.3 331.4,252.4 408.6,252.4"/>
-        <polygon points="447.2,457.8 408.6,524.7 331.4,524.7 292.8,457.8 331.4,391.0 408.6,391.0"/>
-        <polygon points="567.2,111.4 528.6,178.3 451.4,178.3 412.8,111.4 451.4,44.6 528.6,44.6"/>
-        <polygon points="567.2,250.0 528.6,316.9 451.4,316.9 412.8,250.0 451.4,183.1 528.6,183.1"/>
-        <polygon points="567.2,388.6 528.6,455.4 451.4,455.4 412.8,388.6 451.4,321.7 528.6,321.7"/>
-      </g>
+      <!-- PIANETI -->
+      <circle id="p1" cx="290" cy="250" r="3" class="planet"/>
+      <circle id="p2" cx="315" cy="250" r="4" class="planet"/>
+      <circle id="p3" cx="340" cy="250" r="5" class="planet"/>
+      <circle id="p4" cx="370" cy="250" r="4" class="planet"/>
+      <circle id="p5" cx="420" cy="250" r="10" class="planet"/>
+      <circle id="p6" cx="460" cy="250" r="9" class="planet"/>
+      <circle id="p7" cx="500" cy="250" r="8" class="planet"/>
+      <circle id="p8" cx="540" cy="250" r="8" class="planet"/>
+      <circle id="p9" cx="580" cy="250" r="3" class="planet"/>
     </svg>
   </div>
 </section>
