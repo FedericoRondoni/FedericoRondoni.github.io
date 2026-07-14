@@ -8,9 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elisa e Federico</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -145,21 +143,11 @@
   </div>
 </section>
 
-<!-- GALLERIA A SCORRIMENTO CONTINUO -->
+<!-- GALLERIA ESAGONALE -->
 <section class="gallery-section">
   <div class="celestial-divider"><i></i></div>
-  <h2 class="gallery-title">I nostri momenti</h2>
-  <div class="gallery" id="gallery">
-    <div class="gallery-track" id="gallery-track">
-      <!-- Galleria generata automaticamente da Jekyll: elenca i file nella
-           cartella /pictures. Per aggiungere o togliere una foto basta
-           caricarla o eliminarla in quella cartella, senza toccare il codice. -->
-      {% assign gallery_photos = site.static_files | where_exp: "f", "f.path contains '/pictures/'" %}
-      {% for photo in gallery_photos %}
-      <img src="{{ photo.path | relative_url }}" alt="Elisa e Federico" class="gallery-img" loading="lazy">
-      {% endfor %}
-    </div>
-  </div>
+  <h2 class="gallery-title" id="gallery-title">I nostri momenti</h2>
+  <div class="hex-gallery" id="hex-gallery"></div>
 </section>
 </main>
 
@@ -237,7 +225,7 @@ function applyLanguage(lang) {
   if (envText) envText.textContent = t.openInvite;
 
   // Update gallery title
-  const galleryTitle = document.querySelector('.gallery-title');
+  const galleryTitle = document.getElementById('gallery-title');
   if (galleryTitle) galleryTitle.textContent = t.galleryTitle;
 
   // Update invitation popup
@@ -375,54 +363,29 @@ document.querySelectorAll('.menu a').forEach(link => {
   });
 });
 
-/* GALLERIA A SCORRIMENTO CONTINUO (auto + interazione) */
-const gallery = document.getElementById('gallery');
-const galleryTrack = document.getElementById('gallery-track');
-if (gallery && galleryTrack) {
-  // Duplica le immagini per un loop senza salti
-  galleryTrack.innerHTML += galleryTrack.innerHTML;
-
-  let paused = false;
-  const speed = 0.5; // px per frame
-
-  function galleryStep() {
-    const half = galleryTrack.scrollWidth / 2;
-    if (!paused && half > 0) {
-      gallery.scrollLeft += speed;
-      if (gallery.scrollLeft >= half) gallery.scrollLeft -= half;
-    }
-    requestAnimationFrame(galleryStep);
-  }
-  requestAnimationFrame(galleryStep);
-
-  // Pausa quando si interagisce
-  gallery.addEventListener('mouseenter', () => { paused = true; });
-  gallery.addEventListener('mouseleave', () => { paused = false; });
-  gallery.addEventListener('touchstart', () => { paused = true; }, { passive: true });
-  gallery.addEventListener('touchend', () => { setTimeout(() => { paused = false; }, 2500); }, { passive: true });
-
-  // Trascinamento con il mouse (desktop)
-  let isDown = false, startX = 0, startScroll = 0;
-  gallery.addEventListener('pointerdown', (e) => {
-    if (e.pointerType !== 'mouse') return;
-    isDown = true;
-    paused = true;
-    startX = e.pageX;
-    startScroll = gallery.scrollLeft;
-    gallery.classList.add('dragging');
+/* GALLERIA ESAGONALE CON FLIP */
+fetch('pictures.json')
+  .then(r => r.json())
+  .then(photos => {
+    const container = document.getElementById('hex-gallery');
+    if (!container) return;
+    photos.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'hex-card';
+      card.innerHTML =
+        '<div class="hex-card-inner">' +
+          '<div class="hex-card-front">' +
+            '<img src="pictures/' + p.file + '" alt="Elisa e Federico" loading="lazy">' +
+          '</div>' +
+          '<div class="hex-card-back">' +
+            '<span class="hex-back-date">' + (p.date || '') + '</span>' +
+            '<span class="hex-back-location">' + (p.location || '') + '</span>' +
+          '</div>' +
+        '</div>';
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+      container.appendChild(card);
+    });
   });
-  gallery.addEventListener('pointermove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    gallery.scrollLeft = startScroll - (e.pageX - startX);
-  });
-  window.addEventListener('pointerup', (e) => {
-    if (!isDown) return;
-    isDown = false;
-    gallery.classList.remove('dragging');
-    setTimeout(() => { paused = false; }, 1500);
-  });
-}
 
 /* TRANSIZIONE FADE TRA PAGINE (coerente con le altre pagine) */
 document.querySelectorAll('a[href]').forEach(link => {
