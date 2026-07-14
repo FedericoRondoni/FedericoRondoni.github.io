@@ -63,7 +63,7 @@
 
 <main>
 <section class="hero">
-  <div class="title">Elisa e Federico</div>
+  <div class="title">Elisa e&nbsp;Federico</div>
   <div class="celestial-divider"><i></i></div>
   <div class="date">2 gennaio 2027</div>
   <a href="rsvp.html" class="btn" id="cta-button">RSVP</a>
@@ -171,7 +171,7 @@ const translations = {
     galleryTitle: "I nostri momenti",
     galleryHint: "Trascina per esplorare",
     invitationText: "Ti invitiamo al nostro matrimonio",
-    invitationNames: "Elisa e Federico",
+    invitationNames: "Elisa e Federico",
     invitationDate: "2 gennaio 2027",
     invitationLocation: "Abbazia Castel d'Alfiolo - Gubbio",
     enterSite: "Entra nel sito"
@@ -180,7 +180,7 @@ const translations = {
     home: "Home",
     location: "Location",
     rsvp: "RSVP",
-    journey: "Our honey moon",
+    journey: "Our journey",
     cta: "Please confirm your attendance",
     openInvite: "Open the invitation",
     galleryTitle: "Our moments",
@@ -459,19 +459,25 @@ fetch('pictures.json')
     let translateX = 0, translateY = 0;
     let isDragging = false, moved = 0;
     let startX = 0, startY = 0, startTX = 0, startTY = 0;
-    let boundMinX = 0, boundMinY = 0;
+    let boundMinX = 0, boundMinY = 0, boundMaxX = 0, boundMaxY = 0;
     let rafPending = false;
 
+    // Se il mosaico è più grande del viewport si può solo scorrere fino a
+    // mostrarne i bordi (max 0). Se invece è più piccolo (schermi molto
+    // larghi), il limite superiore diventa positivo e permette di restare
+    // centrato invece di essere forzato tutto a sinistra/in alto.
     function computeBounds() {
       const vpW = viewport.clientWidth, vpH = viewport.clientHeight;
       const worldW = world.offsetWidth, worldH = world.offsetHeight;
       boundMinX = Math.min(0, vpW - worldW);
       boundMinY = Math.min(0, vpH - worldH);
+      boundMaxX = Math.max(0, vpW - worldW);
+      boundMaxY = Math.max(0, vpH - worldH);
     }
 
     function clampToBounds() {
-      translateX = Math.max(boundMinX, Math.min(0, translateX));
-      translateY = Math.max(boundMinY, Math.min(0, translateY));
+      translateX = Math.max(boundMinX, Math.min(boundMaxX, translateX));
+      translateY = Math.max(boundMinY, Math.min(boundMaxY, translateY));
     }
 
     function scheduleTransform() {
@@ -532,9 +538,23 @@ fetch('pictures.json')
        L'effetto vale solo nel verso foto -> retro; il ritorno è normale. */
     const PHOTON_MS = 600;
 
+    // Timer del "ritorno automatico": qualunque esagono si giri (a mano o
+    // da solo) torna sempre alla foto dopo un tempo casuale. Tenuto in una
+    // WeakMap per poterlo annullare se la carta viene ri-girata nel
+    // frattempo, evitando che un vecchio timer scaduto la giri al momento
+    // sbagliato.
+    const returnTimers = new WeakMap();
+    function cancelReturn(card) {
+      if (returnTimers.has(card)) {
+        clearTimeout(returnTimers.get(card));
+        returnTimers.delete(card);
+      }
+    }
+
     function flipToBack(card) {
       if (card.classList.contains('flipped') || card.dataset.busy) return;
       card.dataset.busy = '1';
+      cancelReturn(card);
       const photon = card.querySelector('.hex-photon');
       // Punto d'impatto casuale, tenuto dentro alla zona centrale dell'esagono
       // (20-80%) per non finire negli angoli tagliati dal clip-path.
@@ -547,18 +567,25 @@ fetch('pictures.json')
         card.classList.add('flipped');
         photon.classList.remove('zap');
         delete card.dataset.busy;
+        const stay = 3500 + Math.random() * 5000; // 3.5-8.5s girato, poi torna da solo
+        const timer = setTimeout(() => {
+          returnTimers.delete(card);
+          flipToFront(card);
+        }, stay);
+        returnTimers.set(card, timer);
       }, PHOTON_MS);
     }
 
     function flipToFront(card) {
       if (card.dataset.busy) return;
+      cancelReturn(card);
       card.classList.remove('flipped');
     }
 
     /* AUTO-FLIP RANDOM: a intervalli casuali un esagono viene "colpito" e
-       si gira; resta girato per un tempo casuale e poi torna. La scelta è
-       casuale ma gli esagoni colpiti di recente restano esclusi per un po'
-       di iterazioni, così prima o poi si girano più o meno tutti. */
+       si gira (il ritorno automatico è già gestito dentro flipToBack). La
+       scelta è casuale ma gli esagoni colpiti di recente restano esclusi
+       per un po' di iterazioni, così prima o poi si girano più o meno tutti. */
     const recentlyHit = [];
     const COOLDOWN = Math.min(10, cards.length - 1); // iterazioni di esclusione
 
@@ -577,11 +604,7 @@ fetch('pictures.json')
       setTimeout(() => {
         if (!document.hidden) {
           const card = pickCard();
-          if (card) {
-            flipToBack(card);
-            const stay = 3500 + Math.random() * 5000; // 3.5-8.5s girato
-            setTimeout(() => flipToFront(card), PHOTON_MS + stay);
-          }
+          if (card) flipToBack(card);
         }
         scheduleAutoFlip();
       }, wait);
