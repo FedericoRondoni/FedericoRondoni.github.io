@@ -147,9 +147,13 @@
 <section class="gallery-section">
   <div class="celestial-divider"><i></i></div>
   <h2 class="gallery-title" id="gallery-title">I nostri momenti</h2>
-  <p class="gallery-hint" id="gallery-hint">Trascina per esplorare</p>
+  <p class="gallery-hint" id="gallery-hint">Trascina per esplorare, + e &minus; per lo zoom</p>
   <div class="hex-gallery-viewport" id="hex-gallery-viewport">
     <div class="hex-gallery-world" id="hex-gallery-world"></div>
+    <div class="hex-zoom-controls" id="hex-zoom-controls">
+      <button type="button" id="hex-zoom-in" aria-label="Ingrandisci">+</button>
+      <button type="button" id="hex-zoom-out" aria-label="Riduci">&minus;</button>
+    </div>
   </div>
 </section>
 </main>
@@ -169,10 +173,10 @@ const translations = {
     cta: "Conferma la tua presenza",
     openInvite: "Apri l'invito",
     galleryTitle: "I nostri momenti",
-    galleryHint: "Trascina per esplorare",
+    galleryHint: "Trascina per esplorare, + e − per lo zoom",
     invitationText: "Ti invitiamo al nostro matrimonio",
-    invitationNames: "Elisa e Federico",
-    invitationDate: "2 gennaio 2027 - ore 12:00",
+    invitationNames: "Elisa e Federico",
+    invitationDate: "2 gennaio 2027",
     invitationLocation: "Abbazia Castel d'Alfiolo - Gubbio",
     enterSite: "Entra nel sito"
   },
@@ -180,14 +184,14 @@ const translations = {
     home: "Home",
     location: "Location",
     rsvp: "RSVP",
-    journey: "Our honey moon",
+    journey: "Our journey",
     cta: "Please confirm your attendance",
     openInvite: "Open the invitation",
     galleryTitle: "Our moments",
-    galleryHint: "Drag to explore",
+    galleryHint: "Drag to explore, + and − to zoom",
     invitationText: "We invite you to our wedding",
     invitationNames: "Elisa & Federico",
-    invitationDate: "January 2nd, 2027 - 12:00 pm",
+    invitationDate: "January 2nd, 2027",
     invitationLocation: "Abbazia Castel d'Alfiolo - Gubbio",
     enterSite: "Enter the website"
   }
@@ -451,24 +455,29 @@ fetch('pictures.json')
       world.style.height = (maxY - minY + h) + 'px';
     }
 
-    /* PAN: il mosaico intero si sposta in ogni direzione trascinando.
-       Le dimensioni di viewport/world vengono lette una sola volta
-       all'inizio del trascinamento (non ad ogni pointermove) e
-       l'applicazione del transform è messa in coda con requestAnimationFrame,
-       per restare fluidi anche su telefoni meno potenti. */
+    /* PAN + ZOOM: il mosaico parte alla scala che lo fa stare tutto dentro
+       al riquadro ("a tutta pagina") e si può ingrandire fino alla
+       dimensione naturale (scala 1) con i pulsanti +/-, il pinch su touch
+       o ctrl+rotella. Quando un trascinamento o la rotella arrivano al
+       bordo verticale del mosaico, la parte di movimento non consumata
+       viene girata allo scorrimento della pagina, così esagoni e pagina
+       scorrono in modo organico senza restare "intrappolati". */
+    const MAX_SCALE = 1;
+    let scale = 1, minScale = 1;
     let translateX = 0, translateY = 0;
-    let isDragging = false, moved = 0;
-    let startX = 0, startY = 0, startTX = 0, startTY = 0;
+    let moved = 0;
     let boundMinX = 0, boundMinY = 0, boundMaxX = 0, boundMaxY = 0;
     let rafPending = false;
+    let lastX = 0, lastY = 0;
+    const pointers = new Map();
+    let pinchStartDist = 0, pinchStartScale = 1;
 
-    // Se il mosaico è più grande del viewport si può solo scorrere fino a
-    // mostrarne i bordi (max 0). Se invece è più piccolo (schermi molto
-    // larghi), il limite superiore diventa positivo e permette di restare
-    // centrato invece di essere forzato tutto a sinistra/in alto.
+    // Se il mosaico (alla scala corrente) è più grande del viewport si può
+    // scorrere fino ai bordi; se è più piccolo, il limite superiore diventa
+    // positivo e permette di restare centrato.
     function computeBounds() {
       const vpW = viewport.clientWidth, vpH = viewport.clientHeight;
-      const worldW = world.offsetWidth, worldH = world.offsetHeight;
+      const worldW = world.offsetWidth * scale, worldH = world.offsetHeight * scale;
       boundMinX = Math.min(0, vpW - worldW);
       boundMinY = Math.min(0, vpH - worldH);
       boundMaxX = Math.max(0, vpW - worldW);
@@ -485,20 +494,47 @@ fetch('pictures.json')
       rafPending = true;
       requestAnimationFrame(() => {
         rafPending = false;
-        world.style.transform = 'translate3d(' + translateX + 'px,' + translateY + 'px,0)';
+        world.style.transform = 'translate3d(' + translateX + 'px,' + translateY + 'px,0) scale(' + scale + ')';
       });
+    }
+
+    // Scala che fa stare l'intero mosaico dentro al viewport
+    function fitScale() {
+      return Math.min(
+        viewport.clientWidth / world.offsetWidth,
+        viewport.clientHeight / world.offsetHeight,
+        MAX_SCALE);
+    }
+
+    // Zoom mantenendo fermo il punto del mosaico sotto (cx, cy) in
+    // coordinate schermo.
+    function zoomAt(cx, cy, newScale) {
+      newScale = Math.max(minScale, Math.min(MAX_SCALE, newScale));
+      if (newScale === scale) return;
+      const rect = viewport.getBoundingClientRect();
+      const vx = cx - rect.left, vy = cy - rect.top;
+      const px = (vx - translateX) / scale, py = (vy - translateY) / scale;
+      scale = newScale;
+      translateX = vx - px * scale;
+      translateY = vy - py * scale;
+      computeBounds();
+      clampToBounds();
+      scheduleTransform();
     }
 
     function centerView() {
       computeBounds();
-      translateX = (viewport.clientWidth - world.offsetWidth) / 2;
-      translateY = (viewport.clientHeight - world.offsetHeight) / 2;
+      translateX = (viewport.clientWidth - world.offsetWidth * scale) / 2;
+      translateY = (viewport.clientHeight - world.offsetHeight * scale) / 2;
       clampToBounds();
       scheduleTransform();
     }
 
     function initLayout() {
       layout();
+      const wasAtFit = scale <= minScale + 0.001;
+      minScale = fitScale();
+      if (wasAtFit || scale < minScale) scale = minScale;
       centerView();
     }
     initLayout();
@@ -510,25 +546,50 @@ fetch('pictures.json')
     });
 
     viewport.addEventListener('pointerdown', (e) => {
-      isDragging = true;
-      moved = 0;
-      startX = e.clientX;
-      startY = e.clientY;
-      startTX = translateX;
-      startTY = translateY;
-      computeBounds();
-      viewport.classList.add('dragging');
       viewport.setPointerCapture(e.pointerId);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) {
+        moved = 0;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        computeBounds();
+        viewport.classList.add('dragging');
+      } else if (pointers.size === 2) {
+        moved = 100; // un pinch non deve mai contare come click
+        const pts = Array.from(pointers.values());
+        pinchStartDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+        pinchStartScale = scale;
+      }
     });
 
     viewport.addEventListener('pointermove', (e) => {
-      if (!isDragging) return;
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      moved = Math.max(moved, Math.abs(dx), Math.abs(dy));
-      translateX = startTX + dx;
-      translateY = startTY + dy;
-      clampToBounds();
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+      // Due dita: pinch to zoom attorno al punto medio
+      if (pointers.size === 2) {
+        const pts = Array.from(pointers.values());
+        const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+        if (pinchStartDist > 0) {
+          const midX = (pts[0].x + pts[1].x) / 2;
+          const midY = (pts[0].y + pts[1].y) / 2;
+          zoomAt(midX, midY, pinchStartScale * dist / pinchStartDist);
+        }
+        return;
+      }
+
+      // Un dito/mouse: pan con delta incrementali; la parte verticale che
+      // non può essere consumata (bordo raggiunto) scorre la pagina.
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      moved += Math.abs(dx) + Math.abs(dy);
+      translateX = Math.max(boundMinX, Math.min(boundMaxX, translateX + dx));
+      const wantY = translateY + dy;
+      translateY = Math.max(boundMinY, Math.min(boundMaxY, wantY));
+      const leftoverY = wantY - translateY;
+      if (leftoverY) window.scrollBy(0, -leftoverY);
       scheduleTransform();
     });
 
@@ -616,11 +677,17 @@ fetch('pictures.json')
     // targeting del click nativo: usiamo elementFromPoint per capire su
     // quale esagono è avvenuto il rilascio.
     function finishDrag(e, checkFlip) {
-      if (!isDragging) return;
-      isDragging = false;
-      const dragged = moved > 6;
+      if (!pointers.has(e.pointerId)) return;
+      pointers.delete(e.pointerId);
+      if (pointers.size > 0) {
+        // Finito il pinch ma resta un dito: riparte come pan semplice
+        const rest = Array.from(pointers.values())[0];
+        lastX = rest.x;
+        lastY = rest.y;
+        return;
+      }
       viewport.classList.remove('dragging');
-      if (checkFlip && !dragged && e) {
+      if (checkFlip && moved <= 8 && e) {
         const el = document.elementFromPoint(e.clientX, e.clientY);
         const card = el && el.closest('.hex-card');
         if (card) {
@@ -631,17 +698,35 @@ fetch('pictures.json')
     }
     viewport.addEventListener('pointerup', (e) => finishDrag(e, true));
     viewport.addEventListener('pointercancel', (e) => finishDrag(e, false));
-    viewport.addEventListener('pointerleave', (e) => finishDrag(e, false));
 
-    // Rotellina / trackpad: permette di navigare il mosaico in ogni direzione
+    // Rotellina / trackpad: naviga il mosaico; al bordo verticale la parte
+    // non consumata scorre la pagina (scroll organico). Con ctrl premuto
+    // (o pinch sul trackpad, che il browser riporta come ctrl+wheel) zooma.
     viewport.addEventListener('wheel', (e) => {
       e.preventDefault();
       computeBounds();
-      translateX -= e.deltaX;
-      translateY -= e.deltaY;
-      clampToBounds();
+      if (e.ctrlKey) {
+        zoomAt(e.clientX, e.clientY, scale * Math.exp(-e.deltaY * 0.0022));
+        return;
+      }
+      translateX = Math.max(boundMinX, Math.min(boundMaxX, translateX - e.deltaX));
+      const wantY = translateY - e.deltaY;
+      translateY = Math.max(boundMinY, Math.min(boundMaxY, wantY));
+      const leftoverY = wantY - translateY;
+      if (leftoverY) window.scrollBy(0, -leftoverY);
       scheduleTransform();
     }, { passive: false });
+
+    /* PULSANTI ZOOM: ingrandiscono/riducono attorno al centro del riquadro,
+       tra la vista "a tutta pagina" (tutti gli esagoni) e la scala naturale. */
+    const zoomControls = document.getElementById('hex-zoom-controls');
+    zoomControls.addEventListener('pointerdown', (e) => e.stopPropagation());
+    function zoomStep(factor) {
+      const r = viewport.getBoundingClientRect();
+      zoomAt(r.left + r.width / 2, r.top + r.height / 2, scale * factor);
+    }
+    document.getElementById('hex-zoom-in').addEventListener('click', () => zoomStep(1.4));
+    document.getElementById('hex-zoom-out').addEventListener('click', () => zoomStep(1 / 1.4));
   });
 
 /* TRANSIZIONE FADE TRA PAGINE (coerente con le altre pagine) */
