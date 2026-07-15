@@ -429,16 +429,19 @@ fetch('pictures.json')
       const w = cards[0].offsetWidth;
       const h = cards[0].offsetHeight;
       const gap = 1.04; // fattore per lasciar intravedere lo sfondo tra i segmenti
-      const dx = w * gap;
-      const dy = h * 0.75 * gap;
+      // Esagoni flat-top disposti per colonne, come i segmenti del JWST:
+      // la figura complessiva ha i vertici (esagoni singoli) in alto e in
+      // basso e le colonne da 3 sui lati sinistro e destro.
+      const dx = w * 0.75 * gap;
+      const dy = h * gap;
 
       const radius = hexRadiusForCount(cards.length);
       const coords = hexCoords(radius).slice(0, cards.length);
 
       let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
       const positions = coords.map(({ q, r }) => {
-        const x = q * dx + r * dx / 2;
-        const y = r * dy;
+        const x = q * dx;
+        const y = (r + q / 2) * dy;
         minX = Math.min(minX, x);
         maxX = Math.max(maxX, x);
         minY = Math.min(minY, y);
@@ -506,6 +509,15 @@ fetch('pictures.json')
         MAX_SCALE);
     }
 
+    // Alla scala minima (tutto visibile) il mosaico non ha bisogno di pan
+    // verticale: lasciamo che sia il browser a gestire nativamente lo
+    // scorrimento verticale della pagina (pan-y), che è molto più fluido
+    // del simulare lo scroll in JavaScript (che su mobile causava lag ed
+    // effetto rimbalzo). Da zoomato in poi torniamo a gestire tutto noi.
+    function updateTouchAction() {
+      viewport.style.touchAction = scale <= minScale + 0.001 ? 'pan-y' : 'none';
+    }
+
     // Zoom mantenendo fermo il punto del mosaico sotto (cx, cy) in
     // coordinate schermo.
     function zoomAt(cx, cy, newScale) {
@@ -520,6 +532,7 @@ fetch('pictures.json')
       computeBounds();
       clampToBounds();
       scheduleTransform();
+      updateTouchAction();
     }
 
     function centerView() {
@@ -536,6 +549,7 @@ fetch('pictures.json')
       minScale = fitScale();
       if (wasAtFit || scale < minScale) scale = minScale;
       centerView();
+      updateTouchAction();
     }
     initLayout();
 
