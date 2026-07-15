@@ -455,15 +455,13 @@ body{
   will-change: transform;
 }
 
-/* PULSANTI ZOOM (tra vista completa e dimensione naturale) */
+/* PULSANTI ZOOM (tra vista completa e dimensione naturale): sotto al
+   mosaico, centrati, così non coprono mai nessun esagono. */
 .hex-zoom-controls {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 10;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
 }
 
 .hex-zoom-controls button {
@@ -1158,6 +1156,34 @@ circle.planet {
     width: calc(140px * 1.1547);
     height: 140px;
   }
+}
+
+/* HOME: la galleria blu è l'ultima sezione della pagina. Quando su mobile
+   si scorre oltre il fondo (effetto "rimbalzo"), il browser rivela l'area
+   sotto la pagina, che avrebbe il panna di sfondo. Queste due fasce fisse
+   fuori dallo schermo colorano quelle zone: navy sotto (continuità con la
+   galleria), panna sopra (continuità con l'header). Solo sulla home: le
+   altre pagine (body.page) finiscono su fondo panna e vanno già bene. */
+body:not(.page)::before {
+  content: '';
+  position: fixed;
+  top: -100vh;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: var(--cream);
+  z-index: -2;
+}
+
+body:not(.page)::after {
+  content: '';
+  position: fixed;
+  bottom: -100vh;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: #081427;
+  z-index: -2;
 }
 
 body.loaded {
