@@ -455,13 +455,14 @@ body{
   will-change: transform;
 }
 
-/* PULSANTI ZOOM (tra vista completa e dimensione naturale): sotto al
-   mosaico, centrati, così non coprono mai nessun esagono. */
+/* PULSANTI ZOOM (tra vista completa e dimensione naturale): sotto alla
+   scritta "trascina per esplorare" e sopra al mosaico, centrati, così non
+   coprono mai nessun esagono. */
 .hex-zoom-controls {
   display: flex;
   justify-content: center;
   gap: 14px;
-  margin-top: 18px;
+  margin: 6px 0 22px;
 }
 
 .hex-zoom-controls button {
@@ -1159,31 +1160,14 @@ circle.planet {
 }
 
 /* HOME: la galleria blu è l'ultima sezione della pagina. Quando su mobile
-   si scorre oltre il fondo (effetto "rimbalzo"), il browser rivela l'area
-   sotto la pagina, che avrebbe il panna di sfondo. Queste due fasce fisse
-   fuori dallo schermo colorano quelle zone: navy sotto (continuità con la
-   galleria), panna sopra (continuità con l'header). Solo sulla home: le
-   altre pagine (body.page) finiscono su fondo panna e vanno già bene. */
-body:not(.page)::before {
-  content: '';
-  position: fixed;
-  top: -100vh;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  background: var(--cream);
-  z-index: -2;
-}
-
-body:not(.page)::after {
-  content: '';
-  position: fixed;
-  bottom: -100vh;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  background: #081427;
-  z-index: -2;
+   si scorre oltre i bordi (effetto "rimbalzo") il browser rivela la zona
+   fuori dalla pagina. Tecnica iOS/Safari: il colore di sfondo del <body>
+   riempie il rimbalzo in alto, quello di <html> il rimbalzo in basso.
+   Mettendo navy su <html> il fondo resta blu a qualunque livello di zoom;
+   il panna del <body> tiene la cima coerente con l'header. Solo sulla home
+   (le altre pagine hanno body.page e finiscono già su panna). */
+html:has(body:not(.page)) {
+  background-color: #081427;
 }
 
 body.loaded {
