@@ -13,7 +13,7 @@
   --gold:#C9A86A;
   --gold-soft:#E3CE9B;
   --hex:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  /* Variante "flat-top" (lato piatto in alto), come i segmenti dello specchio JWST */
+
   --hex-flat:polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
   --font-display:"Alice",serif;
   --font-body:"Alice",serif;
@@ -38,13 +38,10 @@ body{
   overflow-x: hidden;
 }
 
-/* Effetto inchiostro sui testi */
 .title, .page-title, .subtitle, .invitation-text, .invitation-date, .invitation-location, .cta-label {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* DECORATIVE ELEMENTS */
-/* Divisore celestiale: linea dorata con piccolo astro */
 .celestial-divider {
   display: flex;
   align-items: center;
@@ -74,7 +71,6 @@ body{
   box-shadow: 0 0 8px rgba(201, 168, 106, 0.6);
 }
 
-/* Nastro decorativo (riservato a usi futuri) */
 .ribbon {
   position: relative;
   height: 12px;
@@ -104,7 +100,6 @@ body{
   box-shadow: 0 0 8px rgba(201, 168, 106, 0.5);
 }
 
-/* ENVELOPE POPUP STYLE */
 .envelope-overlay {
   position: fixed;
   top: 0;
@@ -127,7 +122,6 @@ body{
   animation: float 3s ease-in-out infinite;
 }
 
-/* --- BUSTA RETTANGOLARE A TEMA SPAZIO --- */
 .rect-envelope {
   position: relative;
   width: min(380px, 86vw);
@@ -165,7 +159,6 @@ body{
     radial-gradient(1px 1px at 78% 88%, #fff, transparent);
 }
 
-/* Tasca frontale (triangolo inferiore) con bordo dorato */
 .env-pocket {
   position: absolute;
   inset: 0;
@@ -182,7 +175,6 @@ body{
   background: linear-gradient(180deg, #16224e, #0e1838);
 }
 
-/* Lembo superiore triangolare che si apre (con bordo dorato) */
 .env-flap {
   position: absolute;
   top: 0;
@@ -205,7 +197,6 @@ body{
   background: linear-gradient(180deg, #1c2c6b, #101d44);
 }
 
-/* Sigillo di ceralacca al centro (sopra la punta del lembo) */
 .env-seal {
   position: absolute;
   top: 54%;
@@ -286,7 +277,6 @@ body{
   display: none;
 }
 
-/* INVITO ESAGONALE */
 .invitation-overlay {
   position: fixed;
   top: 0;
@@ -306,7 +296,7 @@ body{
   width: min(440px, 90vw);
   height: calc(min(440px, 90vw) * 1.1547);
   clip-path: var(--hex);
-  /* Bordo dorato metallico (effetto specchio/lamina) */
+
   background: linear-gradient(135deg, #F4E6B8 0%, #C9A86A 32%, #a07e44 52%, #EFE0AC 72%, #C9A86A 100%);
   filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.3));
   animation: fadeIn 0.6s ease-out;
@@ -403,7 +393,6 @@ body{
   }
 }
 
-/* GALLERIA A SCORRIMENTO CONTINUO */
 .gallery-section {
   width: 100%;
   padding: 56px 0 66px;
@@ -423,7 +412,6 @@ body{
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* GALLERIA ESAGONALE STILE SPECCHIO JWST: mosaico esplorabile trascinando */
 .gallery-hint {
   color: var(--gold-soft);
   font-size: 13px;
@@ -455,9 +443,6 @@ body{
   will-change: transform;
 }
 
-/* PULSANTI ZOOM (tra vista completa e dimensione naturale): sotto alla
-   scritta "trascina per esplorare" e sopra al mosaico, centrati, così non
-   coprono mai nessun esagono. */
 .hex-zoom-controls {
   display: flex;
   justify-content: center;
@@ -486,7 +471,7 @@ body{
 
 .hex-card {
   position: absolute;
-  /* Esagono flat-top: più largo che alto, come i segmenti del JWST */
+
   width: calc(210px * 1.1547);
   height: 210px;
   cursor: pointer;
@@ -510,9 +495,6 @@ body{
   transform: rotateY(180deg);
 }
 
-/* Cornice dorata: sta dentro al gruppo che ruota, quindi gira insieme
-   alla foto invece di restare ferma sullo sfondo. Niente backface-visibility:
-   così è visibile (leggermente specchiata) anche sul retro. */
 .hex-card-frame {
   position: absolute;
   inset: 0;
@@ -549,8 +531,6 @@ body{
   text-align: center;
 }
 
-/* FOTONE: lampo di luce che "colpisce" l'esagono prima che si giri.
-   Solo due pseudo-elementi animati brevemente: costo minimo. */
 .hex-photon {
   position: absolute;
   inset: 0;
@@ -564,9 +544,6 @@ body{
   display: block;
 }
 
-/* Il fotone arriva perpendicolare alla superficie (lungo l'asse di vista,
-   come dallo spazio verso lo specchio del JWST): appare come un alone
-   largo e sfocato che converge e si concentra sul punto d'impatto... */
 .hex-photon.zap::before {
   content: '';
   position: absolute;
@@ -582,7 +559,6 @@ body{
   animation: photon-arrive 0.34s ease-in forwards;
 }
 
-/* ...e all'impatto esplode in un bagliore dorato che si irradia dal punto */
 .hex-photon.zap::after {
   content: '';
   position: absolute;
@@ -781,8 +757,7 @@ body{
 
 .title{
   font-family: var(--font-body);
-  /* Formula calcolata per far stare "Elisa e Federico" su una sola riga
-     a qualunque larghezza di schermo, senza mai andare a capo. */
+
   font-size: clamp(24px, calc(9.5vw - 6px), 88px);
   font-weight: 500;
   letter-spacing: 1px;
@@ -878,18 +853,15 @@ circle.planet {
   filter: drop-shadow(0 0 16px rgba(232, 197, 71, 0.95));
 }
 
-/* Pianeti: tonalità luminose per buon contrasto sulla volta navy */
-#p1 { fill: #C9B27D; opacity: 0.95; } /* Mercurio */
-#p2 { fill: #EAD9A6; opacity: 0.95; } /* Venere */
-#p3 { fill: #8FB7D9; opacity: 0.95; } /* Terra */
-#p4 { fill: #D98A6A; opacity: 0.95; } /* Marte */
-#p5 { fill: #E0A94B; opacity: 0.95; } /* Giove */
-#p6 { fill: #EAD18B; opacity: 0.95; } /* Saturno */
-#p7 { fill: #B7D0E6; opacity: 0.95; } /* Urano */
-#p8 { fill: #7FA0D8; opacity: 0.95; } /* Nettuno */
-#p9 { fill: #C295AD; opacity: 0.95; } /* Plutone */
-
-
+#p1 { fill: #C9B27D; opacity: 0.95; }
+#p2 { fill: #EAD9A6; opacity: 0.95; }
+#p3 { fill: #8FB7D9; opacity: 0.95; }
+#p4 { fill: #D98A6A; opacity: 0.95; }
+#p5 { fill: #E0A94B; opacity: 0.95; }
+#p6 { fill: #EAD18B; opacity: 0.95; }
+#p7 { fill: #B7D0E6; opacity: 0.95; }
+#p8 { fill: #7FA0D8; opacity: 0.95; }
+#p9 { fill: #C295AD; opacity: 0.95; }
 
 .page {
   min-height: 100vh;
@@ -932,7 +904,6 @@ circle.planet {
   margin-bottom: 30px;
 }
 
-/* PAGINA REGALO / VIAGGIO DI NOZZE */
 .gift-intro {
   max-width: 620px;
   margin: 26px auto 34px;
@@ -978,9 +949,7 @@ circle.planet {
 
 .iban-value {
   font-family: var(--font-display);
-  /* Scala col viewport calcolata per stare sempre dentro al box senza
-     sbordare: se sbordasse, l'sbordo può apparire asimmetrico (più
-     spazio da un lato che dall'altro) invece di restare centrato. */
+
   font-size: clamp(12px, calc(6vw - 6.5px), 26px);
   letter-spacing: 0.5px;
   color: var(--bordeaux);
@@ -1044,7 +1013,6 @@ circle.planet {
   border: none;
 }
 
-/* CARD INDICAZIONI (più rilievo) */
 .directions-card {
   max-width: 640px;
   margin: 30px auto 0;
@@ -1075,7 +1043,6 @@ circle.planet {
   display: inline-block;
 }
 
-/* IMMAGINE INDICAZIONI SOTTO LA MAPPA */
 .location-image {
   display: block;
   width: 100%;
@@ -1159,13 +1126,6 @@ circle.planet {
   }
 }
 
-/* HOME: la galleria blu è l'ultima sezione della pagina. Quando su mobile
-   si scorre oltre i bordi (effetto "rimbalzo") il browser rivela la zona
-   fuori dalla pagina. Tecnica iOS/Safari: il colore di sfondo del <body>
-   riempie il rimbalzo in alto, quello di <html> il rimbalzo in basso.
-   Mettendo navy su <html> il fondo resta blu a qualunque livello di zoom;
-   il panna del <body> tiene la cima coerente con l'header. Solo sulla home
-   (le altre pagine hanno body.page e finiscono già su panna). */
 html:has(body:not(.page)) {
   background-color: #081427;
 }

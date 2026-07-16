@@ -1,7 +1,3 @@
----
-# Front matter Jekyll: necessario per generare la galleria automaticamente.
-# NON rimuovere queste tre righe.
----
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -14,7 +10,6 @@
 
 <body>
 
-<!-- POPUP BUSTA ESAGONALE -->
 <div id="envelope-popup" class="envelope-overlay envelope-hidden">
   <div class="envelope-container" id="envelope-container">
     <div class="rect-envelope">
@@ -27,7 +22,6 @@
   </div>
 </div>
 
-<!-- INVITO ESAGONALE (apre dopo la busta) -->
 <div id="invitation-popup" class="invitation-overlay invitation-hidden">
   <div class="hex-invitation">
     <div class="hex-invitation-inner">
@@ -70,7 +64,7 @@
 
   <div class="solar-wrap">
     <svg viewBox="-120 -120 740 740" class="solar" id="solar">
-      <!-- VOLTA STELLATA -->
+
       <g class="starfield">
         <circle class="star" cx="250" cy="60"  r="1.4"/>
         <circle class="star" cx="150" cy="100" r="1.0"/>
@@ -100,7 +94,6 @@
 
       <circle cx="250" cy="250" r="4" class="sun"/>
 
-      <!-- ORBITE -->
       <g class="orbit">
         <ellipse cx="250" cy="250" rx="40" ry="40" class="line a" />
       </g>
@@ -129,7 +122,6 @@
         <ellipse cx="250" cy="250" rx="330" ry="330" class="line a" />
       </g>
 
-      <!-- PIANETI -->
       <circle id="p1" cx="290" cy="250" r="3" class="planet"/>
       <circle id="p2" cx="315" cy="250" r="4" class="planet"/>
       <circle id="p3" cx="340" cy="250" r="5" class="planet"/>
@@ -143,7 +135,6 @@
   </div>
 </section>
 
-<!-- GALLERIA ESAGONALE -->
 <section class="gallery-section">
   <div class="celestial-divider"><i></i></div>
   <h2 class="gallery-title" id="gallery-title">I nostri momenti</h2>
@@ -163,7 +154,6 @@ const envelopePopup = document.getElementById('envelope-popup');
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
 
-/* LANGUAGE TRANSLATIONS */
 const translations = {
   it: {
     home: "Home",
@@ -184,7 +174,7 @@ const translations = {
     home: "Home",
     location: "Location",
     rsvp: "RSVP",
-    journey: "Our journey",
+    journey: "Our honey moon",
     cta: "Please confirm your attendance",
     openInvite: "Open the invitation",
     galleryTitle: "Our moments",
@@ -197,7 +187,6 @@ const translations = {
   }
 };
 
-/* LANGUAGE DETECTION */
 function detectLanguage() {
   const savedLang = localStorage.getItem('preferredLang');
   if (savedLang) return savedLang;
@@ -209,8 +198,7 @@ function applyLanguage(lang) {
   document.documentElement.lang = lang;
   localStorage.setItem('preferredLang', lang);
   const t = translations[lang];
-  
-  // Update menu links
+
   const menuLinks = document.querySelectorAll('.menu a');
   if (menuLinks.length >= 4) {
     menuLinks[0].textContent = t.home;
@@ -218,52 +206,43 @@ function applyLanguage(lang) {
     menuLinks[2].textContent = t.rsvp;
     menuLinks[3].textContent = t.journey;
   }
-  
-  // Update CTA button
+
   const ctaBtn = document.getElementById('cta-button');
   if (ctaBtn) {
     ctaBtn.textContent = t.cta;
   }
 
-  // Update hero date
   const heroDate = document.querySelector('.date');
   if (heroDate) heroDate.textContent = t.invitationDate;
 
-  // Update envelope text
   const envText = document.querySelector('.envelope-text');
   if (envText) envText.textContent = t.openInvite;
 
-  // Update gallery title
   const galleryTitle = document.getElementById('gallery-title');
   if (galleryTitle) galleryTitle.textContent = t.galleryTitle;
 
-  // Update gallery hint
   const galleryHint = document.getElementById('gallery-hint');
   if (galleryHint) galleryHint.textContent = t.galleryHint;
 
-  // Update invitation popup
   const invitationText = document.querySelector('.invitation-text');
   const invitationNames = document.querySelector('.invitation-names');
   const invitationDate = document.querySelector('.invitation-date');
   const invitationLocation = document.querySelector('.invitation-location');
   const closeInvitationBtn = document.getElementById('close-invitation');
-  
+
   if (invitationText) invitationText.textContent = t.invitationText;
   if (invitationNames) invitationNames.textContent = t.invitationNames;
   if (invitationDate) invitationDate.textContent = t.invitationDate;
   if (invitationLocation) invitationLocation.textContent = t.invitationLocation;
   if (closeInvitationBtn) closeInvitationBtn.textContent = t.enterSite;
-  
-  // Update active language button
+
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
 }
 
-/* APPLICA LINGUA SUBITO (prima del popup, così i testi sono corretti) */
 applyLanguage(detectLanguage());
 
-/* ENVELOPE POPUP - Mostra solo alla prima visita */
 const invitationPopup = document.getElementById('invitation-popup');
 const closeInvitation = document.getElementById('close-invitation');
 
@@ -277,8 +256,7 @@ function markAsVisited() {
 
 if (checkFirstVisit()) {
   envelopePopup.classList.remove('envelope-hidden');
-  
-  // Apri la busta (lembo che si solleva) e poi mostra l'invito
+
   const envelopeContainer = document.getElementById('envelope-container');
   envelopePopup.addEventListener('click', () => {
     if (envelopeContainer.classList.contains('opening')) return;
@@ -288,8 +266,7 @@ if (checkFirstVisit()) {
       invitationPopup.classList.remove('invitation-hidden');
     }, 900);
   });
-  
-  // Chiudi invito e entra nel sito
+
   closeInvitation.addEventListener('click', () => {
     invitationPopup.classList.add('invitation-hidden');
     markAsVisited();
@@ -299,9 +276,6 @@ if (checkFirstVisit()) {
   invitationPopup.classList.add('invitation-hidden');
 }
 
-/* Rendi visibile il body (fade-in) appena il DOM è pronto, SENZA aspettare
-   il caricamento delle immagini della galleria (altrimenti busta ed hero
-   resterebbero nascosti finché le foto non sono scaricate). */
 function revealBody() {
   document.body.classList.add('loaded');
 }
@@ -311,14 +285,12 @@ if (document.readyState === 'loading') {
   revealBody();
 }
 
-/* LANGUAGE SWITCHER */
 document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     applyLanguage(btn.dataset.lang);
   });
 });
 
-/* ANIMAZIONE PIANETI CON POSIZIONI RANDOMICHE */
 const cfg = [
   {id:"p1", r:40, s:0.00012, offset: Math.random() * Math.PI * 2},
   {id:"p2", r:65, s:0.0001, offset: Math.random() * Math.PI * 2},
@@ -347,7 +319,6 @@ function animate() {
 }
 animate();
 
-/* MENU BURGER */
 let isMenuOpen = false;
 function toggleMenu() {
   isMenuOpen = !isMenuOpen;
@@ -376,8 +347,6 @@ document.querySelectorAll('.menu a').forEach(link => {
   });
 });
 
-/* GALLERIA ESAGONALE STILE SPECCHIO JWST: mosaico che sborda dal
-   riquadro e si esplora trascinando in ogni direzione. */
 fetch('pictures.json')
   .then(r => r.json())
   .then(photos => {
@@ -407,8 +376,6 @@ fetch('pictures.json')
 
     const cards = Array.from(world.querySelectorAll('.hex-card'));
 
-    /* Genera le coordinate assiali di un esagono-di-esagoni (anelli
-       concentrici, come lo specchio del JWST) del raggio richiesto. */
     function hexCoords(radius) {
       const coords = [];
       for (let q = -radius; q <= radius; q++) {
@@ -428,10 +395,7 @@ fetch('pictures.json')
       if (!cards.length) return;
       const w = cards[0].offsetWidth;
       const h = cards[0].offsetHeight;
-      const gap = 1.04; // fattore per lasciar intravedere lo sfondo tra i segmenti
-      // Esagoni flat-top disposti per colonne, come i segmenti del JWST:
-      // la figura complessiva ha i vertici (esagoni singoli) in alto e in
-      // basso e le colonne da 3 sui lati sinistro e destro.
+      const gap = 1.04;
       const dx = w * 0.75 * gap;
       const dy = h * gap;
 
@@ -458,13 +422,6 @@ fetch('pictures.json')
       world.style.height = (maxY - minY + h) + 'px';
     }
 
-    /* PAN + ZOOM: il mosaico parte alla scala che lo fa stare tutto dentro
-       al riquadro ("a tutta pagina") e si può ingrandire fino alla
-       dimensione naturale (scala 1) con i pulsanti +/-, il pinch su touch
-       o ctrl+rotella. Quando un trascinamento o la rotella arrivano al
-       bordo verticale del mosaico, la parte di movimento non consumata
-       viene girata allo scorrimento della pagina, così esagoni e pagina
-       scorrono in modo organico senza restare "intrappolati". */
     const MAX_SCALE = 1;
     let scale = 1, minScale = 1;
     let translateX = 0, translateY = 0;
@@ -475,9 +432,6 @@ fetch('pictures.json')
     const pointers = new Map();
     let pinchStartDist = 0, pinchStartScale = 1;
 
-    // Se il mosaico (alla scala corrente) è più grande del viewport si può
-    // scorrere fino ai bordi; se è più piccolo, il limite superiore diventa
-    // positivo e permette di restare centrato.
     function computeBounds() {
       const vpW = viewport.clientWidth, vpH = viewport.clientHeight;
       const worldW = world.offsetWidth * scale, worldH = world.offsetHeight * scale;
@@ -501,7 +455,6 @@ fetch('pictures.json')
       });
     }
 
-    // Scala che fa stare l'intero mosaico dentro al viewport
     function fitScale() {
       return Math.min(
         viewport.clientWidth / world.offsetWidth,
@@ -509,17 +462,10 @@ fetch('pictures.json')
         MAX_SCALE);
     }
 
-    // Alla scala minima (tutto visibile) il mosaico non ha bisogno di pan
-    // verticale: lasciamo che sia il browser a gestire nativamente lo
-    // scorrimento verticale della pagina (pan-y), che è molto più fluido
-    // del simulare lo scroll in JavaScript (che su mobile causava lag ed
-    // effetto rimbalzo). Da zoomato in poi torniamo a gestire tutto noi.
     function updateTouchAction() {
       viewport.style.touchAction = scale <= minScale + 0.001 ? 'pan-y' : 'none';
     }
 
-    // Zoom mantenendo fermo il punto del mosaico sotto (cx, cy) in
-    // coordinate schermo.
     function zoomAt(cx, cy, newScale) {
       newScale = Math.max(minScale, Math.min(MAX_SCALE, newScale));
       if (newScale === scale) return;
@@ -569,7 +515,7 @@ fetch('pictures.json')
         computeBounds();
         viewport.classList.add('dragging');
       } else if (pointers.size === 2) {
-        moved = 100; // un pinch non deve mai contare come click
+        moved = 100;
         const pts = Array.from(pointers.values());
         pinchStartDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
         pinchStartScale = scale;
@@ -580,7 +526,6 @@ fetch('pictures.json')
       if (!pointers.has(e.pointerId)) return;
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
-      // Due dita: pinch to zoom attorno al punto medio
       if (pointers.size === 2) {
         const pts = Array.from(pointers.values());
         const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
@@ -592,8 +537,6 @@ fetch('pictures.json')
         return;
       }
 
-      // Un dito/mouse: pan con delta incrementali; la parte verticale che
-      // non può essere consumata (bordo raggiunto) scorre la pagina.
       const dx = e.clientX - lastX;
       const dy = e.clientY - lastY;
       lastX = e.clientX;
@@ -607,17 +550,8 @@ fetch('pictures.json')
       scheduleTransform();
     });
 
-    /* FLIP CON FOTONE: quando la foto sta per girarsi (a mano o da sola)
-       un "fotone" arriva dallo spazio, perpendicolare alla superficie, e
-       colpisce l'esagono in un punto casuale innescando la rotazione.
-       L'effetto vale solo nel verso foto -> retro; il ritorno è normale. */
     const PHOTON_MS = 600;
 
-    // Timer del "ritorno automatico": qualunque esagono si giri (a mano o
-    // da solo) torna sempre alla foto dopo un tempo casuale. Tenuto in una
-    // WeakMap per poterlo annullare se la carta viene ri-girata nel
-    // frattempo, evitando che un vecchio timer scaduto la giri al momento
-    // sbagliato.
     const returnTimers = new WeakMap();
     function cancelReturn(card) {
       if (returnTimers.has(card)) {
@@ -631,18 +565,16 @@ fetch('pictures.json')
       card.dataset.busy = '1';
       cancelReturn(card);
       const photon = card.querySelector('.hex-photon');
-      // Punto d'impatto casuale, tenuto dentro alla zona centrale dell'esagono
-      // (20-80%) per non finire negli angoli tagliati dal clip-path.
       photon.style.setProperty('--hit-x', (20 + Math.random() * 60) + '%');
       photon.style.setProperty('--hit-y', (20 + Math.random() * 60) + '%');
       photon.classList.remove('zap');
-      void photon.offsetWidth; // riavvia l'animazione CSS
+      void photon.offsetWidth;
       photon.classList.add('zap');
       setTimeout(() => {
         card.classList.add('flipped');
         photon.classList.remove('zap');
         delete card.dataset.busy;
-        const stay = 3500 + Math.random() * 5000; // 3.5-8.5s girato, poi torna da solo
+        const stay = 3500 + Math.random() * 5000;
         const timer = setTimeout(() => {
           returnTimers.delete(card);
           flipToFront(card);
@@ -657,12 +589,8 @@ fetch('pictures.json')
       card.classList.remove('flipped');
     }
 
-    /* AUTO-FLIP RANDOM: a intervalli casuali un esagono viene "colpito" e
-       si gira (il ritorno automatico è già gestito dentro flipToBack). La
-       scelta è casuale ma gli esagoni colpiti di recente restano esclusi
-       per un po' di iterazioni, così prima o poi si girano più o meno tutti. */
     const recentlyHit = [];
-    const COOLDOWN = Math.min(10, cards.length - 1); // iterazioni di esclusione
+    const COOLDOWN = Math.min(10, cards.length - 1);
 
     function pickCard() {
       const candidates = cards.filter((c, i) =>
@@ -675,7 +603,7 @@ fetch('pictures.json')
     }
 
     function scheduleAutoFlip() {
-      const wait = 1800 + Math.random() * 3200; // 1.8-5s tra un fotone e l'altro
+      const wait = 1800 + Math.random() * 3200;
       setTimeout(() => {
         if (!document.hidden) {
           const card = pickCard();
@@ -686,15 +614,10 @@ fetch('pictures.json')
     }
     scheduleAutoFlip();
 
-    // Il click viene gestito qui (e non con un listener 'click' sulla
-    // singola carta) perché setPointerCapture sul viewport ridirige il
-    // targeting del click nativo: usiamo elementFromPoint per capire su
-    // quale esagono è avvenuto il rilascio.
     function finishDrag(e, checkFlip) {
       if (!pointers.has(e.pointerId)) return;
       pointers.delete(e.pointerId);
       if (pointers.size > 0) {
-        // Finito il pinch ma resta un dito: riparte come pan semplice
         const rest = Array.from(pointers.values())[0];
         lastX = rest.x;
         lastY = rest.y;
@@ -713,9 +636,6 @@ fetch('pictures.json')
     viewport.addEventListener('pointerup', (e) => finishDrag(e, true));
     viewport.addEventListener('pointercancel', (e) => finishDrag(e, false));
 
-    // Rotellina / trackpad: naviga il mosaico; al bordo verticale la parte
-    // non consumata scorre la pagina (scroll organico). Con ctrl premuto
-    // (o pinch sul trackpad, che il browser riporta come ctrl+wheel) zooma.
     viewport.addEventListener('wheel', (e) => {
       e.preventDefault();
       computeBounds();
@@ -731,8 +651,6 @@ fetch('pictures.json')
       scheduleTransform();
     }, { passive: false });
 
-    /* PULSANTI ZOOM: ingrandiscono/riducono attorno al centro del riquadro,
-       tra la vista "a tutta pagina" (tutti gli esagoni) e la scala naturale. */
     const zoomControls = document.getElementById('hex-zoom-controls');
     zoomControls.addEventListener('pointerdown', (e) => e.stopPropagation());
     function zoomStep(factor) {
@@ -743,7 +661,6 @@ fetch('pictures.json')
     document.getElementById('hex-zoom-out').addEventListener('click', () => zoomStep(1 / 1.4));
   });
 
-/* TRANSIZIONE FADE TRA PAGINE (coerente con le altre pagine) */
 document.querySelectorAll('a[href]').forEach(link => {
   link.addEventListener('click', function(e){
     const href = this.getAttribute('href');

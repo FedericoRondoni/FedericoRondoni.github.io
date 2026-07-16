@@ -38,7 +38,7 @@
       <div class="subtitle" id="subtitle">Conferma la tua presenza</div>
 
       <div style="width:84%; max-width: 900px; margin: 0 auto;">
-        <!-- Form italiano -->
+
         <div id="rsvp-it" class="rsvp-frame">
           <iframe
             style="border:none;width:100%;"
@@ -47,7 +47,6 @@
           </iframe>
         </div>
 
-        <!-- Form inglese -->
         <div id="rsvp-en" class="rsvp-frame" hidden>
           <iframe
             style="border:none;width:100%;"
@@ -56,14 +55,12 @@
           </iframe>
         </div>
 
-        <!-- SDK OpnForm: ridimensiona automaticamente entrambi i form -->
         <script src="https://opnform.com/widgets/opnform-sdk.min.js"></script>
       </div>
     </div>
   </main>
 
   <script>
-    // Language translations
     const translations = {
       it: {
         title: "RSVP",
@@ -79,11 +76,10 @@
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
-        journey: "Our journey"
+        journey: "Our honey moon"
       }
     };
 
-    // Detect user language preference
     function detectLanguage() {
       const savedLang = localStorage.getItem('preferredLang');
       if (savedLang) return savedLang;
@@ -91,7 +87,6 @@
       return browserLang.startsWith('it') ? 'it' : 'en';
     }
 
-    // Apply language
     function applyLanguage(lang) {
       document.documentElement.lang = lang;
       localStorage.setItem('preferredLang', lang);
@@ -106,9 +101,6 @@
         menuLinks[3].textContent = t.journey;
       }
 
-      // Mostra il form nella lingua giusta (IT o EN). Quando un form passa
-      // da nascosto a visibile lo ricarichiamo, così OpnForm ricalcola
-      // l'altezza reale ed evitiamo lo spazio bianco in fondo.
       const rsvpIt = document.getElementById('rsvp-it');
       const rsvpEn = document.getElementById('rsvp-en');
       if (rsvpIt && rsvpEn) {
@@ -174,14 +166,12 @@
       });
     });
 
-    // Initialize
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
       const lang = detectLanguage();
       applyLanguage(lang);
     });
 
-    // Language switcher
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         applyLanguage(btn.dataset.lang);

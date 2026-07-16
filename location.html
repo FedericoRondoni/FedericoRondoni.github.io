@@ -61,7 +61,6 @@
   </main>
 
   <script>
-    // Language translations
     const translations = {
       it: {
         title: "Location",
@@ -83,23 +82,19 @@
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
-        journey: "Our journey"
+        journey: "Our honey moon"
       }
     };
 
-    // Detect user language preference
     function detectLanguage() {
-      // Check localStorage first
       const savedLang = localStorage.getItem('preferredLang');
       if (savedLang) return savedLang;
 
-      // Check browser language
       const browserLang = navigator.language || navigator.userLanguage;
       if (browserLang.startsWith('it')) return 'it';
       return 'en';
     }
 
-    // Apply language
     function applyLanguage(lang) {
       document.documentElement.lang = lang;
       localStorage.setItem('preferredLang', lang);
@@ -111,7 +106,6 @@
       document.getElementById('location-text').textContent = t.details;
       document.getElementById('maps-btn').textContent = t.mapsBtn;
 
-      // Update menu links
       const menuLinks = document.querySelectorAll('.menu a');
       if (menuLinks.length >= 4) {
         menuLinks[0].textContent = t.home;
@@ -120,20 +114,17 @@
         menuLinks[3].textContent = t.journey;
       }
 
-      // Update active language button
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
       });
     }
 
-    // Initialize
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
       const lang = detectLanguage();
       applyLanguage(lang);
     });
 
-    // Language switcher
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         applyLanguage(btn.dataset.lang);
