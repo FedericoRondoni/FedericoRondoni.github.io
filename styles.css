@@ -775,16 +775,16 @@ body{
 
 .scroll-cue-text{
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 18px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--navy);
-  opacity: 0.85;
+  opacity: 0.95;
 }
 
 .scroll-cue-arrow{
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   border-right: 2px solid var(--gold);
   border-bottom: 2px solid var(--gold);
   transform: rotate(45deg);
@@ -1202,7 +1202,7 @@ circle.planet {
     bottom: 16px;
   }
   .scroll-cue-text {
-    font-size: 12px;
+    font-size: 16px;
   }
   .container {
     padding: 24px 15px 30px;
