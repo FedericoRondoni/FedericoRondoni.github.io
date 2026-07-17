@@ -58,6 +58,31 @@
       </div>
 
       <p class="gift-thanks" id="gift-thanks">Grazie di cuore &#10022;</p>
+
+      <div class="japan-banner">
+        <svg class="japan-svg" viewBox="0 0 400 220" role="img" aria-label="Monte Fuji">
+          <defs>
+            <linearGradient id="jsun" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#E4572E"/>
+              <stop offset="1" stop-color="#8B0000"/>
+            </linearGradient>
+            <linearGradient id="jmt" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2a4aa0"/>
+              <stop offset="1" stop-color="#0c1b3a"/>
+            </linearGradient>
+          </defs>
+          <circle cx="200" cy="92" r="56" fill="url(#jsun)"/>
+          <path class="petal" d="M74 70 C79 70 81 76 74 84 C67 76 69 70 74 70 Z" transform="rotate(20 74 77)"/>
+          <path class="petal" d="M330 58 C335 58 337 64 330 72 C323 64 325 58 330 58 Z" transform="rotate(-25 330 65)"/>
+          <path class="petal" d="M300 120 C305 120 307 126 300 134 C293 126 295 120 300 120 Z" transform="rotate(40 300 127)"/>
+          <path class="petal" d="M96 138 C101 138 103 144 96 152 C89 144 91 138 96 138 Z" transform="rotate(-15 96 145)"/>
+          <path d="M40 190 L200 74 L360 190 Z" fill="url(#jmt)" stroke="#C9A86A" stroke-width="2"/>
+          <path d="M170 96 L200 74 L230 96 C222 103 214 97 207 101 C200 105 193 97 186 101 C179 105 174 99 170 96 Z" fill="#f5f0e6"/>
+          <line x1="28" y1="190" x2="372" y2="190" stroke="#C9A86A" stroke-width="1.5" opacity="0.55"/>
+        </svg>
+        <p class="japan-label" id="dest-label">Prossima tappa</p>
+        <p class="japan-place"><span id="dest-place">Giappone</span> <span class="japan-kanji">日本</span></p>
+      </div>
     </div>
   </main>
 
@@ -71,6 +96,8 @@
         copy: "Copia IBAN",
         copied: "Copiato!",
         thanks: "Grazie di cuore ✦",
+        destLabel: "Prossima tappa",
+        destPlace: "Giappone",
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
@@ -84,6 +111,8 @@
         copy: "Copy IBAN",
         copied: "Copied!",
         thanks: "Thank you from our heart ✦",
+        destLabel: "Next stop",
+        destPlace: "Japan",
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
@@ -107,6 +136,8 @@
       document.getElementById('gift-holder-label').textContent = t.holderLabel;
       document.getElementById('gift-causale').textContent = t.causale;
       document.getElementById('gift-thanks').innerHTML = t.thanks;
+      document.getElementById('dest-label').textContent = t.destLabel;
+      document.getElementById('dest-place').textContent = t.destPlace;
       const copyBtn = document.getElementById('copy-btn');
       if (!copyBtn.dataset.copied) copyBtn.textContent = t.copy;
 

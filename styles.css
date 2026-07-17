@@ -745,6 +745,7 @@ body{
 }
 
 .hero{
+  position: relative;
   min-height:100vh;
   display:flex;
   flex-direction:column;
@@ -752,7 +753,45 @@ body{
   justify-content:center;
   gap:24px;
   text-align:center;
-  padding:80px 20px;
+  padding:80px 20px 96px;
+}
+
+.scroll-cue{
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  animation: cue-bob 2s ease-in-out infinite;
+}
+
+.scroll-cue-text{
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--navy);
+  opacity: 0.85;
+}
+
+.scroll-cue-arrow{
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  transform: rotate(45deg);
+}
+
+@keyframes cue-bob{
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 8px); }
 }
 
 .title{
@@ -803,6 +842,54 @@ body{
 
 .btn:active {
   transform: translateY(0);
+}
+
+.rsvp-cta-section{
+  background: #081427;
+  border-top: 1px solid rgba(201, 168, 106, 0.4);
+  text-align: center;
+  padding: 66px 20px 80px;
+}
+
+.rsvp-cta-title{
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(30px, 6vw, 48px);
+  color: #fff;
+  letter-spacing: 1px;
+  margin: 16px 0 10px;
+}
+
+.rsvp-cta-text{
+  font-size: clamp(16px, 2.6vw, 19px);
+  color: var(--gold-soft);
+  opacity: 0.9;
+  margin: 0 0 30px;
+}
+
+.btn-rsvp{
+  border: none;
+  padding: 18px 46px;
+  font-size: 17px;
+  letter-spacing: 1.5px;
+  color: var(--navy-deep);
+  background: linear-gradient(135deg, #F4E6B8 0%, #C9A86A 55%, #E3CE9B 100%);
+  box-shadow: 0 10px 30px rgba(201, 168, 106, 0.35), 0 0 0 1px rgba(201, 168, 106, 0.5);
+}
+
+.btn-rsvp:hover{
+  color: var(--cream);
+  background: var(--bordeaux);
+  border-color: var(--bordeaux);
+  box-shadow: 0 12px 34px rgba(139, 0, 0, 0.4);
+}
+
+.rsvp-deadline{
+  margin: 26px 0 0;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--gold-soft);
+  opacity: 0.75;
 }
 
 .solar-wrap {
@@ -973,6 +1060,49 @@ circle.planet {
   font-size: clamp(22px, 4vw, 30px);
   color: var(--bordeaux);
   margin: 34px 0 0;
+}
+
+.japan-banner {
+  max-width: 440px;
+  margin: 54px auto 0;
+  padding-top: 40px;
+  border-top: 1px solid rgba(201, 168, 106, 0.35);
+  text-align: center;
+}
+
+.japan-svg {
+  width: min(300px, 78%);
+  height: auto;
+  display: block;
+  margin: 0 auto 18px;
+  filter: drop-shadow(0 10px 22px rgba(12, 27, 58, 0.18));
+}
+
+.japan-svg .petal {
+  fill: #E3CE9B;
+  opacity: 0.9;
+}
+
+.japan-label {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 4px;
+}
+
+.japan-place {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 5vw, 32px);
+  color: var(--bordeaux);
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.japan-kanji {
+  color: var(--navy);
+  opacity: 0.75;
+  margin-left: 6px;
 }
 
 .container {

@@ -60,7 +60,6 @@
   <div class="title">Elisa e&nbsp;Federico</div>
   <div class="celestial-divider"><i></i></div>
   <div class="date">2 gennaio 2027 - ore 12:00</div>
-  <a href="rsvp.html" class="btn" id="cta-button">RSVP</a>
 
   <div class="solar-wrap">
     <svg viewBox="-120 -120 740 740" class="solar" id="solar">
@@ -133,6 +132,11 @@
       <circle id="p9" cx="580" cy="250" r="3" class="planet"/>
     </svg>
   </div>
+
+  <button class="scroll-cue" id="scroll-cue" aria-label="Scorri verso il basso">
+    <span class="scroll-cue-text" id="scroll-cue-text">Scorri per scoprire</span>
+    <span class="scroll-cue-arrow"></span>
+  </button>
 </section>
 
 <section class="gallery-section">
@@ -146,6 +150,14 @@
   <div class="hex-gallery-viewport" id="hex-gallery-viewport">
     <div class="hex-gallery-world" id="hex-gallery-world"></div>
   </div>
+</section>
+
+<section class="rsvp-cta-section">
+  <div class="celestial-divider"><i></i></div>
+  <h2 class="rsvp-cta-title" id="rsvp-cta-title">Ci sarai?</h2>
+  <p class="rsvp-cta-text" id="rsvp-cta-text">Facci sapere se sarai dei nostri</p>
+  <a href="rsvp.html" class="btn btn-rsvp" id="cta-button">Conferma la tua presenza</a>
+  <p class="rsvp-deadline" id="rsvp-deadline">Conferma entro il 30 settembre 2026</p>
 </section>
 </main>
 
@@ -162,8 +174,12 @@ const translations = {
     journey: "Il nostro viaggio",
     cta: "Conferma la tua presenza",
     openInvite: "Apri l'invito",
+    scrollCue: "Scorri per scoprire",
     galleryTitle: "I nostri momenti",
     galleryHint: "Trascina per esplorare",
+    rsvpCtaTitle: "Ci sarai?",
+    rsvpCtaText: "Facci sapere se sarai dei nostri",
+    rsvpDeadline: "Conferma entro il 30 settembre 2026",
     invitationText: "Ti invitiamo al nostro matrimonio",
     invitationNames: "Elisa e Federico",
     invitationDate: "2 gennaio 2027 - ore 12:00",
@@ -177,8 +193,12 @@ const translations = {
     journey: "Our honey moon",
     cta: "Please confirm your attendance",
     openInvite: "Open the invitation",
+    scrollCue: "Scroll to discover",
     galleryTitle: "Our moments",
     galleryHint: "Drag to explore",
+    rsvpCtaTitle: "Will you be there?",
+    rsvpCtaText: "Let us know if you'll join us",
+    rsvpDeadline: "Please reply by September 30th, 2026",
     invitationText: "We invite you to our wedding",
     invitationNames: "Elisa & Federico",
     invitationDate: "January 2nd, 2027 - 12:00 pm",
@@ -211,6 +231,18 @@ function applyLanguage(lang) {
   if (ctaBtn) {
     ctaBtn.textContent = t.cta;
   }
+
+  const scrollCueText = document.getElementById('scroll-cue-text');
+  if (scrollCueText) scrollCueText.textContent = t.scrollCue;
+
+  const rsvpCtaTitle = document.getElementById('rsvp-cta-title');
+  if (rsvpCtaTitle) rsvpCtaTitle.textContent = t.rsvpCtaTitle;
+
+  const rsvpCtaText = document.getElementById('rsvp-cta-text');
+  if (rsvpCtaText) rsvpCtaText.textContent = t.rsvpCtaText;
+
+  const rsvpDeadline = document.getElementById('rsvp-deadline');
+  if (rsvpDeadline) rsvpDeadline.textContent = t.rsvpDeadline;
 
   const heroDate = document.querySelector('.date');
   if (heroDate) heroDate.textContent = t.invitationDate;
@@ -346,6 +378,14 @@ document.querySelectorAll('.menu a').forEach(link => {
     closeMenu();
   });
 });
+
+const scrollCue = document.getElementById('scroll-cue');
+if (scrollCue) {
+  scrollCue.addEventListener('click', () => {
+    const gallery = document.querySelector('.gallery-section');
+    if (gallery) gallery.scrollIntoView({ behavior: 'smooth' });
+  });
+}
 
 fetch('pictures.json')
   .then(r => r.json())
