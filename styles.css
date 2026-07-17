@@ -48,12 +48,13 @@ body{
   justify-content: center;
   gap: 14px;
   margin: 4px auto 0;
+  filter: drop-shadow(0 1px 1.5px rgba(50, 32, 8, 0.45));
 }
 
 .celestial-divider::before,
 .celestial-divider::after {
   content: '';
-  height: 1px;
+  height: 2px;
   width: clamp(40px, 12vw, 80px);
   background: linear-gradient(90deg, transparent, var(--gold));
 }
@@ -64,11 +65,11 @@ body{
 
 .celestial-divider i {
   display: block;
-  width: 7px;
-  height: 7px;
+  width: 9px;
+  height: 9px;
   background: var(--gold);
   transform: rotate(45deg);
-  box-shadow: 0 0 8px rgba(201, 168, 106, 0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .ribbon {
@@ -776,18 +777,21 @@ body{
 .scroll-cue-text{
   font-family: var(--font-body);
   font-size: 18px;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--navy);
-  opacity: 0.95;
+  opacity: 1;
+  text-shadow: 0 0 12px rgba(245, 240, 230, 0.95), 0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
 .scroll-cue-arrow{
   width: 18px;
   height: 18px;
-  border-right: 2px solid var(--gold);
-  border-bottom: 2px solid var(--gold);
+  border-right: 3px solid var(--gold);
+  border-bottom: 3px solid var(--gold);
   transform: rotate(45deg);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 
 @keyframes cue-bob{
@@ -799,19 +803,22 @@ body{
   font-family: var(--font-body);
 
   font-size: clamp(24px, calc(9.5vw - 6px), 88px);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 1px;
   line-height: 1.05;
   color: var(--bordeaux);
   white-space: nowrap;
+  text-shadow: 0 0 18px rgba(245, 240, 230, 0.92), 0 1px 3px rgba(0, 0, 0, 0.18);
 }
 
 .date{
   font-size: 22px;
+  font-weight: 700;
   color: var(--navy);
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 6px;
+  text-shadow: 0 0 14px rgba(245, 240, 230, 0.92), 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .cta-label{
@@ -973,18 +980,21 @@ circle.planet {
 .page-title {
   font-family: var(--font-display);
   font-size: clamp(44px, 7vw, 66px);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.5px;
   color: var(--bordeaux);
   margin-top: 0;
   margin-bottom: 14px;
+  text-shadow: 0 0 18px rgba(245, 240, 230, 0.92), 0 1px 3px rgba(0, 0, 0, 0.18);
 }
 
 .subtitle {
   font-size: 20px;
+  font-weight: 700;
   color: var(--navy);
   letter-spacing: 0.5px;
   margin-bottom: 30px;
+  text-shadow: 0 0 14px rgba(245, 240, 230, 0.92), 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .gift-intro {

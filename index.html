@@ -297,6 +297,20 @@ function markAsVisited() {
   localStorage.setItem('envelopeShown', 'true');
 }
 
+let scrollHintDone = false;
+function hintScroll() {
+  if (scrollHintDone) return;
+  scrollHintDone = true;
+  if (window.scrollY > 4) return;
+  const seq = [78, 0, 42, 0];
+  let i = 0;
+  (function next() {
+    if (i >= seq.length) return;
+    window.scrollTo({ top: seq[i++], behavior: 'smooth' });
+    setTimeout(next, 540);
+  })();
+}
+
 if (checkFirstVisit()) {
   envelopePopup.classList.remove('envelope-hidden');
 
@@ -313,10 +327,12 @@ if (checkFirstVisit()) {
   closeInvitation.addEventListener('click', () => {
     invitationPopup.classList.add('invitation-hidden');
     markAsVisited();
+    setTimeout(hintScroll, 700);
   });
 } else {
   envelopePopup.classList.add('envelope-hidden');
   invitationPopup.classList.add('invitation-hidden');
+  setTimeout(hintScroll, 1100);
 }
 
 function revealBody() {
