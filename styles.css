@@ -976,6 +976,7 @@ circle.planet {
   font-weight: 500;
   letter-spacing: 0.5px;
   color: var(--bordeaux);
+  margin-top: 0;
   margin-bottom: 14px;
 }
 
@@ -1204,7 +1205,7 @@ circle.planet {
     font-size: 12px;
   }
   .container {
-    padding: 18px 15px 30px;
+    padding: 24px 15px 30px;
   }
   .map {
     height: 300px;
