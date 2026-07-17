@@ -746,14 +746,15 @@ body{
 
 .hero{
   position: relative;
-  min-height:100vh;
+  min-height: calc(100vh - 60px);
+  min-height: calc(100svh - 60px);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   gap:24px;
   text-align:center;
-  padding:80px 20px 96px;
+  padding:40px 20px 84px;
 }
 
 .scroll-cue{
@@ -857,21 +858,15 @@ body{
   font-size: clamp(30px, 6vw, 48px);
   color: #fff;
   letter-spacing: 1px;
-  margin: 16px 0 10px;
-}
-
-.rsvp-cta-text{
-  font-size: clamp(16px, 2.6vw, 19px);
-  color: var(--gold-soft);
-  opacity: 0.9;
-  margin: 0 0 30px;
+  margin: 16px 0 26px;
 }
 
 .btn-rsvp{
   border: none;
-  padding: 18px 46px;
-  font-size: 17px;
+  padding: 18px 42px;
+  font-size: clamp(15px, 4.2vw, 17px);
   letter-spacing: 1.5px;
+  white-space: nowrap;
   color: var(--navy-deep);
   background: linear-gradient(135deg, #F4E6B8 0%, #C9A86A 55%, #E3CE9B 100%);
   box-shadow: 0 10px 30px rgba(201, 168, 106, 0.35), 0 0 0 1px rgba(201, 168, 106, 0.5);
@@ -885,11 +880,11 @@ body{
 }
 
 .rsvp-deadline{
-  margin: 26px 0 0;
-  font-size: 14px;
+  margin: 22px 0 0;
+  font-size: clamp(16px, 3vw, 18px);
   letter-spacing: 1px;
   color: var(--gold-soft);
-  opacity: 0.75;
+  opacity: 0.9;
 }
 
 .solar-wrap {
@@ -1064,17 +1059,15 @@ circle.planet {
 
 .japan-banner {
   max-width: 440px;
-  margin: 54px auto 0;
-  padding-top: 40px;
-  border-top: 1px solid rgba(201, 168, 106, 0.35);
+  margin: 40px auto 8px;
   text-align: center;
 }
 
 .japan-svg {
-  width: min(300px, 78%);
+  width: min(280px, 74%);
   height: auto;
   display: block;
-  margin: 0 auto 18px;
+  margin: 0 auto 10px;
   filter: drop-shadow(0 10px 22px rgba(12, 27, 58, 0.18));
 }
 
@@ -1083,26 +1076,13 @@ circle.planet {
   opacity: 0.9;
 }
 
-.japan-label {
-  font-size: 12px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin: 0 0 4px;
-}
-
-.japan-place {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 5vw, 32px);
-  color: var(--bordeaux);
-  margin: 0;
-  letter-spacing: 1px;
-}
-
 .japan-kanji {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 5vw, 34px);
+  letter-spacing: 4px;
   color: var(--navy);
-  opacity: 0.75;
-  margin-left: 6px;
+  opacity: 0.85;
+  margin: 0;
 }
 
 .container {
@@ -1204,16 +1184,24 @@ circle.planet {
 
 @media (max-width: 768px) {
   .hero {
-    gap: 20px;
-    padding: 60px 15px;
+    justify-content: flex-start;
+    min-height: calc(100svh - 50px);
+    gap: 16px;
+    padding: 18px 15px 74px;
   }
   .date {
     font-size: 18px;
     letter-spacing: 2px;
   }
   .solar-wrap {
-    width: min(85vw, 400px);
-    height: min(85vw, 400px);
+    width: min(82vw, 380px);
+    height: min(82vw, 380px);
+  }
+  .scroll-cue {
+    bottom: 16px;
+  }
+  .scroll-cue-text {
+    font-size: 12px;
   }
   .container {
     padding: 80px 15px 30px;

@@ -155,9 +155,8 @@
 <section class="rsvp-cta-section">
   <div class="celestial-divider"><i></i></div>
   <h2 class="rsvp-cta-title" id="rsvp-cta-title">Ci sarai?</h2>
-  <p class="rsvp-cta-text" id="rsvp-cta-text">Facci sapere se sarai dei nostri</p>
   <a href="rsvp.html" class="btn btn-rsvp" id="cta-button">Conferma la tua presenza</a>
-  <p class="rsvp-deadline" id="rsvp-deadline">Conferma entro il 30 settembre 2026</p>
+  <p class="rsvp-deadline" id="rsvp-deadline">Entro il 30 settembre 2026</p>
 </section>
 </main>
 
@@ -178,8 +177,7 @@ const translations = {
     galleryTitle: "I nostri momenti",
     galleryHint: "Trascina per esplorare",
     rsvpCtaTitle: "Ci sarai?",
-    rsvpCtaText: "Facci sapere se sarai dei nostri",
-    rsvpDeadline: "Conferma entro il 30 settembre 2026",
+    rsvpDeadline: "Entro il 30 settembre 2026",
     invitationText: "Ti invitiamo al nostro matrimonio",
     invitationNames: "Elisa e Federico",
     invitationDate: "2 gennaio 2027 - ore 12:00",
@@ -191,14 +189,13 @@ const translations = {
     location: "Location",
     rsvp: "RSVP",
     journey: "Our honey moon",
-    cta: "Please confirm your attendance",
+    cta: "Confirm attendance",
     openInvite: "Open the invitation",
     scrollCue: "Scroll to discover",
     galleryTitle: "Our moments",
     galleryHint: "Drag to explore",
     rsvpCtaTitle: "Will you be there?",
-    rsvpCtaText: "Let us know if you'll join us",
-    rsvpDeadline: "Please reply by September 30th, 2026",
+    rsvpDeadline: "By September 30th, 2026",
     invitationText: "We invite you to our wedding",
     invitationNames: "Elisa & Federico",
     invitationDate: "January 2nd, 2027 - 12:00 pm",
@@ -237,9 +234,6 @@ function applyLanguage(lang) {
 
   const rsvpCtaTitle = document.getElementById('rsvp-cta-title');
   if (rsvpCtaTitle) rsvpCtaTitle.textContent = t.rsvpCtaTitle;
-
-  const rsvpCtaText = document.getElementById('rsvp-cta-text');
-  if (rsvpCtaText) rsvpCtaText.textContent = t.rsvpCtaText;
 
   const rsvpDeadline = document.getElementById('rsvp-deadline');
   if (rsvpDeadline) rsvpDeadline.textContent = t.rsvpDeadline;

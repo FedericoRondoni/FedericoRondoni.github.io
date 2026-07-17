@@ -57,10 +57,8 @@
         <p class="gift-causale" id="gift-causale">Causale: Un pezzetto di viaggio per Elisa e Federico</p>
       </div>
 
-      <p class="gift-thanks" id="gift-thanks">Grazie di cuore &#10022;</p>
-
       <div class="japan-banner">
-        <svg class="japan-svg" viewBox="0 0 400 220" role="img" aria-label="Monte Fuji">
+        <svg class="japan-svg" viewBox="0 0 400 220" role="img" aria-label="Giappone">
           <defs>
             <linearGradient id="jsun" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stop-color="#E4572E"/>
@@ -80,9 +78,10 @@
           <path d="M170 96 L200 74 L230 96 C222 103 214 97 207 101 C200 105 193 97 186 101 C179 105 174 99 170 96 Z" fill="#f5f0e6"/>
           <line x1="28" y1="190" x2="372" y2="190" stroke="#C9A86A" stroke-width="1.5" opacity="0.55"/>
         </svg>
-        <p class="japan-label" id="dest-label">Prossima tappa</p>
-        <p class="japan-place"><span id="dest-place">Giappone</span> <span class="japan-kanji">日本</span></p>
+        <p class="japan-kanji">日本</p>
       </div>
+
+      <p class="gift-thanks" id="gift-thanks">Grazie di cuore &#10022;</p>
     </div>
   </main>
 
@@ -96,8 +95,6 @@
         copy: "Copia IBAN",
         copied: "Copiato!",
         thanks: "Grazie di cuore ✦",
-        destLabel: "Prossima tappa",
-        destPlace: "Giappone",
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
@@ -111,8 +108,6 @@
         copy: "Copy IBAN",
         copied: "Copied!",
         thanks: "Thank you from our heart ✦",
-        destLabel: "Next stop",
-        destPlace: "Japan",
         home: "Home",
         location: "Location",
         rsvp: "RSVP",
@@ -136,8 +131,6 @@
       document.getElementById('gift-holder-label').textContent = t.holderLabel;
       document.getElementById('gift-causale').textContent = t.causale;
       document.getElementById('gift-thanks').innerHTML = t.thanks;
-      document.getElementById('dest-label').textContent = t.destLabel;
-      document.getElementById('dest-place').textContent = t.destPlace;
       const copyBtn = document.getElementById('copy-btn');
       if (!copyBtn.dataset.copied) copyBtn.textContent = t.copy;
 
