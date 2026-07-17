@@ -134,7 +134,7 @@
   </div>
 
   <button class="scroll-cue" id="scroll-cue" aria-label="Scorri verso il basso">
-    <span class="scroll-cue-text" id="scroll-cue-text">Scorri per scoprire</span>
+    <span class="scroll-cue-text" id="scroll-cue-text">Scorri</span>
     <span class="scroll-cue-arrow"></span>
   </button>
 </section>
@@ -173,7 +173,7 @@ const translations = {
     journey: "Il nostro viaggio",
     cta: "Conferma la tua presenza",
     openInvite: "Apri l'invito",
-    scrollCue: "Scorri per scoprire",
+    scrollCue: "Scorri",
     galleryTitle: "I nostri momenti",
     galleryHint: "Trascina per esplorare",
     rsvpCtaTitle: "Ci sarai?",
@@ -189,9 +189,9 @@ const translations = {
     location: "Location",
     rsvp: "RSVP",
     journey: "Our honey moon",
-    cta: "Confirm attendance",
+    cta: "Confirm your presence",
     openInvite: "Open the invitation",
-    scrollCue: "Scroll to discover",
+    scrollCue: "Scroll",
     galleryTitle: "Our moments",
     galleryHint: "Drag to explore",
     rsvpCtaTitle: "Will you be there?",
@@ -396,7 +396,7 @@ fetch('pictures.json')
           '<div class="hex-card-inner">' +
             '<div class="hex-card-frame"></div>' +
             '<div class="hex-card-front">' +
-              '<img src="pictures/' + p.file + '" alt="Elisa e Federico" loading="lazy" decoding="async">' +
+              '<img src="images/pictures/' + p.file + '" alt="Elisa e Federico" loading="lazy" decoding="async">' +
             '</div>' +
             '<div class="hex-card-back">' +
               '<span class="hex-back-date">' + (p.date || '') + '</span>' +

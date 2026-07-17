@@ -1248,6 +1248,10 @@ html:has(body:not(.page)) {
   background-color: #081427;
 }
 
+body:not(.page) {
+  background: linear-gradient(rgba(245, 240, 230, 0.72), rgba(245, 240, 230, 0.72)), url("images/index_background.jpg") center center / cover fixed no-repeat;
+}
+
 body.loaded {
   opacity: 1;
   transition: opacity 0.6s ease;
