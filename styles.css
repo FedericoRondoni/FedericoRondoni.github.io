@@ -1088,7 +1088,7 @@ circle.planet {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 100px 20px 40px;
+  padding: 40px 20px 40px;
   width: 100%;
   text-align: center;
 }
@@ -1204,7 +1204,7 @@ circle.planet {
     font-size: 12px;
   }
   .container {
-    padding: 80px 15px 30px;
+    padding: 18px 15px 30px;
   }
   .map {
     height: 300px;
@@ -1246,10 +1246,6 @@ circle.planet {
 
 html:has(body:not(.page)) {
   background-color: #081427;
-}
-
-body:not(.page) {
-  background: linear-gradient(rgba(245, 240, 230, 0.72), rgba(245, 240, 230, 0.72)), url("images/index_background.jpg") center center / cover fixed no-repeat;
 }
 
 body.loaded {

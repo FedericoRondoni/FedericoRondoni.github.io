@@ -161,6 +161,23 @@
 </main>
 
 <script>
+(function () {
+  const file = location.pathname.split('/').pop() || 'index.html';
+  const page = file.replace(/\.html$/, '') || 'index';
+  const exts = ['jpg', 'jpeg', 'png', 'webp'];
+  let i = 0;
+  (function tryNext() {
+    if (i >= exts.length) return;
+    const url = 'images/' + page + '_background.' + exts[i++];
+    const img = new Image();
+    img.onload = function () {
+      document.body.style.background = 'linear-gradient(rgba(245,240,230,0.72), rgba(245,240,230,0.72)), url("' + url + '") center center / cover fixed no-repeat';
+    };
+    img.onerror = tryNext;
+    img.src = url;
+  })();
+})();
+
 const envelopePopup = document.getElementById('envelope-popup');
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
