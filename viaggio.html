@@ -96,7 +96,11 @@
         const url = 'images/' + page + '_background.' + exts[i++];
         const img = new Image();
         img.onload = function () {
-          document.body.style.background = 'linear-gradient(rgba(245,240,230,0.72), rgba(245,240,230,0.72)), url("' + url + '") center center / cover fixed no-repeat';
+          const bg = document.createElement('div');
+          bg.className = 'page-bg';
+          bg.style.backgroundImage = 'linear-gradient(rgba(245,240,230,0.72), rgba(245,240,230,0.72)), url("' + url + '")';
+          document.body.insertBefore(bg, document.body.firstChild);
+          document.body.style.background = 'transparent';
         };
         img.onerror = tryNext;
         img.src = url;
