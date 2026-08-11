@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -44,8 +45,6 @@
         <line x1="343" y1="443" x2="180" y2="262" stroke="#000" stroke-width="3" opacity="0.28"/>
         <line x1="17" y1="443" x2="180" y2="262" stroke="#2a4488" stroke-width="1" opacity="0.55"/>
         <line x1="343" y1="443" x2="180" y2="262" stroke="#2a4488" stroke-width="1" opacity="0.55"/>
-        <path d="M6 6 L354 6 L180 262 Z" fill="url(#matFlap)" stroke="#C9A86A" stroke-width="2" filter="url(#matFlapShadow)"/>
-        <path d="M14 12 L346 12 L180 250 Z" fill="none" stroke="#3a5aa8" stroke-width="1.4" opacity="0.6"/>
         <g opacity="0.9">
           <line x1="138" y1="356" x2="170" y2="356" stroke="url(#matGoldline)" stroke-width="1.6" stroke-linecap="round"/>
           <line x1="190" y1="356" x2="222" y2="356" stroke="url(#matGoldline)" stroke-width="1.6" stroke-linecap="round"/>
@@ -53,9 +52,12 @@
         </g>
       </svg>
       <div class="mat-grain"></div>
-      <div class="mat-seal">
-        <div class="mat-ring"></div>
-        <div class="mat-mono">E&amp;F</div>
+      <div class="mat-lid">
+        <div class="mat-flap"></div>
+        <div class="mat-seal">
+          <div class="mat-ring"></div>
+          <div class="mat-mono">E&amp;F</div>
+        </div>
       </div>
     </div>
     <p class="envelope-text">Apri l'invito</p>
@@ -196,7 +198,7 @@
   <div class="celestial-divider"><i></i></div>
   <h2 class="rsvp-cta-title" id="rsvp-cta-title">Ci sarai?</h2>
   <a href="rsvp.html" class="btn btn-rsvp" id="cta-button">Conferma la tua presenza</a>
-  <p class="rsvp-deadline" id="rsvp-deadline">Entro il 30 settembre 2026</p>
+  <p class="rsvp-deadline" id="rsvp-deadline">Entro il 15 novembre 2026</p>
 </section>
 </main>
 
@@ -238,7 +240,7 @@ const translations = {
     galleryTitle: "I nostri momenti",
     galleryHint: "Trascina per esplorare",
     rsvpCtaTitle: "Ci sarai?",
-    rsvpDeadline: "Entro il 30 settembre 2026",
+    rsvpDeadline: "Entro il 15 novembre 2026",
     invitationText: "Ti invitiamo al nostro matrimonio",
     invitationNames: "Elisa e Federico",
     invitationDate: "2 gennaio 2027 - ore 12:00",
@@ -256,7 +258,7 @@ const translations = {
     galleryTitle: "Our moments",
     galleryHint: "Drag to explore",
     rsvpCtaTitle: "Will you be there?",
-    rsvpDeadline: "By September 30th, 2026",
+    rsvpDeadline: "By November 15th, 2026",
     invitationText: "We invite you to our wedding",
     invitationNames: "Elisa & Federico",
     invitationDate: "January 2nd, 2027 - 12:00 pm",
@@ -365,7 +367,7 @@ if (checkFirstVisit()) {
     setTimeout(() => {
       envelopePopup.classList.add('envelope-hidden');
       invitationPopup.classList.remove('invitation-hidden');
-    }, 900);
+    }, 1100);
   });
 
   closeInvitation.addEventListener('click', () => {
