@@ -1273,6 +1273,51 @@ circle.planet {
     width: calc(140px * 1.1547);
     height: 140px;
   }
+  .envelope-overlay,
+  .invitation-overlay {
+    padding: 30px 16px;
+  }
+  .mat-env {
+    width: min(220px, 62vw);
+    perspective: 560px;
+  }
+  .mat-lid {
+    height: 46%;
+  }
+  .mat-seal {
+    width: 76px;
+    height: 74px;
+  }
+  .mat-mono {
+    font-size: 24px;
+  }
+  .hex-star {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .invitation-text {
+    font-size: 16px;
+    margin: 0 0 10px 0;
+  }
+  .invitation-names {
+    font-size: 26px;
+    margin: 0 0 8px 0;
+  }
+  .invitation-date {
+    font-size: 15px;
+    margin: 0 0 4px 0;
+  }
+  .invitation-location {
+    font-size: 12px;
+    margin: 0 0 14px 0;
+  }
+  .invitation-close {
+    padding: 10px 22px;
+    font-size: 14px;
+  }
+  .envelope-container.opening .mat-lid {
+    transform: rotateX(-158deg);
+  }
 }
 
 html:has(body:not(.page)) {
