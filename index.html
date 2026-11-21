@@ -197,7 +197,6 @@
   <div class="celestial-divider"><i></i></div>
   <h2 class="rsvp-cta-title" id="rsvp-cta-title">Ci sarai?</h2>
   <a href="rsvp.html" class="btn btn-rsvp" id="cta-button">Conferma la tua presenza</a>
-  <p class="rsvp-deadline" id="rsvp-deadline">Entro il 15 novembre 2026</p>
 </section>
 </main>
 
@@ -239,7 +238,6 @@ const translations = {
     galleryTitle: "I nostri momenti",
     galleryHint: "Trascina per esplorare",
     rsvpCtaTitle: "Ci sarai?",
-    rsvpDeadline: "Entro il 15 novembre 2026",
     invitationText: "Ti invitiamo al nostro matrimonio",
     invitationNames: "Elisa e Federico",
     invitationDate: "2 gennaio 2027 - ore 11:30",
@@ -257,7 +255,6 @@ const translations = {
     galleryTitle: "Our moments",
     galleryHint: "Drag to explore",
     rsvpCtaTitle: "Will you be there?",
-    rsvpDeadline: "By November 15th, 2026",
     invitationText: "We invite you to our wedding",
     invitationNames: "Elisa & Federico",
     invitationDate: "January 2nd, 2027 - 11:30 am",
@@ -296,9 +293,6 @@ function applyLanguage(lang) {
 
   const rsvpCtaTitle = document.getElementById('rsvp-cta-title');
   if (rsvpCtaTitle) rsvpCtaTitle.textContent = t.rsvpCtaTitle;
-
-  const rsvpDeadline = document.getElementById('rsvp-deadline');
-  if (rsvpDeadline) rsvpDeadline.textContent = t.rsvpDeadline;
 
   const heroDate = document.querySelector('.date');
   if (heroDate) heroDate.textContent = t.invitationDate;
